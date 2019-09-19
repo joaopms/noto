@@ -1,16 +1,19 @@
-# laravel-docker
-Dockerized Laravel environment with PHP, nginx and MariaDB
+# Noto
+Note taking web app
 
 ## Prerequisites
 - Docker
   - Docker Compose
 - PHP
   - Composer
+- Node.js
+  - NPM
 
 ## How to run
 - Copy `config.example.env` to `config.env` and tweak to your liking
 - Bring up the containers with `docker-compose up -d`
 - Install Laravel with `composer create-project --prefer-dist laravel/laravel src/`
+- Install and run React with `npm run install && npm run dev`
 - Configure the Laravel environment file located at `src/.env`
 - Restart the containers with `docker-compose restart`
 - Open http://localhost:8080
