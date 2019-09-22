@@ -1,24 +1,45 @@
 .notepad {
-  img {
-    width: 100%;
+  padding: 16px 80px 16px (80px-55px-8px);
+
+  .block {
+    padding: 8px 0;
+
+    &:hover>.block__options {
+      opacity: 1;
+    }
+
+    .block__options {
+      opacity: 0;
+      margin-right: 8px;
+
+      svg {
+        height: 1rem;
+      }
+    }
   }
 
-  .text {
+  .extension {
+    height: 100%;
+    width: 100%;
+    padding: 0 4px;
+  }
+
+  .extension--text {
     border: none;
     resize: none;
     width: 100%;
-    padding: 15px;
     height: 100%;
+    padding: 4px 0;
     overflow-y: auto;
 
-    background: #ccc;
+    *[contenteditable="true"] {
+      height: 100%;
+
+      //   background: #ccc;
+    }
   }
 
-  .row {
-    border-bottom: 1px solid #000;
-
-    &:last-of-type {
-      border: none;
-    }
+  .extension--image img {
+    width: 100%;
   }
 }

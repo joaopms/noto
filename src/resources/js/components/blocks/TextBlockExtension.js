@@ -3,8 +3,10 @@ import React, { Component } from 'react';
 export default class TextBlockExtension extends Component {
     render() {
         return (
-            <div contentEditable="true" suppressContentEditableWarning="true" className="text">
-                {this.props.text}
+            <div className="extension extension--text">
+                <div contentEditable="true" suppressContentEditableWarning="true">
+                    {this.props.text}
+                </div>
             </div>
         );
     }

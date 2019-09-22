@@ -48658,6 +48658,8 @@ function (_Component) {
         image: "https://place-hold.it/2000x100"
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_blocks_BaseBlock__WEBPACK_IMPORTED_MODULE_3__["default"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_blocks_TextBlockExtension__WEBPACK_IMPORTED_MODULE_4__["default"], {
         text: "123"
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_blocks_BaseBlock__WEBPACK_IMPORTED_MODULE_3__["default"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_blocks_TextBlockExtension__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        text: "123"
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_blocks_BaseBlock__WEBPACK_IMPORTED_MODULE_3__["default"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_blocks_ImageBlockExtension__WEBPACK_IMPORTED_MODULE_5__["default"], {
         image: "https://place-hold.it/500x100"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_blocks_ImageBlockExtension__WEBPACK_IMPORTED_MODULE_5__["default"], {
@@ -48668,6 +48670,14 @@ function (_Component) {
         text: "123"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_blocks_ImageBlockExtension__WEBPACK_IMPORTED_MODULE_5__["default"], {
         image: "https://place-hold.it/500x100"
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_blocks_BaseBlock__WEBPACK_IMPORTED_MODULE_3__["default"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_blocks_ImageBlockExtension__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        image: "https://place-hold.it/500x100"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_blocks_TextBlockExtension__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        text: "123"
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_blocks_BaseBlock__WEBPACK_IMPORTED_MODULE_3__["default"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_blocks_ImageBlockExtension__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        image: "https://place-hold.it/500x100"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_blocks_TextBlockExtension__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        text: "123"
       }))));
     }
   }]);
@@ -48790,8 +48800,37 @@ function (_Component) {
         }, extension);
       });
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "row no-gutters"
-      }, wrappedChildren);
+        className: "block row no-gutters"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "block__options"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        "class": "btn-group btn-group-sm",
+        role: "group"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        type: "button",
+        "class": "btn btn-secondary"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("svg", {
+        "aria-hidden": "true",
+        focusable: "false",
+        role: "img",
+        xmlns: "http://www.w3.org/2000/svg",
+        viewBox: "0 0 448 512"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("path", {
+        fill: "currentColor",
+        d: "M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        type: "button",
+        "class": "btn btn-secondary"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("svg", {
+        "aria-hidden": "true",
+        focusable: "false",
+        role: "img",
+        xmlns: "http://www.w3.org/2000/svg",
+        viewBox: "0 0 192 512"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("path", {
+        fill: "currentColor",
+        d: "M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+      }))))), wrappedChildren);
     }
   }]);
 
@@ -48848,9 +48887,11 @@ function (_Component) {
   _createClass(ImageBlockExtension, [{
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "extension extension--image"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: this.props.image
-      });
+      }));
     }
   }]);
 
@@ -48908,10 +48949,11 @@ function (_Component) {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "extension extension--text"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         contentEditable: "true",
-        suppressContentEditableWarning: "true",
-        className: "text"
-      }, this.props.text);
+        suppressContentEditableWarning: "true"
+      }, this.props.text));
     }
   }]);
 

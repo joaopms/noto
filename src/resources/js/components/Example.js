@@ -53,6 +53,9 @@ export default class Example extends Component {
                         <TextBlockExtension text="123" />
                     </BaseBlock>
                     <BaseBlock>
+                        <TextBlockExtension text="123" />
+                    </BaseBlock>
+                    <BaseBlock>
                         <ImageBlockExtension image="https://place-hold.it/500x100" />
                         <ImageBlockExtension image="https://place-hold.it/500x100" />
                     </BaseBlock>
@@ -60,6 +63,14 @@ export default class Example extends Component {
                         <ImageBlockExtension image="https://place-hold.it/500x100" />
                         <TextBlockExtension text="123" />
                         <ImageBlockExtension image="https://place-hold.it/500x100" />
+                    </BaseBlock>
+                    <BaseBlock>
+                        <ImageBlockExtension image="https://place-hold.it/500x100" />
+                        <TextBlockExtension text="123" />
+                    </BaseBlock>
+                    <BaseBlock>
+                        <ImageBlockExtension image="https://place-hold.it/500x100" />
+                        <TextBlockExtension text="123" />
                     </BaseBlock>
                 </Notepad>
             </div>

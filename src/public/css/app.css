@@ -1,22 +1,44 @@
-.notepad img {
-  width: 100%;
+.notepad {
+  padding: 16px 80px 16px 17px;
 }
 
-.notepad .text {
+.notepad .block {
+  padding: 8px 0;
+}
+
+.notepad .block:hover > .block__options {
+  opacity: 1;
+}
+
+.notepad .block .block__options {
+  opacity: 0;
+  margin-right: 8px;
+}
+
+.notepad .block .block__options svg {
+  height: 1rem;
+}
+
+.notepad .extension {
+  height: 100%;
+  width: 100%;
+  padding: 0 4px;
+}
+
+.notepad .extension--text {
   border: none;
   resize: none;
   width: 100%;
-  padding: 15px;
   height: 100%;
+  padding: 4px 0;
   overflow-y: auto;
-  background: #ccc;
 }
 
-.notepad .row {
-  border-bottom: 1px solid #000;
+.notepad .extension--text *[contenteditable=true] {
+  height: 100%;
 }
 
-.notepad .row:last-of-type {
-  border: none;
+.notepad .extension--image img {
+  width: 100%;
 }
 
