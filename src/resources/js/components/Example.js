@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
+import Notepad from './Notepad';
+import BaseBlock from './blocks/BaseBlock';
+import TextBlockExtension from './blocks/TextBlockExtension';
+import ImageBlockExtension from './blocks/ImageBlockExtension';
+
 export default class Example extends Component {
     render() {
         return (
@@ -40,25 +45,23 @@ export default class Example extends Component {
                         </form>
                     </div>
                 </nav>
-                <div className="notepad">
-                    <div className="row no-gutters">
-                        <div className="col">
-                            <img src="https://place-hold.it/500x300" />
-                        </div>
-                        <div className="col">
-                            <div contentEditable="true" className="text full-height">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo modi accusantium impedit doloremque facere corporis minus laboriosam aperiam perferendis, quidem dignissimos, itaque eos dolorem labore unde voluptatem repellendus amet nemo!
-                            </div>
-                        </div>
-                    </div>
-                    <div className="row no-gutters">
-                        <div className="col">
-                            <div contentEditable="true" className="text">
-                                test1123
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <Notepad>
+                    <BaseBlock>
+                        <ImageBlockExtension image="https://place-hold.it/2000x100" />
+                    </BaseBlock>
+                    <BaseBlock>
+                        <TextBlockExtension text="123" />
+                    </BaseBlock>
+                    <BaseBlock>
+                        <ImageBlockExtension image="https://place-hold.it/500x100" />
+                        <ImageBlockExtension image="https://place-hold.it/500x100" />
+                    </BaseBlock>
+                    <BaseBlock>
+                        <ImageBlockExtension image="https://place-hold.it/500x100" />
+                        <TextBlockExtension text="123" />
+                        <ImageBlockExtension image="https://place-hold.it/500x100" />
+                    </BaseBlock>
+                </Notepad>
             </div>
         );
     }
