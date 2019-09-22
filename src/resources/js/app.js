@@ -2,6 +2,10 @@ require('./bootstrap');
 
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+
+import { Provider } from 'react-redux';
+import store from './redux/store';
+
 import Header from './components/Header';
 import Notepad from './components/notepad/Notepad';
 
@@ -106,10 +110,12 @@ const notepadTestData = [
 class App extends Component {
     render() {
         return (
-            <div>
-                <Header />
-                <Notepad data={notepadTestData} />
-            </div>
+            <Provider store={store}>
+                <div>
+                    <Header />
+                    <Notepad data={notepadTestData} />
+                </div>
+            </Provider>
         );
     }
 }
