@@ -1,10 +1,27 @@
 import React, { Component } from 'react';
+import BaseBlock from './blocks/BaseBlock';
+import Extensions from './blocks/Extensions';
 
 export default class Notepad extends Component {
     render() {
+        const blocks = this.props.data.map(block => {
+            const extensions = block.extensions.map(extension => {
+                const Extension = Extensions[extension.type];
+                return (
+                    <Extension key={extension.id} {...extension} />
+                )
+            });
+
+            return (
+                <BaseBlock key={block.id}>
+                    {extensions}
+                </BaseBlock>
+            );
+        });
+
         return (
             <div className="notepad">
-                {this.props.children}
+                {blocks}
             </div>
         );
     }

@@ -1,9 +1,9 @@
 .notepad {
-  padding: 16px 80px 16px 17px;
+  padding: 16px 0;
 }
 
 .notepad .block {
-  padding: 8px 0;
+  padding: 0 80px 16px 17px;
 }
 
 .notepad .block:hover > .block__options {

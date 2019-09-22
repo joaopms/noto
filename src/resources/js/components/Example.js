@@ -2,9 +2,104 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
 import Notepad from './Notepad';
-import BaseBlock from './blocks/BaseBlock';
-import TextBlockExtension from './blocks/TextBlockExtension';
-import ImageBlockExtension from './blocks/ImageBlockExtension';
+
+const notepadTestData = [
+    {
+        id: 1,
+        extensions: [
+            {
+                id: 1,
+                type: 'ImageBlockExtension',
+                image: 'https://place-hold.it/2000x100'
+            }
+        ]
+    },
+    {
+        id: 2,
+        extensions: [
+            {
+                id: 1,
+                type: 'TextBlockExtension',
+                text: '123'
+            }
+        ]
+    },
+    {
+        id: 3,
+        extensions: [
+            {
+                id: 1,
+                type: 'TextBlockExtension',
+                text: '123'
+            }
+        ]
+    },
+    {
+        id: 4,
+        extensions: [
+            {
+                id: 1,
+                type: 'ImageBlockExtension',
+                image: 'https://place-hold.it/500x100'
+            },
+            {
+                id: 2,
+                type: 'TextBlockExtension',
+                text: '123'
+            },
+            {
+                id: 3,
+                type: 'ImageBlockExtension',
+                image: 'https://place-hold.it/500x100'
+            }
+        ]
+    },
+    {
+        id: 5,
+        extensions: [
+            {
+                id: 1,
+                type: 'ImageBlockExtension',
+                image: 'https://place-hold.it/500x100'
+            },
+            {
+                id: 2,
+                type: 'ImageBlockExtension',
+                image: 'https://place-hold.it/500x100'
+            },
+        ]
+    },
+    {
+        id: 6,
+        extensions: [
+            {
+                id: 1,
+                type: 'ImageBlockExtension',
+                image: 'https://place-hold.it/500x100'
+            },
+            {
+                id: 2,
+                type: 'TextBlockExtension',
+                text: '123'
+            }
+        ]
+    },
+    {
+        id: 7,
+        extensions: [
+            {
+                id: 1,
+                type: 'ImageBlockExtension',
+                image: 'https://place-hold.it/500x100'
+            },
+            {
+                id: 2,
+                type: 'TextBlockExtension',
+                text: '123'
+            }
+        ]
+    }
+];
 
 export default class Example extends Component {
     render() {
@@ -45,34 +140,7 @@ export default class Example extends Component {
                         </form>
                     </div>
                 </nav>
-                <Notepad>
-                    <BaseBlock>
-                        <ImageBlockExtension image="https://place-hold.it/2000x100" />
-                    </BaseBlock>
-                    <BaseBlock>
-                        <TextBlockExtension text="123" />
-                    </BaseBlock>
-                    <BaseBlock>
-                        <TextBlockExtension text="123" />
-                    </BaseBlock>
-                    <BaseBlock>
-                        <ImageBlockExtension image="https://place-hold.it/500x100" />
-                        <ImageBlockExtension image="https://place-hold.it/500x100" />
-                    </BaseBlock>
-                    <BaseBlock>
-                        <ImageBlockExtension image="https://place-hold.it/500x100" />
-                        <TextBlockExtension text="123" />
-                        <ImageBlockExtension image="https://place-hold.it/500x100" />
-                    </BaseBlock>
-                    <BaseBlock>
-                        <ImageBlockExtension image="https://place-hold.it/500x100" />
-                        <TextBlockExtension text="123" />
-                    </BaseBlock>
-                    <BaseBlock>
-                        <ImageBlockExtension image="https://place-hold.it/500x100" />
-                        <TextBlockExtension text="123" />
-                    </BaseBlock>
-                </Notepad>
+                <Notepad data={notepadTestData} />
             </div>
         );
     }
