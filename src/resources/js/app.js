@@ -5,11 +5,11 @@ import ReactDOM from 'react-dom';
 import Example from './components/Example';
 
 class App extends Component {
-  render() {
-    return (
-        <Example />
-    )
-  }
+    render() {
+        return (
+            <Example />
+        )
+    }
 }
 
-ReactDOM.render(<App /> , document.getElementById('app'));
+ReactDOM.render(< App />, document.getElementById('app'));

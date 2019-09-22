@@ -1,1 +1,27 @@
-//
+.notepad {
+  img {
+    width: 100%;
+  }
+
+  .text {
+    border: none;
+    resize: none;
+    width: 100%;
+    padding: 15px;
+
+    background: #ccc;
+
+    &.full-height {
+      height: 100%;
+      overflow-y: auto;
+    }
+  }
+
+  .row {
+    border-bottom: 1px solid #000;
+
+    &:last-of-type {
+      border: none;
+    }
+  }
+}

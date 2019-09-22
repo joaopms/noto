@@ -1,0 +1,25 @@
+.notepad img {
+  width: 100%;
+}
+
+.notepad .text {
+  border: none;
+  resize: none;
+  width: 100%;
+  padding: 15px;
+  background: #ccc;
+}
+
+.notepad .text.full-height {
+  height: 100%;
+  overflow-y: auto;
+}
+
+.notepad .row {
+  border-bottom: 1px solid #000;
+}
+
+.notepad .row:last-of-type {
+  border: none;
+}
+
