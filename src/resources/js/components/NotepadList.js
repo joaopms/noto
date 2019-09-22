@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import NotepadAdd from './NotepadAdd';
+
 function mapStateToProps(state) {
     return { notepads: state.notepads };
 }
@@ -18,9 +20,12 @@ class NotepadList extends Component {
         );
 
         return (
-            <ul>
-                {notepadList}
-            </ul>
+            <div>
+                <NotepadAdd />
+                <ul>
+                    {notepadList}
+                </ul>
+            </div>
         );
     }
 }

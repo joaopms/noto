@@ -1,6 +1,7 @@
 require('./bootstrap');
 
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import ReactDOM from 'react-dom';
 
 import { Provider } from 'react-redux';
@@ -8,7 +9,6 @@ import store from './redux/store';
 
 import Header from './components/Header';
 import Notepad from './components/notepad/Notepad';
-import NotepadAdd from './components/NotepadAdd';
 import NotepadList from './components/NotepadList';
 
 const notepadTestData = [
@@ -113,12 +113,12 @@ class App extends Component {
     render() {
         return (
             <Provider store={store}>
-                <div>
+                <Router>
                     <Header />
                     {/* <Notepad data={notepadTestData} /> */}
-                    <NotepadAdd />
-                    <NotepadList />
-                </div>
+
+                    <Route exact path="/" component={NotepadList} />
+                </Router>
             </Provider>
         );
     }
