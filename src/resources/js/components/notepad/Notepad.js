@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import BaseBlock from './blocks/BaseBlock';
-import Extensions from './blocks/Extensions';
+import BaseBlock from './BaseBlock';
+import Extensions from './extensions/Extensions';
 
 export default class Notepad extends Component {
     render() {
