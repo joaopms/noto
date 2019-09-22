@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { addBlock } from '../../redux/actions';
+// import { addBlock } from '../../redux/actions';
 
 import BaseBlock from './BaseBlock';
 import Extensions from './extensions/Extensions';
 
 function mapStateToProps(state) {
-    return state.notepads[1];
+    // return state.notepads[1];
+    return state;
 }
 
 class Notepad extends Component {
@@ -47,5 +48,6 @@ class Notepad extends Component {
 
 export default connect(
     mapStateToProps,
-    { addBlock }
+    // { addBlock }
+    null
 )(Notepad)

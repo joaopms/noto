@@ -1,34 +1,18 @@
-import { ADD_BLOCK } from '../actions';
+import uuidv4 from 'uuid/v4';
+import { ADD_NOTEPAD } from '../actions/notepads';
 
-const initialState = {
-    1: {
-        name: 'Notepad name goes here',
-        blocks: []
-    }
-};
+const initialState = [];
 
 export default function notepads(state = initialState, action) {
     switch (action.type) {
-        case ADD_BLOCK:
-            return {
+        case ADD_NOTEPAD:
+            return [
                 ...state,
-                1: {
-                    ...state[1],
-                    blocks: [
-                        ...state[1].blocks,
-                        {
-                            id: 10,
-                            extensions: [
-                                {
-                                    id: 1,
-                                    type: 'ImageBlockExtension',
-                                    image: 'https://place-hold.it/2000x100'
-                                }
-                            ]
-                        },
-                    ]
+                {
+                    id: uuidv4(),
+                    title: action.title
                 }
-            }
+            ]
         default:
             return state;
     }

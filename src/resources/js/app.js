@@ -8,6 +8,8 @@ import store from './redux/store';
 
 import Header from './components/Header';
 import Notepad from './components/notepad/Notepad';
+import NotepadAdd from './components/NotepadAdd';
+import NotepadList from './components/NotepadList';
 
 const notepadTestData = [
     {
@@ -113,7 +115,9 @@ class App extends Component {
             <Provider store={store}>
                 <div>
                     <Header />
-                    <Notepad data={notepadTestData} />
+                    {/* <Notepad data={notepadTestData} /> */}
+                    <NotepadAdd />
+                    <NotepadList />
                 </div>
             </Provider>
         );
