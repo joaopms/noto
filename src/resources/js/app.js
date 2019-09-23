@@ -8,9 +8,9 @@ import { Provider } from 'react-redux';
 import store from './redux/store';
 
 import Header from './components/Header';
-import Notepad from './components/notepad/Notepad';
 import NotepadList from './components/NotepadList';
 import NotepadPageList from './components/NotepadPageList';
+import NotepadPage from './components/notepad/NotepadPage';
 
 const notepadTestData = [
     {
@@ -119,11 +119,25 @@ class App extends Component {
                     {/* <Notepad data={notepadTestData} /> */}
 
                     <Route exact path="/" component={NotepadList} />
-                    <Route path="/notepad/:notepadId" component={NotepadPageList} />
+                    <Route exact path="/notepad/:notepadId" component={NotepadPageList} />
+                    <Route exact path="/notepad/:notepadId/page/:pageId" component={NotepadPage} />
                 </Router>
             </Provider>
         );
     }
 }
+
+// TODO SAMPLE DATA ---------------------------------------------------------------------
+// add a notepad
+const notepadAction = require('./redux/actions/notepads').addNotepad('test notepad');
+const notepadId = notepadAction.id;
+store.dispatch(notepadAction);
+
+// add a page to the notepad
+const pageAction = require('./redux/actions/pages').addPage('test page');
+const pageId = pageAction.id;
+store.dispatch(pageAction);
+store.dispatch(require('./redux/actions/notepads').addPageToNotepad(notepadId, pageId));
+// TODO SAMPLE DATA ---------------------------------------------------------------------
 
 ReactDOM.render(< App />, document.getElementById('app'));

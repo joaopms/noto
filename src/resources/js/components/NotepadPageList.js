@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import NotepadPageAdd from './NotepadPageAdd';
 
@@ -7,7 +8,6 @@ function mapStateToProps(state, ownProps) {
     const notepadId = ownProps.match.params.notepadId;
     const notepad = state.notepads.byId[notepadId];
     const pages = notepad.pages.map(pageId => state.pages.byId[pageId]);
-    console.log(pages);
 
     return {
         notepad,
@@ -23,7 +23,7 @@ class NotepadPageList extends Component {
     render() {
         const pageList = this.props.pages.map(page =>
             <li key={page.id}>
-                <a href="#">{page.title}</a>
+                <Link to={'/notepad/' + this.props.notepad.id + '/page/' + page.id}>{page.title}</Link>
             </li>
         );
 

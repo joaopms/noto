@@ -1,4 +1,4 @@
-import { ADD_PAGE } from '../actions/pages';
+import { ADD_PAGE, ADD_BLOCK_TO_PAGE } from '../actions/pages';
 
 const initialState = {
     byId: {},
@@ -13,13 +13,29 @@ export default function pages(state = initialState, action) {
                     ...state.byId,
                     [action.id]: {
                         id: action.id,
-                        title: action.title
+                        title: action.title,
+                        blocks: []
                     }
                 },
                 allIds: [
                     ...state.allIds,
                     action.id
                 ]
+            }
+        case ADD_BLOCK_TO_PAGE:
+            const page = state.byId[action.pageId];
+            return {
+                byId: {
+                    ...state.byId,
+                    [action.pageId]: {
+                        ...page,
+                        blocks: [
+                            ...page.blocks,
+                            action.blockId
+                        ]
+                    }
+                },
+                allIds: state.allIds
             }
         default:
             return state;

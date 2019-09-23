@@ -1,24 +1,28 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-// import { addBlock } from '../../redux/actions';
+import NotepadBlockAdd from '../NotepadBlockAdd';
 
 import BaseBlock from './BaseBlock';
 import Extensions from './extensions/Extensions';
 
-function mapStateToProps(state) {
-    // return state.notepads[1];
-    return state;
+function mapStateToProps(state, ownProps) {
+    const notepadId = ownProps.match.params.notepadId;
+    const notepad = state.notepads.byId[notepadId];
+    const pageId = ownProps.match.params.pageId;
+    const page = state.pages.byId[pageId];
+    const blocks = page.blocks.map(blockId => state.blocks.byId[blockId]);
+
+    return {
+        notepad,
+        page,
+        blocks
+    }
 }
 
-class Notepad extends Component {
+class NotepadPage extends Component {
     constructor(props) {
         super(props);
-        this.handleAddBlock = this.handleAddBlock.bind(this);
-    }
-
-    handleAddBlock() {
-        this.props.addBlock();
     }
 
     render() {
@@ -39,7 +43,7 @@ class Notepad extends Component {
 
         return (
             <div className="notepad">
-                <button onClick={this.handleAddBlock}>Add block</button>
+                <NotepadBlockAdd pageId={this.props.page.id} />
                 {blocks}
             </div>
         );
@@ -48,6 +52,5 @@ class Notepad extends Component {
 
 export default connect(
     mapStateToProps,
-    // { addBlock }
     null
-)(Notepad)
+)(NotepadPage)
