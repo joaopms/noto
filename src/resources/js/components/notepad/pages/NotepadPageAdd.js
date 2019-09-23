@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { addPage } from '../redux/actions/pages';
-import { addPageToNotepad } from '../redux/actions/notepads';
+import { addPage } from '../../../redux/actions/pages';
+import { addPageToNotepad } from '../../../redux/actions/notepads';
 
 class NotepadPageAdd extends Component {
     constructor(props) {

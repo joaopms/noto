@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import NotepadBlockAdd from '../NotepadBlockAdd';
+import NotepadBlockAdd from '../blocks/NotepadBlockAdd';
 
-import BaseBlock from './BaseBlock';
-import Extensions from './extensions/Extensions';
+import NotepadBlock from '../blocks/NotepadBlock';
+import Extensions from '../extensions/Extensions';
 
 function mapStateToProps(state, ownProps) {
     const notepadId = ownProps.match.params.notepadId;
@@ -35,9 +35,9 @@ class NotepadPage extends Component {
             });
 
             return (
-                <BaseBlock key={block.id}>
+                <NotepadBlock key={block.id}>
                     {extensions}
-                </BaseBlock>
+                </NotepadBlock>
             );
         });
 

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { addBlock } from '../redux/actions/blocks';
-import { addBlockToPage } from '../redux/actions/pages';
+import { addBlock } from '../../../redux/actions/blocks';
+import { addBlockToPage } from '../../../redux/actions/pages';
 
 class NotepadBlockAdd extends Component {
     constructor(props) {

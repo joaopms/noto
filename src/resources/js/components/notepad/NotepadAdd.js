@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { addNotepad } from '../redux/actions/notepads';
+import { addNotepad } from '../../redux/actions/notepads';
 
 class NotepadAdd extends Component {
     constructor(props) {

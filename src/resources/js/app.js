@@ -8,9 +8,9 @@ import { Provider } from 'react-redux';
 import store from './redux/store';
 
 import Header from './components/Header';
-import NotepadList from './components/NotepadList';
-import NotepadPageList from './components/NotepadPageList';
-import NotepadPage from './components/notepad/NotepadPage';
+import NotepadList from './components/notepad/NotepadList';
+import NotepadPageList from './components/notepad/pages/NotepadPageList';
+import NotepadPage from './components/notepad/pages/NotepadPage';
 
 const notepadTestData = [
     {
@@ -116,7 +116,6 @@ class App extends Component {
             <Provider store={store}>
                 <Router>
                     <Header />
-                    {/* <Notepad data={notepadTestData} /> */}
 
                     <Route exact path="/" component={NotepadList} />
                     <Route exact path="/notepad/:notepadId" component={NotepadPageList} />

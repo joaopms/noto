@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export default class BaseBlock extends Component {
+export default class NotepadBlock extends Component {
     render() {
         const wrappedChildren = React.Children.map(this.props.children, extension => {
             return (
