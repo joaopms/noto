@@ -29,6 +29,7 @@ class NotepadPageList extends Component {
 
         return (
             <div>
+                <h2>{this.props.notepad.title}</h2>
                 <NotepadPageAdd notepadId={this.props.notepad.id} />
                 <ul>
                     {pageList}
