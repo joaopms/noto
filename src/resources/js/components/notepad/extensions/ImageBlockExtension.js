@@ -4,7 +4,7 @@ export default class ImageBlockExtension extends Component {
     render() {
         return (
             <div className="extension extension--image">
-                <img src={this.props.image} />
+                <img src={this.props.content} />
             </div>
         );
     }

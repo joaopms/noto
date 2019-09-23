@@ -5,7 +5,7 @@ export default class TextBlockExtension extends Component {
         return (
             <div className="extension extension--text">
                 <div contentEditable="true" suppressContentEditableWarning="true">
-                    {this.props.text}
+                    {this.props.content}
                 </div>
             </div>
         );
