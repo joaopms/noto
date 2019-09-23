@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import NotepadAdd from './NotepadAdd';
 
@@ -13,11 +14,15 @@ class NotepadList extends Component {
     }
 
     render() {
-        const notepadList = this.props.notepads.map(notepad =>
-            <li key={notepad.id}>
-                <a href="#">{notepad.title}</a>
-            </li>
-        );
+        const notepadList = this.props.notepads.allIds.map(notepadId => {
+            const notepad = this.props.notepads.byId[notepadId];
+
+            return (
+                <li key={notepad.id}>
+                    <Link to={'/notepad/' + notepad.id}>{notepad.title}</Link>
+                </li>
+            );
+        });
 
         return (
             <div>

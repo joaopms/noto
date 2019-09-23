@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { addNotepad } from '../redux/actions/notepads';
+import { addPage } from '../redux/actions/pages';
+import { addPageToNotepad } from '../redux/actions/notepads';
 
-class NotepadAdd extends Component {
+class NotepadPageAdd extends Component {
     constructor(props) {
         super(props);
         this.state = { title: '' };
 
         this.handleTitleChange = this.handleTitleChange.bind(this);
-        this.handleAddNotepad = this.handleAddNotepad.bind(this);
+        this.handleAddPage = this.handleAddPage.bind(this);
     }
 
     handleTitleChange(event) {
@@ -18,12 +19,13 @@ class NotepadAdd extends Component {
         });
     }
 
-    handleAddNotepad() {
+    handleAddPage() {
         if (!this.state.title) {
             return;
         }
 
-        this.props.addNotepad(this.state.title);
+        const pageId = this.props.addPage(this.state.title).id;
+        this.props.addPageToNotepad(this.props.notepadId, pageId);
         this.setState({ title: '' });
     }
 
@@ -31,9 +33,9 @@ class NotepadAdd extends Component {
         return (
             <div className="card">
                 <div className="card-body">
-                    <h5 className="card-title">Add a new notepad</h5>
+                    <h5 className="card-title">Add a new page</h5>
                     <input type="text" className="form-control" value={this.state.title} onChange={this.handleTitleChange}></input>
-                    <button type="button" className="btn btn-success" onClick={this.handleAddNotepad}>Add notepad</button>
+                    <button type="button" className="btn btn-success" onClick={this.handleAddPage}>Add page</button>
                 </div>
             </div>
         );
@@ -42,5 +44,5 @@ class NotepadAdd extends Component {
 
 export default connect(
     null,
-    { addNotepad }
-)(NotepadAdd)
+    { addPage, addPageToNotepad }
+)(NotepadPageAdd)

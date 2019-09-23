@@ -10,6 +10,7 @@ import store from './redux/store';
 import Header from './components/Header';
 import Notepad from './components/notepad/Notepad';
 import NotepadList from './components/NotepadList';
+import NotepadPageList from './components/NotepadPageList';
 
 const notepadTestData = [
     {
@@ -118,6 +119,7 @@ class App extends Component {
                     {/* <Notepad data={notepadTestData} /> */}
 
                     <Route exact path="/" component={NotepadList} />
+                    <Route path="/notepad/:notepadId" component={NotepadPageList} />
                 </Router>
             </Provider>
         );
