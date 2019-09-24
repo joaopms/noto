@@ -3,42 +3,53 @@
 }
 
 .notepad .line {
-  padding: 0 80px 16px 17px;
+  padding: 0 80px 16px 80px;
 }
 
-.notepad .line:hover > .line__options {
+.notepad .block {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  background: #eee;
+}
+
+.notepad .block:hover > .block__options {
   opacity: 1;
 }
 
-.notepad .line .line__options {
+.notepad .block .block__options {
   opacity: 0;
   margin-right: 8px;
+  margin-left: -30px;
 }
 
-.notepad .line .line__options svg {
+.notepad .block .block__options svg {
   height: 1rem;
 }
 
-.notepad .extension {
-  height: 100%;
-  width: 100%;
-  padding: 0 4px;
+.notepad .block .block__options .btn {
+  width: 30px;
 }
 
-.notepad .extension--text {
+.notepad .block .block__content {
+  flex-grow: 1;
+}
+
+.notepad .block--text {
   border: none;
   resize: none;
   width: 100%;
   height: 100%;
   padding: 4px 0;
-  overflow-y: auto;
 }
 
-.notepad .extension--text *[contenteditable=true] {
+.notepad .block--text *[contenteditable=true] {
   height: 100%;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
-.notepad .extension--image img {
+.notepad .block--image img {
   width: 100%;
 }
 

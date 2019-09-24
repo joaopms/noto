@@ -55385,6 +55385,94 @@ function (_Component) {
 
 /***/ }),
 
+/***/ "./resources/js/components/notepad/blocks/BlockOptions.js":
+/*!****************************************************************!*\
+  !*** ./resources/js/components/notepad/blocks/BlockOptions.js ***!
+  \****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return BlockOptions; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var BlockOptions =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(BlockOptions, _Component);
+
+  function BlockOptions() {
+    _classCallCheck(this, BlockOptions);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(BlockOptions).apply(this, arguments));
+  }
+
+  _createClass(BlockOptions, [{
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "block__options"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "btn-group btn-group-sm",
+        role: "group"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        type: "button",
+        className: "btn btn-outline-secondary",
+        tabIndex: "-1"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("svg", {
+        "aria-hidden": "true",
+        focusable: "false",
+        role: "img",
+        xmlns: "http://www.w3.org/2000/svg",
+        viewBox: "0 0 448 512"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("path", {
+        fill: "currentColor",
+        d: "M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        type: "button",
+        className: "btn btn-outline-secondary",
+        tabIndex: "-1"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("svg", {
+        "aria-hidden": "true",
+        focusable: "false",
+        role: "img",
+        xmlns: "http://www.w3.org/2000/svg",
+        viewBox: "0 0 192 512"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("path", {
+        fill: "currentColor",
+        d: "M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+      })))));
+    }
+  }]);
+
+  return BlockOptions;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/notepad/blocks/ImageBlock.js":
 /*!**************************************************************!*\
   !*** ./resources/js/components/notepad/blocks/ImageBlock.js ***!
@@ -55458,6 +55546,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return TextBlock; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _BlockOptions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./BlockOptions */ "./resources/js/components/notepad/blocks/BlockOptions.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -55478,6 +55567,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
 var TextBlock =
 /*#__PURE__*/
 function (_Component) {
@@ -55494,10 +55584,12 @@ function (_Component) {
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "block block--text"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_BlockOptions__WEBPACK_IMPORTED_MODULE_1__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "block__content"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         contentEditable: "true",
         suppressContentEditableWarning: "true"
-      }, this.props.content));
+      }, this.props.content)));
     }
   }]);
 
@@ -55584,37 +55676,8 @@ function (_Component) {
         }, block);
       });
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "line row no-gutters"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "line__options"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "btn-group btn-group-sm",
-        role: "group"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        type: "button",
-        className: "btn btn-secondary"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("svg", {
-        "aria-hidden": "true",
-        focusable: "false",
-        role: "img",
-        xmlns: "http://www.w3.org/2000/svg",
-        viewBox: "0 0 448 512"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("path", {
-        fill: "currentColor",
-        d: "M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
-      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        type: "button",
-        className: "btn btn-secondary"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("svg", {
-        "aria-hidden": "true",
-        focusable: "false",
-        role: "img",
-        xmlns: "http://www.w3.org/2000/svg",
-        viewBox: "0 0 192 512"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("path", {
-        fill: "currentColor",
-        d: "M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
-      }))))), wrappedChildren);
+        className: "line row"
+      }, wrappedChildren);
     }
   }]);
 
@@ -55639,7 +55702,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _redux_actions_lines__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../redux/actions/lines */ "./resources/js/redux/actions/lines.js");
 /* harmony import */ var _redux_actions_pages__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../redux/actions/pages */ "./resources/js/redux/actions/pages.js");
-/* harmony import */ var _redux_actions_blocks__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../redux/actions/blocks */ "./resources/js/redux/actions/blocks.js");
+/* harmony import */ var _redux_actions_blocks__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../redux/actions/blocks */ "./resources/js/redux/actions/blocks.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -55694,12 +55757,14 @@ function (_Component) {
       var lineId = this.addLine();
       var blockId = this.props.addTextBlock().id;
       this.props.addBlockToLine(lineId, blockId);
+      this.props.addBlockToLine(lineId, blockId);
     }
   }, {
     key: "handleAddLineOfImage",
     value: function handleAddLineOfImage() {
       var lineId = this.addLine();
       var blockId = this.props.addImageBlock().id;
+      this.props.addBlockToLine(lineId, blockId);
       this.props.addBlockToLine(lineId, blockId);
     }
   }, {
@@ -55724,8 +55789,8 @@ function (_Component) {
   addLine: _redux_actions_lines__WEBPACK_IMPORTED_MODULE_2__["addLine"],
   addBlockToLine: _redux_actions_lines__WEBPACK_IMPORTED_MODULE_2__["addBlockToLine"],
   addLineToPage: _redux_actions_pages__WEBPACK_IMPORTED_MODULE_3__["addLineToPage"],
-  addTextBlock: _redux_actions_blocks__WEBPACK_IMPORTED_MODULE_5__["addTextBlock"],
-  addImageBlock: _redux_actions_blocks__WEBPACK_IMPORTED_MODULE_5__["addImageBlock"]
+  addTextBlock: _redux_actions_blocks__WEBPACK_IMPORTED_MODULE_4__["addTextBlock"],
+  addImageBlock: _redux_actions_blocks__WEBPACK_IMPORTED_MODULE_4__["addImageBlock"]
 })(NotepadLineAdd));
 
 /***/ }),
