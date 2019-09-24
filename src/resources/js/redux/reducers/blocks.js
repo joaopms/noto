@@ -1,19 +1,19 @@
-import { ADD_EXTENSION } from '../actions/extensions';
+import { ADD_BLOCK } from '../actions/blocks';
 
 const initialState = {
     byId: {},
     allIds: []
 };
 
-export default function extensions(state = initialState, action) {
+export default function blocks(state = initialState, action) {
     switch (action.type) {
-        case ADD_EXTENSION:
+        case ADD_BLOCK:
             return {
                 byId: {
                     ...state.byId,
                     [action.id]: {
                         id: action.id,
-                        type: action.extension_type,
+                        type: action.block_type,
                         content: ''
                     }
                 },

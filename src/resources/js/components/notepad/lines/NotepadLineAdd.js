@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { addLine, addExtensionToLine } from '../../../redux/actions/lines';
+import { addLine, addBlockToLine } from '../../../redux/actions/lines';
 import { addLineToPage } from '../../../redux/actions/pages';
-import { addTextExtension, addImageExtension } from '../../../redux/actions/extensions';
+import { addTextBlock, addImageBlock } from '../../../redux/actions/blocks';
 
 class NotepadLineAdd extends Component {
     constructor(props) {
@@ -22,14 +22,14 @@ class NotepadLineAdd extends Component {
 
     handleAddLineOfText() {
         const lineId = this.addLine();
-        const extensionId = this.props.addTextExtension().id;
-        this.props.addExtensionToLine(lineId, extensionId);
+        const blockId = this.props.addTextBlock().id;
+        this.props.addBlockToLine(lineId, blockId);
     }
 
     handleAddLineOfImage() {
         const lineId = this.addLine();
-        const extensionId = this.props.addImageExtension().id;
-        this.props.addExtensionToLine(lineId, extensionId);
+        const blockId = this.props.addImageBlock().id;
+        this.props.addBlockToLine(lineId, blockId);
     }
 
     render() {
@@ -44,5 +44,5 @@ class NotepadLineAdd extends Component {
 
 export default connect(
     null,
-    { addLine, addExtensionToLine, addLineToPage, addTextExtension, addImageExtension }
+    { addLine, addBlockToLine, addLineToPage, addTextBlock, addImageBlock }
 )(NotepadLineAdd)

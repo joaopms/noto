@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import NotepadLineAdd from '../lines/NotepadLineAdd';
 
 import NotepadLine from '../lines/NotepadLine';
-import Extensions from '../extensions';
+import Blocks from '../blocks';
 
 function mapStateToProps(state, ownProps) {
     const notepadId = ownProps.match.params.notepadId;
@@ -12,13 +12,13 @@ function mapStateToProps(state, ownProps) {
     const pageId = ownProps.match.params.pageId;
     const page = state.pages.byId[pageId];
     const lines = page.lines.map(lineId => state.lines.byId[lineId]);
-    const extensions = state.extensions;
+    const blocks = state.blocks;
 
     return {
         notepad,
         page,
         lines,
-        extensions
+        blocks
     }
 }
 
@@ -29,17 +29,17 @@ class NotepadPage extends Component {
 
     render() {
         const lines = this.props.lines.map(line => {
-            const extensions = line.extensions.map(extensionId => {
-                const extension = this.props.extensions.byId[extensionId];
-                const Extension = Extensions[extension.type];
+            const blocks = line.blocks.map(blockId => {
+                const block = this.props.blocks.byId[blockId];
+                const Block = Blocks[block.type];
                 return (
-                    <Extension key={extension.id} content={extension.content} />
+                    <Block key={block.id} content={block.content} />
                 )
             });
 
             return (
                 <NotepadLine key={line.id}>
-                    {extensions}
+                    {blocks}
                 </NotepadLine>
             );
         });

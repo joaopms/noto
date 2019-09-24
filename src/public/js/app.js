@@ -55385,16 +55385,16 @@ function (_Component) {
 
 /***/ }),
 
-/***/ "./resources/js/components/notepad/extensions/ImageBlockExtension.js":
-/*!***************************************************************************!*\
-  !*** ./resources/js/components/notepad/extensions/ImageBlockExtension.js ***!
-  \***************************************************************************/
+/***/ "./resources/js/components/notepad/blocks/ImageBlock.js":
+/*!**************************************************************!*\
+  !*** ./resources/js/components/notepad/blocks/ImageBlock.js ***!
+  \**************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ImageBlockExtension; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ImageBlock; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -55417,45 +55417,45 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
-var ImageBlockExtension =
+var ImageBlock =
 /*#__PURE__*/
 function (_Component) {
-  _inherits(ImageBlockExtension, _Component);
+  _inherits(ImageBlock, _Component);
 
-  function ImageBlockExtension() {
-    _classCallCheck(this, ImageBlockExtension);
+  function ImageBlock() {
+    _classCallCheck(this, ImageBlock);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(ImageBlockExtension).apply(this, arguments));
+    return _possibleConstructorReturn(this, _getPrototypeOf(ImageBlock).apply(this, arguments));
   }
 
-  _createClass(ImageBlockExtension, [{
+  _createClass(ImageBlock, [{
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "extension extension--image"
+        className: "block block--image"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: this.props.content
       }));
     }
   }]);
 
-  return ImageBlockExtension;
+  return ImageBlock;
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
 
 
 /***/ }),
 
-/***/ "./resources/js/components/notepad/extensions/TextBlockExtension.js":
-/*!**************************************************************************!*\
-  !*** ./resources/js/components/notepad/extensions/TextBlockExtension.js ***!
-  \**************************************************************************/
+/***/ "./resources/js/components/notepad/blocks/TextBlock.js":
+/*!*************************************************************!*\
+  !*** ./resources/js/components/notepad/blocks/TextBlock.js ***!
+  \*************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return TextBlockExtension; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return TextBlock; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -55478,22 +55478,22 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
-var TextBlockExtension =
+var TextBlock =
 /*#__PURE__*/
 function (_Component) {
-  _inherits(TextBlockExtension, _Component);
+  _inherits(TextBlock, _Component);
 
-  function TextBlockExtension() {
-    _classCallCheck(this, TextBlockExtension);
+  function TextBlock() {
+    _classCallCheck(this, TextBlock);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(TextBlockExtension).apply(this, arguments));
+    return _possibleConstructorReturn(this, _getPrototypeOf(TextBlock).apply(this, arguments));
   }
 
-  _createClass(TextBlockExtension, [{
+  _createClass(TextBlock, [{
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "extension extension--text"
+        className: "block block--text"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         contentEditable: "true",
         suppressContentEditableWarning: "true"
@@ -55501,33 +55501,33 @@ function (_Component) {
     }
   }]);
 
-  return TextBlockExtension;
+  return TextBlock;
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
 
 
 /***/ }),
 
-/***/ "./resources/js/components/notepad/extensions/index.js":
-/*!*************************************************************!*\
-  !*** ./resources/js/components/notepad/extensions/index.js ***!
-  \*************************************************************/
-/*! exports provided: TEXT_EXTENSION, IMAGE_EXTENSION, default */
+/***/ "./resources/js/components/notepad/blocks/index.js":
+/*!*********************************************************!*\
+  !*** ./resources/js/components/notepad/blocks/index.js ***!
+  \*********************************************************/
+/*! exports provided: TEXT_BLOCK, IMAGE_BLOCK, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TEXT_EXTENSION", function() { return TEXT_EXTENSION; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "IMAGE_EXTENSION", function() { return IMAGE_EXTENSION; });
-/* harmony import */ var _TextBlockExtension__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TextBlockExtension */ "./resources/js/components/notepad/extensions/TextBlockExtension.js");
-/* harmony import */ var _ImageBlockExtension__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ImageBlockExtension */ "./resources/js/components/notepad/extensions/ImageBlockExtension.js");
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TEXT_BLOCK", function() { return TEXT_BLOCK; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "IMAGE_BLOCK", function() { return IMAGE_BLOCK; });
+/* harmony import */ var _TextBlock__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TextBlock */ "./resources/js/components/notepad/blocks/TextBlock.js");
+/* harmony import */ var _ImageBlock__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ImageBlock */ "./resources/js/components/notepad/blocks/ImageBlock.js");
 
 
-var TEXT_EXTENSION = 'TextBlockExtension';
-var IMAGE_EXTENSION = 'ImageBlockExtension';
+var TEXT_BLOCK = 'TextBlock';
+var IMAGE_BLOCK = 'ImageBlock';
 /* harmony default export */ __webpack_exports__["default"] = ({
-  TextBlockExtension: _TextBlockExtension__WEBPACK_IMPORTED_MODULE_0__["default"],
-  ImageBlockExtension: _ImageBlockExtension__WEBPACK_IMPORTED_MODULE_1__["default"]
+  TextBlock: _TextBlock__WEBPACK_IMPORTED_MODULE_0__["default"],
+  ImageBlock: _ImageBlock__WEBPACK_IMPORTED_MODULE_1__["default"]
 });
 
 /***/ }),
@@ -55578,10 +55578,10 @@ function (_Component) {
   _createClass(NotepadLine, [{
     key: "render",
     value: function render() {
-      var wrappedChildren = react__WEBPACK_IMPORTED_MODULE_0___default.a.Children.map(this.props.children, function (extension) {
+      var wrappedChildren = react__WEBPACK_IMPORTED_MODULE_0___default.a.Children.map(this.props.children, function (block) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "col"
-        }, extension);
+        }, block);
       });
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "line row no-gutters"
@@ -55637,9 +55637,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _redux_actions_lines__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../redux/actions/lines */ "./resources/js/redux/actions/lines.js");
+/* harmony import */ var _redux_actions_lines__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../redux/actions/lines */ "./resources/js/redux/actions/lines.js");
 /* harmony import */ var _redux_actions_pages__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../redux/actions/pages */ "./resources/js/redux/actions/pages.js");
-/* harmony import */ var _redux_actions_extensions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../redux/actions/extensions */ "./resources/js/redux/actions/extensions.js");
+/* harmony import */ var _redux_actions_blocks__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../redux/actions/blocks */ "./resources/js/redux/actions/blocks.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -55692,15 +55692,15 @@ function (_Component) {
     key: "handleAddLineOfText",
     value: function handleAddLineOfText() {
       var lineId = this.addLine();
-      var extensionId = this.props.addTextExtension().id;
-      this.props.addExtensionToLine(lineId, extensionId);
+      var blockId = this.props.addTextBlock().id;
+      this.props.addBlockToLine(lineId, blockId);
     }
   }, {
     key: "handleAddLineOfImage",
     value: function handleAddLineOfImage() {
       var lineId = this.addLine();
-      var extensionId = this.props.addImageExtension().id;
-      this.props.addExtensionToLine(lineId, extensionId);
+      var blockId = this.props.addImageBlock().id;
+      this.props.addBlockToLine(lineId, blockId);
     }
   }, {
     key: "render",
@@ -55721,11 +55721,11 @@ function (_Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(null, {
-  addLine: _redux_actions_lines__WEBPACK_IMPORTED_MODULE_5__["addLine"],
-  addExtensionToLine: _redux_actions_lines__WEBPACK_IMPORTED_MODULE_5__["addExtensionToLine"],
+  addLine: _redux_actions_lines__WEBPACK_IMPORTED_MODULE_2__["addLine"],
+  addBlockToLine: _redux_actions_lines__WEBPACK_IMPORTED_MODULE_2__["addBlockToLine"],
   addLineToPage: _redux_actions_pages__WEBPACK_IMPORTED_MODULE_3__["addLineToPage"],
-  addTextExtension: _redux_actions_extensions__WEBPACK_IMPORTED_MODULE_4__["addTextExtension"],
-  addImageExtension: _redux_actions_extensions__WEBPACK_IMPORTED_MODULE_4__["addImageExtension"]
+  addTextBlock: _redux_actions_blocks__WEBPACK_IMPORTED_MODULE_5__["addTextBlock"],
+  addImageBlock: _redux_actions_blocks__WEBPACK_IMPORTED_MODULE_5__["addImageBlock"]
 })(NotepadLineAdd));
 
 /***/ }),
@@ -55744,7 +55744,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _lines_NotepadLineAdd__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../lines/NotepadLineAdd */ "./resources/js/components/notepad/lines/NotepadLineAdd.js");
 /* harmony import */ var _lines_NotepadLine__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../lines/NotepadLine */ "./resources/js/components/notepad/lines/NotepadLine.js");
-/* harmony import */ var _extensions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../extensions */ "./resources/js/components/notepad/extensions/index.js");
+/* harmony import */ var _blocks__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../blocks */ "./resources/js/components/notepad/blocks/index.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -55777,12 +55777,12 @@ function mapStateToProps(state, ownProps) {
   var lines = page.lines.map(function (lineId) {
     return state.lines.byId[lineId];
   });
-  var extensions = state.extensions;
+  var blocks = state.blocks;
   return {
     notepad: notepad,
     page: page,
     lines: lines,
-    extensions: extensions
+    blocks: blocks
   };
 }
 
@@ -55803,17 +55803,17 @@ function (_Component) {
       var _this = this;
 
       var lines = this.props.lines.map(function (line) {
-        var extensions = line.extensions.map(function (extensionId) {
-          var extension = _this.props.extensions.byId[extensionId];
-          var Extension = _extensions__WEBPACK_IMPORTED_MODULE_4__["default"][extension.type];
-          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Extension, {
-            key: extension.id,
-            content: extension.content
+        var blocks = line.blocks.map(function (blockId) {
+          var block = _this.props.blocks.byId[blockId];
+          var Block = _blocks__WEBPACK_IMPORTED_MODULE_4__["default"][block.type];
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Block, {
+            key: block.id,
+            content: block.content
           });
         });
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_lines_NotepadLine__WEBPACK_IMPORTED_MODULE_3__["default"], {
           key: line.id
-        }, extensions);
+        }, blocks);
       });
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "notepad"
@@ -56023,36 +56023,36 @@ function (_Component) {
 
 /***/ }),
 
-/***/ "./resources/js/redux/actions/extensions.js":
-/*!**************************************************!*\
-  !*** ./resources/js/redux/actions/extensions.js ***!
-  \**************************************************/
-/*! exports provided: ADD_EXTENSION, addTextExtension, addImageExtension */
+/***/ "./resources/js/redux/actions/blocks.js":
+/*!**********************************************!*\
+  !*** ./resources/js/redux/actions/blocks.js ***!
+  \**********************************************/
+/*! exports provided: ADD_BLOCK, addTextBlock, addImageBlock */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ADD_EXTENSION", function() { return ADD_EXTENSION; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addTextExtension", function() { return addTextExtension; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addImageExtension", function() { return addImageExtension; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ADD_BLOCK", function() { return ADD_BLOCK; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addTextBlock", function() { return addTextBlock; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addImageBlock", function() { return addImageBlock; });
 /* harmony import */ var uuid_v4__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! uuid/v4 */ "./node_modules/uuid/v4.js");
 /* harmony import */ var uuid_v4__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(uuid_v4__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _components_notepad_extensions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/notepad/extensions */ "./resources/js/components/notepad/extensions/index.js");
+/* harmony import */ var _components_notepad_blocks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/notepad/blocks */ "./resources/js/components/notepad/blocks/index.js");
 
 
-var ADD_EXTENSION = 'ADD_EXTENSION';
-function addTextExtension() {
+var ADD_BLOCK = 'ADD_BLOCK';
+function addTextBlock() {
   return {
-    type: ADD_EXTENSION,
+    type: ADD_BLOCK,
     id: uuid_v4__WEBPACK_IMPORTED_MODULE_0___default()(),
-    extension_type: _components_notepad_extensions__WEBPACK_IMPORTED_MODULE_1__["TEXT_EXTENSION"]
+    block_type: _components_notepad_blocks__WEBPACK_IMPORTED_MODULE_1__["TEXT_BLOCK"]
   };
 }
-function addImageExtension() {
+function addImageBlock() {
   return {
-    type: ADD_EXTENSION,
+    type: ADD_BLOCK,
     id: uuid_v4__WEBPACK_IMPORTED_MODULE_0___default()(),
-    extension_type: _components_notepad_extensions__WEBPACK_IMPORTED_MODULE_1__["IMAGE_EXTENSION"]
+    block_type: _components_notepad_blocks__WEBPACK_IMPORTED_MODULE_1__["IMAGE_BLOCK"]
   };
 }
 
@@ -56062,31 +56062,31 @@ function addImageExtension() {
 /*!*********************************************!*\
   !*** ./resources/js/redux/actions/lines.js ***!
   \*********************************************/
-/*! exports provided: ADD_LINE, ADD_EXTENSION_TO_LINE, addLine, addExtensionToLine */
+/*! exports provided: ADD_LINE, ADD_BLOCK_TO_LINE, addLine, addBlockToLine */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ADD_LINE", function() { return ADD_LINE; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ADD_EXTENSION_TO_LINE", function() { return ADD_EXTENSION_TO_LINE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ADD_BLOCK_TO_LINE", function() { return ADD_BLOCK_TO_LINE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addLine", function() { return addLine; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addExtensionToLine", function() { return addExtensionToLine; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addBlockToLine", function() { return addBlockToLine; });
 /* harmony import */ var uuid_v4__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! uuid/v4 */ "./node_modules/uuid/v4.js");
 /* harmony import */ var uuid_v4__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(uuid_v4__WEBPACK_IMPORTED_MODULE_0__);
 
 var ADD_LINE = 'ADD_LINE';
-var ADD_EXTENSION_TO_LINE = 'ADD_EXTENSION_TO_LINE';
+var ADD_BLOCK_TO_LINE = 'ADD_BLOCK_TO_LINE';
 function addLine() {
   return {
     type: ADD_LINE,
     id: uuid_v4__WEBPACK_IMPORTED_MODULE_0___default()()
   };
 }
-function addExtensionToLine(lineId, extensionId) {
+function addBlockToLine(lineId, blockId) {
   return {
-    type: ADD_EXTENSION_TO_LINE,
+    type: ADD_BLOCK_TO_LINE,
     lineId: lineId,
-    extensionId: extensionId
+    blockId: blockId
   };
 }
 
@@ -56162,17 +56162,17 @@ function addLineToPage(pageId, lineId) {
 
 /***/ }),
 
-/***/ "./resources/js/redux/reducers/extensions.js":
-/*!***************************************************!*\
-  !*** ./resources/js/redux/reducers/extensions.js ***!
-  \***************************************************/
+/***/ "./resources/js/redux/reducers/blocks.js":
+/*!***********************************************!*\
+  !*** ./resources/js/redux/reducers/blocks.js ***!
+  \***********************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return extensions; });
-/* harmony import */ var _actions_extensions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/extensions */ "./resources/js/redux/actions/extensions.js");
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return blocks; });
+/* harmony import */ var _actions_blocks__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/blocks */ "./resources/js/redux/actions/blocks.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
@@ -56192,16 +56192,16 @@ var initialState = {
   byId: {},
   allIds: []
 };
-function extensions() {
+function blocks() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
   switch (action.type) {
-    case _actions_extensions__WEBPACK_IMPORTED_MODULE_0__["ADD_EXTENSION"]:
+    case _actions_blocks__WEBPACK_IMPORTED_MODULE_0__["ADD_BLOCK"]:
       return {
         byId: _objectSpread({}, state.byId, _defineProperty({}, action.id, {
           id: action.id,
-          type: action.extension_type,
+          type: action.block_type,
           content: ''
         })),
         allIds: [].concat(_toConsumableArray(state.allIds), [action.id])
@@ -56227,7 +56227,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _notepads__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./notepads */ "./resources/js/redux/reducers/notepads.js");
 /* harmony import */ var _pages__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./pages */ "./resources/js/redux/reducers/pages.js");
 /* harmony import */ var _lines__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./lines */ "./resources/js/redux/reducers/lines.js");
-/* harmony import */ var _extensions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./extensions */ "./resources/js/redux/reducers/extensions.js");
+/* harmony import */ var _blocks__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./blocks */ "./resources/js/redux/reducers/blocks.js");
 
 
 
@@ -56237,7 +56237,7 @@ __webpack_require__.r(__webpack_exports__);
   notepads: _notepads__WEBPACK_IMPORTED_MODULE_1__["default"],
   pages: _pages__WEBPACK_IMPORTED_MODULE_2__["default"],
   lines: _lines__WEBPACK_IMPORTED_MODULE_3__["default"],
-  extensions: _extensions__WEBPACK_IMPORTED_MODULE_4__["default"]
+  blocks: _blocks__WEBPACK_IMPORTED_MODULE_4__["default"]
 }));
 
 /***/ }),
@@ -56281,16 +56281,16 @@ function lines() {
       return {
         byId: _objectSpread({}, state.byId, _defineProperty({}, action.id, {
           id: action.id,
-          extensions: []
+          blocks: []
         })),
         allIds: [].concat(_toConsumableArray(state.allIds), [action.id])
       };
 
-    case _actions_lines__WEBPACK_IMPORTED_MODULE_0__["ADD_EXTENSION_TO_LINE"]:
+    case _actions_lines__WEBPACK_IMPORTED_MODULE_0__["ADD_BLOCK_TO_LINE"]:
       var line = state.byId[action.lineId];
       return {
         byId: _objectSpread({}, state.byId, _defineProperty({}, action.lineId, _objectSpread({}, line, {
-          extensions: [].concat(_toConsumableArray(line.extensions), [action.extensionId])
+          blocks: [].concat(_toConsumableArray(line.blocks), [action.blockId])
         }))),
         allIds: state.allIds
       };

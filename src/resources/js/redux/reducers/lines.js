@@ -1,4 +1,4 @@
-import { ADD_LINE, ADD_EXTENSION_TO_LINE } from '../actions/lines';
+import { ADD_LINE, ADD_BLOCK_TO_LINE } from '../actions/lines';
 
 const initialState = {
     byId: {},
@@ -13,7 +13,7 @@ export default function lines(state = initialState, action) {
                     ...state.byId,
                     [action.id]: {
                         id: action.id,
-                        extensions: []
+                        blocks: []
                     }
                 },
                 allIds: [
@@ -21,16 +21,16 @@ export default function lines(state = initialState, action) {
                     action.id
                 ]
             }
-        case ADD_EXTENSION_TO_LINE:
+        case ADD_BLOCK_TO_LINE:
             const line = state.byId[action.lineId];
             return {
                 byId: {
                     ...state.byId,
                     [action.lineId]: {
                         ...line,
-                        extensions: [
-                            ...line.extensions,
-                            action.extensionId
+                        blocks: [
+                            ...line.blocks,
+                            action.blockId
                         ]
                     }
                 },

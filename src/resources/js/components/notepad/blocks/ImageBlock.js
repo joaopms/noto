@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
-export default class ImageBlockExtension extends Component {
+export default class ImageBlock extends Component {
     render() {
         return (
-            <div className="extension extension--image">
+            <div className="block block--image">
                 <img src={this.props.content} />
             </div>
         );
