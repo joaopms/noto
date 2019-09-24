@@ -1,7 +1,7 @@
 import uuidv4 from 'uuid/v4';
 
 export const ADD_PAGE = 'ADD_PAGE';
-export const ADD_BLOCK_TO_PAGE = 'ADD_BLOCK_TO_PAGE';
+export const ADD_LINE_TO_PAGE = 'ADD_LINE_TO_PAGE';
 
 export function addPage(title) {
     return {
@@ -11,10 +11,10 @@ export function addPage(title) {
     };
 }
 
-export function addBlockToPage(pageId, blockId) {
+export function addLineToPage(pageId, lineId) {
     return {
-        type: ADD_BLOCK_TO_PAGE,
+        type: ADD_LINE_TO_PAGE,
         pageId,
-        blockId
+        lineId
     };
 }

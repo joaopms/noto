@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export default class NotepadBlock extends Component {
+export default class NotepadLine extends Component {
     render() {
         const wrappedChildren = React.Children.map(this.props.children, extension => {
             return (
@@ -9,8 +9,8 @@ export default class NotepadBlock extends Component {
         });
 
         return (
-            <div className="block row no-gutters">
-                <div className="block__options">
+            <div className="line row no-gutters">
+                <div className="line__options">
                     <div className="btn-group btn-group-sm" role="group">
                         <button type="button" className="btn btn-secondary">
                             {/* Add button */}

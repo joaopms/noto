@@ -2,20 +2,20 @@
   padding: 16px 0;
 }
 
-.notepad .block {
+.notepad .line {
   padding: 0 80px 16px 17px;
 }
 
-.notepad .block:hover > .block__options {
+.notepad .line:hover > .line__options {
   opacity: 1;
 }
 
-.notepad .block .block__options {
+.notepad .line .line__options {
   opacity: 0;
   margin-right: 8px;
 }
 
-.notepad .block .block__options svg {
+.notepad .line .line__options svg {
   height: 1rem;
 }
 

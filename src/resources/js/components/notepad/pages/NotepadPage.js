@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import NotepadBlockAdd from '../blocks/NotepadBlockAdd';
+import NotepadLineAdd from '../lines/NotepadLineAdd';
 
-import NotepadBlock from '../blocks/NotepadBlock';
+import NotepadLine from '../lines/NotepadLine';
 import Extensions from '../extensions';
 
 function mapStateToProps(state, ownProps) {
@@ -11,13 +11,13 @@ function mapStateToProps(state, ownProps) {
     const notepad = state.notepads.byId[notepadId];
     const pageId = ownProps.match.params.pageId;
     const page = state.pages.byId[pageId];
-    const blocks = page.blocks.map(blockId => state.blocks.byId[blockId]);
+    const lines = page.lines.map(lineId => state.lines.byId[lineId]);
     const extensions = state.extensions;
 
     return {
         notepad,
         page,
-        blocks,
+        lines,
         extensions
     }
 }
@@ -28,8 +28,8 @@ class NotepadPage extends Component {
     }
 
     render() {
-        const blocks = this.props.blocks.map(block => {
-            const extensions = block.extensions.map(extensionId => {
+        const lines = this.props.lines.map(line => {
+            const extensions = line.extensions.map(extensionId => {
                 const extension = this.props.extensions.byId[extensionId];
                 const Extension = Extensions[extension.type];
                 return (
@@ -38,16 +38,16 @@ class NotepadPage extends Component {
             });
 
             return (
-                <NotepadBlock key={block.id}>
+                <NotepadLine key={line.id}>
                     {extensions}
-                </NotepadBlock>
+                </NotepadLine>
             );
         });
 
         return (
             <div className="notepad">
-                <NotepadBlockAdd pageId={this.props.page.id} />
-                {blocks}
+                <NotepadLineAdd pageId={this.props.page.id} />
+                {lines}
             </div>
         );
     }
