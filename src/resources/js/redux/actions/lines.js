@@ -10,10 +10,11 @@ export function addLine() {
     };
 }
 
-export function addBlockToLine(lineId, blockId) {
+export function addBlockToLine(lineId, blockId, previousBlockId) {
     return {
         type: ADD_BLOCK_TO_LINE,
         lineId,
-        blockId
+        blockId,
+        previousBlockId
     };
 }

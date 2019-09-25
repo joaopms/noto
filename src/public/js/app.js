@@ -55394,9 +55394,11 @@ function (_Component) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return BlockOptions; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _redux_actions_lines__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../redux/actions/lines */ "./resources/js/redux/actions/lines.js");
+/* harmony import */ var _redux_actions_blocks__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../redux/actions/blocks */ "./resources/js/redux/actions/blocks.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -55407,13 +55409,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
 
 
 
@@ -55422,13 +55427,30 @@ var BlockOptions =
 function (_Component) {
   _inherits(BlockOptions, _Component);
 
-  function BlockOptions() {
+  function BlockOptions(props) {
+    var _this;
+
     _classCallCheck(this, BlockOptions);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(BlockOptions).apply(this, arguments));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(BlockOptions).call(this, props));
+    _this.handleAddBlockOfText = _this.handleAddBlockOfText.bind(_assertThisInitialized(_this));
+    _this.handleAddBlockOfImage = _this.handleAddBlockOfImage.bind(_assertThisInitialized(_this));
+    return _this;
   }
 
   _createClass(BlockOptions, [{
+    key: "handleAddBlockOfText",
+    value: function handleAddBlockOfText() {
+      var blockId = this.props.addTextBlock().id;
+      this.props.addBlockToLine(this.props.lineId, blockId, this.props.blockId);
+    }
+  }, {
+    key: "handleAddBlockOfImage",
+    value: function handleAddBlockOfImage() {
+      var blockId = this.props.addImageBlock().id;
+      this.props.addBlockToLine(this.props.lineId, blockId, this.props.blockId);
+    }
+  }, {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -55439,7 +55461,8 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "button",
         className: "btn btn-outline-secondary",
-        tabIndex: "-1"
+        tabIndex: "-1",
+        onClick: this.handleAddBlockOfText
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("svg", {
         "aria-hidden": "true",
         focusable: "false",
@@ -55469,7 +55492,11 @@ function (_Component) {
   return BlockOptions;
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
-
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(null, {
+  addBlockToLine: _redux_actions_lines__WEBPACK_IMPORTED_MODULE_2__["addBlockToLine"],
+  addTextBlock: _redux_actions_blocks__WEBPACK_IMPORTED_MODULE_3__["addTextBlock"],
+  addImageBlock: _redux_actions_blocks__WEBPACK_IMPORTED_MODULE_3__["addImageBlock"]
+})(BlockOptions));
 
 /***/ }),
 
@@ -55485,6 +55512,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ImageBlock; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _BlockOptions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./BlockOptions */ "./resources/js/components/notepad/blocks/BlockOptions.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -55505,6 +55533,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
 var ImageBlock =
 /*#__PURE__*/
 function (_Component) {
@@ -55521,7 +55550,10 @@ function (_Component) {
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "block block--image"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_BlockOptions__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        lineId: this.props.lineId,
+        blockId: this.props.blockId
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: this.props.content
       }));
     }
@@ -55584,7 +55616,10 @@ function (_Component) {
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "block block--text"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_BlockOptions__WEBPACK_IMPORTED_MODULE_1__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_BlockOptions__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        lineId: this.props.lineId,
+        blockId: this.props.blockId
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "block__content"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         contentEditable: "true",
@@ -55756,16 +55791,14 @@ function (_Component) {
     value: function handleAddLineOfText() {
       var lineId = this.addLine();
       var blockId = this.props.addTextBlock().id;
-      this.props.addBlockToLine(lineId, blockId);
-      this.props.addBlockToLine(lineId, blockId);
+      this.props.addBlockToLine(lineId, blockId, null);
     }
   }, {
     key: "handleAddLineOfImage",
     value: function handleAddLineOfImage() {
       var lineId = this.addLine();
       var blockId = this.props.addImageBlock().id;
-      this.props.addBlockToLine(lineId, blockId);
-      this.props.addBlockToLine(lineId, blockId);
+      this.props.addBlockToLine(lineId, blockId, null);
     }
   }, {
     key: "render",
@@ -55873,11 +55906,14 @@ function (_Component) {
           var Block = _blocks__WEBPACK_IMPORTED_MODULE_4__["default"][block.type];
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Block, {
             key: block.id,
+            lineId: line.id,
+            blockId: block.id,
             content: block.content
           });
         });
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_lines_NotepadLine__WEBPACK_IMPORTED_MODULE_3__["default"], {
-          key: line.id
+          key: line.id,
+          lineId: line.id
         }, blocks);
       });
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -56147,11 +56183,12 @@ function addLine() {
     id: uuid_v4__WEBPACK_IMPORTED_MODULE_0___default()()
   };
 }
-function addBlockToLine(lineId, blockId) {
+function addBlockToLine(lineId, blockId, previousBlockId) {
   return {
     type: ADD_BLOCK_TO_LINE,
     lineId: lineId,
-    blockId: blockId
+    blockId: blockId,
+    previousBlockId: previousBlockId
   };
 }
 
@@ -56353,9 +56390,19 @@ function lines() {
 
     case _actions_lines__WEBPACK_IMPORTED_MODULE_0__["ADD_BLOCK_TO_LINE"]:
       var line = state.byId[action.lineId];
+      var previousBlockId = action.previousBlockId;
+
+      var newBlocks = _toConsumableArray(line.blocks); // Add the block after the one provided
+
+
+      if (previousBlockId) {
+        var previousBlockIndex = line.blocks.indexOf(previousBlockId);
+        newBlocks.splice(previousBlockIndex + 1, 0, action.blockId);
+      }
+
       return {
         byId: _objectSpread({}, state.byId, _defineProperty({}, action.lineId, _objectSpread({}, line, {
-          blocks: [].concat(_toConsumableArray(line.blocks), [action.blockId])
+          blocks: newBlocks
         }))),
         allIds: state.allIds
       };

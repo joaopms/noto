@@ -33,12 +33,12 @@ class NotepadPage extends Component {
                 const block = this.props.blocks.byId[blockId];
                 const Block = Blocks[block.type];
                 return (
-                    <Block key={block.id} content={block.content} />
+                    <Block key={block.id} lineId={line.id} blockId={block.id} content={block.content} />
                 )
             });
 
             return (
-                <NotepadLine key={line.id}>
+                <NotepadLine key={line.id} lineId={line.id}>
                     {blocks}
                 </NotepadLine>
             );

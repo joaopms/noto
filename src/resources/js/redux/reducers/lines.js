@@ -23,15 +23,21 @@ export default function lines(state = initialState, action) {
             }
         case ADD_BLOCK_TO_LINE:
             const line = state.byId[action.lineId];
+            const previousBlockId = action.previousBlockId;
+
+            var newBlocks = [...line.blocks];
+            // Add the block after the one provided
+            if (previousBlockId) {
+                const previousBlockIndex = line.blocks.indexOf(previousBlockId);
+                newBlocks.splice(previousBlockIndex + 1, 0, action.blockId);
+            }
+
             return {
                 byId: {
                     ...state.byId,
                     [action.lineId]: {
                         ...line,
-                        blocks: [
-                            ...line.blocks,
-                            action.blockId
-                        ]
+                        blocks: newBlocks
                     }
                 },
                 allIds: state.allIds
