@@ -55462,7 +55462,9 @@ function (_Component) {
         type: "button",
         className: "btn btn-outline-secondary",
         tabIndex: "-1",
-        onClick: this.handleAddBlockOfText
+        "data-toggle": "dropdown",
+        "aria-haspopup": "true",
+        "aria-expanded": "false"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("svg", {
         "aria-hidden": "true",
         focusable: "false",
@@ -55472,7 +55474,17 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("path", {
         fill: "currentColor",
         d: "M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
-      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        "class": "dropdown-menu"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        type: "button",
+        "class": "dropdown-item",
+        onClick: this.handleAddBlockOfText
+      }, "Text"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        type: "button",
+        "class": "dropdown-item",
+        onClick: this.handleAddBlockOfImage
+      }, "Image")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "button",
         className: "btn btn-outline-secondary",
         tabIndex: "-1"
@@ -56398,6 +56410,8 @@ function lines() {
       if (previousBlockId) {
         var previousBlockIndex = line.blocks.indexOf(previousBlockId);
         newBlocks.splice(previousBlockIndex + 1, 0, action.blockId);
+      } else {
+        newBlocks.push(action.blockId);
       }
 
       return {

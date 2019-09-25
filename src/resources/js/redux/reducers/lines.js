@@ -30,6 +30,8 @@ export default function lines(state = initialState, action) {
             if (previousBlockId) {
                 const previousBlockIndex = line.blocks.indexOf(previousBlockId);
                 newBlocks.splice(previousBlockIndex + 1, 0, action.blockId);
+            } else {
+                newBlocks.push(action.blockId);
             }
 
             return {
