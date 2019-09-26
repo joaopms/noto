@@ -55435,6 +55435,8 @@ function (_Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(BlockOptions).call(this, props));
     _this.handleAddBlockOfText = _this.handleAddBlockOfText.bind(_assertThisInitialized(_this));
     _this.handleAddBlockOfImage = _this.handleAddBlockOfImage.bind(_assertThisInitialized(_this));
+    _this.bro = _this.bro.bind(_assertThisInitialized(_this));
+    _this.broa = _this.broa.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -55442,19 +55444,51 @@ function (_Component) {
     key: "handleAddBlockOfText",
     value: function handleAddBlockOfText() {
       var blockId = this.props.addTextBlock().id;
-      this.props.addBlockToLine(this.props.lineId, blockId, this.props.blockId);
+      this.props.addBlockToLine(this.props.lineId, blockId, this.props.blockId, false);
     }
   }, {
     key: "handleAddBlockOfImage",
     value: function handleAddBlockOfImage() {
       var blockId = this.props.addImageBlock().id;
-      this.props.addBlockToLine(this.props.lineId, blockId, this.props.blockId);
+      this.props.addBlockToLine(this.props.lineId, blockId, this.props.blockId, false);
+    }
+  }, {
+    key: "bro",
+    value: function bro(ev) {
+      console.log(ev);
+    }
+  }, {
+    key: "broa",
+    value: function broa(ev) {
+      // TODO Ver os valores que o onTouchEnd devolve para descobrir o elemento onde caiu
+      var target = document.elementFromPoint(ev.clientX, ev.clientY); // Find the block element
+
+      while (!target.classList.contains("block")) {
+        target = target.parentElement; // If no block was found, exit
+
+        if (!target) {
+          return;
+        }
+      }
+
+      var targetRect = target.getBoundingClientRect();
+      var targetBlockId = target.getAttribute("data-blockid");
+      var targetLineId = target.getAttribute("data-lineid");
+      var targetMiddle = targetRect.right + window.scrollX - targetRect.width / 2;
+      var addBeforeBlock = ev.clientX < targetMiddle;
+      this.props.removeBlockFromLine(this.props.lineId, this.props.blockId);
+      this.props.addBlockToLine(targetLineId, this.props.blockId, targetBlockId, addBeforeBlock);
     }
   }, {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "block__options"
+        className: "block__options",
+        draggable: true,
+        onDragStart: this.bro,
+        onTouchMove: this.bro,
+        onDragEnd: this.broa,
+        onTouchEnd: this.broa
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "btn-group btn-group-sm",
         role: "group"
@@ -55475,14 +55509,14 @@ function (_Component) {
         fill: "currentColor",
         d: "M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
       }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        "class": "dropdown-menu"
+        className: "dropdown-menu"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "button",
-        "class": "dropdown-item",
+        className: "dropdown-item",
         onClick: this.handleAddBlockOfText
       }, "Text"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "button",
-        "class": "dropdown-item",
+        className: "dropdown-item",
         onClick: this.handleAddBlockOfImage
       }, "Image")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "button",
@@ -55506,6 +55540,7 @@ function (_Component) {
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(null, {
   addBlockToLine: _redux_actions_lines__WEBPACK_IMPORTED_MODULE_2__["addBlockToLine"],
+  removeBlockFromLine: _redux_actions_lines__WEBPACK_IMPORTED_MODULE_2__["removeBlockFromLine"],
   addTextBlock: _redux_actions_blocks__WEBPACK_IMPORTED_MODULE_3__["addTextBlock"],
   addImageBlock: _redux_actions_blocks__WEBPACK_IMPORTED_MODULE_3__["addImageBlock"]
 })(BlockOptions));
@@ -55561,7 +55596,9 @@ function (_Component) {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "block block--image"
+        className: "block block--image",
+        "data-blockid": this.props.blockId,
+        "data-lineid": this.props.lineId
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_BlockOptions__WEBPACK_IMPORTED_MODULE_1__["default"], {
         lineId: this.props.lineId,
         blockId: this.props.blockId
@@ -55627,7 +55664,9 @@ function (_Component) {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "block block--text"
+        className: "block block--text",
+        "data-blockid": this.props.blockId,
+        "data-lineid": this.props.lineId
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_BlockOptions__WEBPACK_IMPORTED_MODULE_1__["default"], {
         lineId: this.props.lineId,
         blockId: this.props.blockId
@@ -55803,14 +55842,14 @@ function (_Component) {
     value: function handleAddLineOfText() {
       var lineId = this.addLine();
       var blockId = this.props.addTextBlock().id;
-      this.props.addBlockToLine(lineId, blockId, null);
+      this.props.addBlockToLine(lineId, blockId, null, false);
     }
   }, {
     key: "handleAddLineOfImage",
     value: function handleAddLineOfImage() {
       var lineId = this.addLine();
       var blockId = this.props.addImageBlock().id;
-      this.props.addBlockToLine(lineId, blockId, null);
+      this.props.addBlockToLine(lineId, blockId, null, false);
     }
   }, {
     key: "render",
@@ -56175,32 +56214,43 @@ function addImageBlock() {
 /*!*********************************************!*\
   !*** ./resources/js/redux/actions/lines.js ***!
   \*********************************************/
-/*! exports provided: ADD_LINE, ADD_BLOCK_TO_LINE, addLine, addBlockToLine */
+/*! exports provided: ADD_LINE, ADD_BLOCK_TO_LINE, REMOVE_BLOCK_FROM_LINE, addLine, addBlockToLine, removeBlockFromLine */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ADD_LINE", function() { return ADD_LINE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ADD_BLOCK_TO_LINE", function() { return ADD_BLOCK_TO_LINE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "REMOVE_BLOCK_FROM_LINE", function() { return REMOVE_BLOCK_FROM_LINE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addLine", function() { return addLine; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addBlockToLine", function() { return addBlockToLine; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeBlockFromLine", function() { return removeBlockFromLine; });
 /* harmony import */ var uuid_v4__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! uuid/v4 */ "./node_modules/uuid/v4.js");
 /* harmony import */ var uuid_v4__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(uuid_v4__WEBPACK_IMPORTED_MODULE_0__);
 
 var ADD_LINE = 'ADD_LINE';
 var ADD_BLOCK_TO_LINE = 'ADD_BLOCK_TO_LINE';
+var REMOVE_BLOCK_FROM_LINE = 'REMOVE_BLOCK_FROM_LINE';
 function addLine() {
   return {
     type: ADD_LINE,
     id: uuid_v4__WEBPACK_IMPORTED_MODULE_0___default()()
   };
 }
-function addBlockToLine(lineId, blockId, previousBlockId) {
+function addBlockToLine(lineId, blockId, previousBlockId, beforeBlock) {
   return {
     type: ADD_BLOCK_TO_LINE,
     lineId: lineId,
     blockId: blockId,
-    previousBlockId: previousBlockId
+    previousBlockId: previousBlockId,
+    beforeBlock: beforeBlock
+  };
+}
+function removeBlockFromLine(lineId, blockId) {
+  return {
+    type: REMOVE_BLOCK_FROM_LINE,
+    lineId: lineId,
+    blockId: blockId
   };
 }
 
@@ -56404,16 +56454,46 @@ function lines() {
       var line = state.byId[action.lineId];
       var previousBlockId = action.previousBlockId;
 
-      var newBlocks = _toConsumableArray(line.blocks); // Add the block after the one provided
+      var newBlocks = _toConsumableArray(line.blocks);
 
+      var beforeBlock = action.beforeBlock; // Add the block before/after the one provided
+      // Or add it to the begininng/end of the line
 
       if (previousBlockId) {
         var previousBlockIndex = line.blocks.indexOf(previousBlockId);
-        newBlocks.splice(previousBlockIndex + 1, 0, action.blockId);
+
+        if (beforeBlock) {
+          newBlocks.splice(previousBlockIndex, 0, action.blockId);
+        } else {
+          newBlocks.splice(previousBlockIndex + 1, 0, action.blockId);
+        }
       } else {
-        newBlocks.push(action.blockId);
+        if (beforeBlock) {
+          newBlocks.unshift(action.blockId);
+        } else {
+          newBlocks.push(action.blockId);
+        }
       }
 
+      return {
+        byId: _objectSpread({}, state.byId, _defineProperty({}, action.lineId, _objectSpread({}, line, {
+          blocks: newBlocks
+        }))),
+        allIds: state.allIds
+      };
+
+    case _actions_lines__WEBPACK_IMPORTED_MODULE_0__["REMOVE_BLOCK_FROM_LINE"]:
+      var line = state.byId[action.lineId]; // If only one block exists, remove the line
+
+      if (line.blocks.length === 1) {} // TODO
+      // Remove the block from the line
+
+
+      var blockIndex = line.blocks.indexOf(action.blockId);
+
+      var newBlocks = _toConsumableArray(line.blocks);
+
+      newBlocks.splice(blockIndex, 1);
       return {
         byId: _objectSpread({}, state.byId, _defineProperty({}, action.lineId, _objectSpread({}, line, {
           blocks: newBlocks

@@ -23,13 +23,13 @@ class NotepadLineAdd extends Component {
     handleAddLineOfText() {
         const lineId = this.addLine();
         const blockId = this.props.addTextBlock().id;
-        this.props.addBlockToLine(lineId, blockId, null);
+        this.props.addBlockToLine(lineId, blockId, null, false);
     }
 
     handleAddLineOfImage() {
         const lineId = this.addLine();
         const blockId = this.props.addImageBlock().id;
-        this.props.addBlockToLine(lineId, blockId, null);
+        this.props.addBlockToLine(lineId, blockId, null, false);
     }
 
     render() {

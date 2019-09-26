@@ -1,4 +1,4 @@
-import { ADD_LINE, ADD_BLOCK_TO_LINE } from '../actions/lines';
+import { ADD_LINE, ADD_BLOCK_TO_LINE, REMOVE_BLOCK_FROM_LINE } from '../actions/lines';
 
 const initialState = {
     byId: {},
@@ -22,17 +22,50 @@ export default function lines(state = initialState, action) {
                 ]
             }
         case ADD_BLOCK_TO_LINE:
-            const line = state.byId[action.lineId];
-            const previousBlockId = action.previousBlockId;
+            var line = state.byId[action.lineId];
+            var previousBlockId = action.previousBlockId;
 
             var newBlocks = [...line.blocks];
-            // Add the block after the one provided
+            var beforeBlock = action.beforeBlock;
+            // Add the block before/after the one provided
+            // Or add it to the begininng/end of the line
             if (previousBlockId) {
-                const previousBlockIndex = line.blocks.indexOf(previousBlockId);
-                newBlocks.splice(previousBlockIndex + 1, 0, action.blockId);
+                var previousBlockIndex = line.blocks.indexOf(previousBlockId);
+                if (beforeBlock) {
+                    newBlocks.splice(previousBlockIndex, 0, action.blockId);
+                } else {
+                    newBlocks.splice(previousBlockIndex + 1, 0, action.blockId);
+                }
             } else {
-                newBlocks.push(action.blockId);
+                if (beforeBlock) {
+                    newBlocks.unshift(action.blockId);
+                } else {
+                    newBlocks.push(action.blockId);
+                }
             }
+
+            return {
+                byId: {
+                    ...state.byId,
+                    [action.lineId]: {
+                        ...line,
+                        blocks: newBlocks
+                    }
+                },
+                allIds: state.allIds
+            }
+        case REMOVE_BLOCK_FROM_LINE:
+            var line = state.byId[action.lineId];
+
+            // If only one block exists, remove the line
+            if (line.blocks.length === 1) {
+                // TODO
+            }
+
+            // Remove the block from the line
+            var blockIndex = line.blocks.indexOf(action.blockId);
+            var newBlocks = [...line.blocks];
+            newBlocks.splice(blockIndex, 1);
 
             return {
                 byId: {
