@@ -7,6 +7,7 @@ import { addTextBlock, addImageBlock } from '../../../redux/actions/blocks';
 class BlockOptions extends Component {
     constructor(props) {
         super(props);
+        this.isMoving = false;
 
         this.handleAddBlockOfText = this.handleAddBlockOfText.bind(this);
         this.handleAddBlockOfImage = this.handleAddBlockOfImage.bind(this);
@@ -25,12 +26,20 @@ class BlockOptions extends Component {
     }
 
     bro(ev) {
-        console.log(ev);
+        this.isMoving = true;
     }
 
     broa(ev) {
-        // TODO Ver os valores que o onTouchEnd devolve para descobrir o elemento onde caiu
-        var target = document.elementFromPoint(ev.clientX, ev.clientY);
+        if (!this.isMoving) {
+            console.log("Not moving");
+            return;
+        }
+
+        this.isMoving = false;
+        var clientX = ev.clientX || ev.changedTouches[0].clientX;
+        var clientY = ev.clientY || ev.changedTouches[0].clientY;
+
+        var target = document.elementFromPoint(clientX, clientY);
 
         // Find the block element
         while (!target.classList.contains("block")) {
@@ -47,7 +56,7 @@ class BlockOptions extends Component {
         var targetLineId = target.getAttribute("data-lineid");
         var targetMiddle = (targetRect.right + window.scrollX) - targetRect.width / 2;
 
-        var addBeforeBlock = ev.clientX < targetMiddle;
+        var addBeforeBlock = clientX < targetMiddle;
         this.props.removeBlockFromLine(this.props.lineId, this.props.blockId);
         this.props.addBlockToLine(targetLineId, this.props.blockId, targetBlockId, addBeforeBlock);
     }

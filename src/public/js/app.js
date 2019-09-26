@@ -55433,6 +55433,7 @@ function (_Component) {
     _classCallCheck(this, BlockOptions);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(BlockOptions).call(this, props));
+    _this.isMoving = false;
     _this.handleAddBlockOfText = _this.handleAddBlockOfText.bind(_assertThisInitialized(_this));
     _this.handleAddBlockOfImage = _this.handleAddBlockOfImage.bind(_assertThisInitialized(_this));
     _this.bro = _this.bro.bind(_assertThisInitialized(_this));
@@ -55455,13 +55456,20 @@ function (_Component) {
   }, {
     key: "bro",
     value: function bro(ev) {
-      console.log(ev);
+      this.isMoving = true;
     }
   }, {
     key: "broa",
     value: function broa(ev) {
-      // TODO Ver os valores que o onTouchEnd devolve para descobrir o elemento onde caiu
-      var target = document.elementFromPoint(ev.clientX, ev.clientY); // Find the block element
+      if (!this.isMoving) {
+        console.log("Not moving");
+        return;
+      }
+
+      this.isMoving = false;
+      var clientX = ev.clientX || ev.changedTouches[0].clientX;
+      var clientY = ev.clientY || ev.changedTouches[0].clientY;
+      var target = document.elementFromPoint(clientX, clientY); // Find the block element
 
       while (!target.classList.contains("block")) {
         target = target.parentElement; // If no block was found, exit
@@ -55475,7 +55483,7 @@ function (_Component) {
       var targetBlockId = target.getAttribute("data-blockid");
       var targetLineId = target.getAttribute("data-lineid");
       var targetMiddle = targetRect.right + window.scrollX - targetRect.width / 2;
-      var addBeforeBlock = ev.clientX < targetMiddle;
+      var addBeforeBlock = clientX < targetMiddle;
       this.props.removeBlockFromLine(this.props.lineId, this.props.blockId);
       this.props.addBlockToLine(targetLineId, this.props.blockId, targetBlockId, addBeforeBlock);
     }
