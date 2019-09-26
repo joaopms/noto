@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { addBlockToLine, removeBlockFromLine } from '../../../redux/actions/lines';
-import { addTextBlock, addImageBlock } from '../../../redux/actions/blocks';
+import { addTextBlock, addImageBlock, setBlockContent } from '../../../redux/actions/blocks';
 
 class BlockOptions extends Component {
     constructor(props) {
@@ -56,6 +56,11 @@ class BlockOptions extends Component {
         var targetLineId = target.getAttribute("data-lineid");
         var targetMiddle = (targetRect.right + window.scrollX) - targetRect.width / 2;
 
+        // Save the block content
+        var blockContentElem = document.querySelector(`.block[data-blockid='${this.props.blockId}'] .block__content`).firstChild;
+        var blockContent = blockContentElem.textContent;
+        this.props.setBlockContent(this.props.blockId, blockContent);
+
         var addBeforeBlock = clientX < targetMiddle;
         this.props.removeBlockFromLine(this.props.lineId, this.props.blockId);
         this.props.addBlockToLine(targetLineId, this.props.blockId, targetBlockId, addBeforeBlock);
@@ -85,5 +90,5 @@ class BlockOptions extends Component {
 
 export default connect(
     null,
-    { addBlockToLine, removeBlockFromLine, addTextBlock, addImageBlock }
+    { addBlockToLine, removeBlockFromLine, addTextBlock, addImageBlock, setBlockContent }
 )(BlockOptions)

@@ -55482,7 +55482,11 @@ function (_Component) {
       var targetRect = target.getBoundingClientRect();
       var targetBlockId = target.getAttribute("data-blockid");
       var targetLineId = target.getAttribute("data-lineid");
-      var targetMiddle = targetRect.right + window.scrollX - targetRect.width / 2;
+      var targetMiddle = targetRect.right + window.scrollX - targetRect.width / 2; // Save the block content
+
+      var blockContentElem = document.querySelector(".block[data-blockid='".concat(this.props.blockId, "'] .block__content")).firstChild;
+      var blockContent = blockContentElem.textContent;
+      this.props.setBlockContent(this.props.blockId, blockContent);
       var addBeforeBlock = clientX < targetMiddle;
       this.props.removeBlockFromLine(this.props.lineId, this.props.blockId);
       this.props.addBlockToLine(targetLineId, this.props.blockId, targetBlockId, addBeforeBlock);
@@ -55550,7 +55554,8 @@ function (_Component) {
   addBlockToLine: _redux_actions_lines__WEBPACK_IMPORTED_MODULE_2__["addBlockToLine"],
   removeBlockFromLine: _redux_actions_lines__WEBPACK_IMPORTED_MODULE_2__["removeBlockFromLine"],
   addTextBlock: _redux_actions_blocks__WEBPACK_IMPORTED_MODULE_3__["addTextBlock"],
-  addImageBlock: _redux_actions_blocks__WEBPACK_IMPORTED_MODULE_3__["addImageBlock"]
+  addImageBlock: _redux_actions_blocks__WEBPACK_IMPORTED_MODULE_3__["addImageBlock"],
+  setBlockContent: _redux_actions_blocks__WEBPACK_IMPORTED_MODULE_3__["setBlockContent"]
 })(BlockOptions));
 
 /***/ }),
