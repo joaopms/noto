@@ -55632,10 +55632,11 @@ function (_Component) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return TextBlock; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _BlockOptions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./BlockOptions */ "./resources/js/components/notepad/blocks/BlockOptions.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _redux_actions_blocks__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../redux/actions/blocks */ "./resources/js/redux/actions/blocks.js");
+/* harmony import */ var _BlockOptions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./BlockOptions */ "./resources/js/components/notepad/blocks/BlockOptions.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -55646,9 +55647,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
@@ -55657,32 +55658,51 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
+
+function mapStateToProps(state, ownProps) {
+  var block = state.blocks.byId[ownProps.blockId];
+  return {
+    content: block.content
+  };
+}
+
 var TextBlock =
 /*#__PURE__*/
 function (_Component) {
   _inherits(TextBlock, _Component);
 
-  function TextBlock() {
+  function TextBlock(props) {
+    var _this;
+
     _classCallCheck(this, TextBlock);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(TextBlock).apply(this, arguments));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(TextBlock).call(this, props));
+    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
+    return _this;
   }
 
   _createClass(TextBlock, [{
+    key: "handleChange",
+    value: function handleChange(ev) {
+      this.props.setBlockContent(this.props.blockId, ev.target.textContent);
+    }
+  }, {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "block block--text",
         "data-blockid": this.props.blockId,
         "data-lineid": this.props.lineId
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_BlockOptions__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_BlockOptions__WEBPACK_IMPORTED_MODULE_3__["default"], {
         lineId: this.props.lineId,
         blockId: this.props.blockId
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "block__content"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         contentEditable: "true",
-        suppressContentEditableWarning: "true"
+        suppressContentEditableWarning: "true",
+        onBlur: this.handleChange
       }, this.props.content)));
     }
   }]);
@@ -55690,7 +55710,9 @@ function (_Component) {
   return TextBlock;
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
-
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, {
+  setBlockContent: _redux_actions_blocks__WEBPACK_IMPORTED_MODULE_2__["setBlockContent"]
+})(TextBlock));
 
 /***/ }),
 
@@ -56187,20 +56209,23 @@ function (_Component) {
 /*!**********************************************!*\
   !*** ./resources/js/redux/actions/blocks.js ***!
   \**********************************************/
-/*! exports provided: ADD_BLOCK, addTextBlock, addImageBlock */
+/*! exports provided: ADD_BLOCK, SET_BLOCK_CONTENT, addTextBlock, addImageBlock, setBlockContent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ADD_BLOCK", function() { return ADD_BLOCK; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_BLOCK_CONTENT", function() { return SET_BLOCK_CONTENT; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addTextBlock", function() { return addTextBlock; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addImageBlock", function() { return addImageBlock; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setBlockContent", function() { return setBlockContent; });
 /* harmony import */ var uuid_v4__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! uuid/v4 */ "./node_modules/uuid/v4.js");
 /* harmony import */ var uuid_v4__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(uuid_v4__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _components_notepad_blocks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/notepad/blocks */ "./resources/js/components/notepad/blocks/index.js");
 
 
 var ADD_BLOCK = 'ADD_BLOCK';
+var SET_BLOCK_CONTENT = 'SET_BLOCK_CONTENT';
 function addTextBlock() {
   return {
     type: ADD_BLOCK,
@@ -56213,6 +56238,13 @@ function addImageBlock() {
     type: ADD_BLOCK,
     id: uuid_v4__WEBPACK_IMPORTED_MODULE_0___default()(),
     block_type: _components_notepad_blocks__WEBPACK_IMPORTED_MODULE_1__["IMAGE_BLOCK"]
+  };
+}
+function setBlockContent(id, content) {
+  return {
+    type: SET_BLOCK_CONTENT,
+    id: id,
+    content: content
   };
 }
 
@@ -56377,6 +56409,14 @@ function blocks() {
           content: ''
         })),
         allIds: [].concat(_toConsumableArray(state.allIds), [action.id])
+      };
+
+    case _actions_blocks__WEBPACK_IMPORTED_MODULE_0__["SET_BLOCK_CONTENT"]:
+      return {
+        byId: _objectSpread({}, state.byId, _defineProperty({}, action.id, _objectSpread({}, state.byId[action.id], {
+          content: action.content
+        }))),
+        allIds: state.allIds
       };
 
     default:
