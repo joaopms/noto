@@ -1,2 +1,2 @@
-database/
-config.env
+/database/
+/config.env

@@ -1,1 +1,1 @@
-sudo chown $(id -u):$(id -g) -R src/ database/
+sudo chown $(id -u):$(id -g) -R src/
