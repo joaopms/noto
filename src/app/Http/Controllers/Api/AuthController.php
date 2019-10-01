@@ -22,6 +22,9 @@ class AuthController extends Controller
 
         // Get the user and return the API token
         $user = User::findByEmail($credentials->email);
-        return response()->json(['api_token' => $user->api_token]);
+        return response()->json([
+            'email' => $user->email,
+            'api_token' => $user->api_token
+        ]);
     }
 }

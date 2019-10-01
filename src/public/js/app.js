@@ -48570,7 +48570,7 @@ function warning(message) {
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
+/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -54946,15 +54946,11 @@ module.exports = function(module) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _redux_store__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./redux/store */ "./resources/js/redux/store.js");
-/* harmony import */ var _components_Header__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/Header */ "./resources/js/components/Header.js");
-/* harmony import */ var _components_notepad_NotepadList__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/notepad/NotepadList */ "./resources/js/components/notepad/NotepadList.js");
-/* harmony import */ var _components_notepad_pages_NotepadPageList__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/notepad/pages/NotepadPageList */ "./resources/js/components/notepad/pages/NotepadPageList.js");
-/* harmony import */ var _components_notepad_pages_NotepadPage__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/notepad/pages/NotepadPage */ "./resources/js/components/notepad/pages/NotepadPage.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _redux_store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./redux/store */ "./resources/js/redux/store.js");
+/* harmony import */ var _components_NotoRouter__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/NotoRouter */ "./resources/js/components/NotoRouter.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -54981,80 +54977,6 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
 
-
-
-
-var notepadTestData = [{
-  id: 1,
-  extensions: [{
-    id: 1,
-    type: 'ImageBlockExtension',
-    image: 'https://place-hold.it/2000x100'
-  }]
-}, {
-  id: 2,
-  extensions: [{
-    id: 1,
-    type: 'TextBlockExtension',
-    text: '123'
-  }]
-}, {
-  id: 3,
-  extensions: [{
-    id: 1,
-    type: 'TextBlockExtension',
-    text: '123'
-  }]
-}, {
-  id: 4,
-  extensions: [{
-    id: 1,
-    type: 'ImageBlockExtension',
-    image: 'https://place-hold.it/500x100'
-  }, {
-    id: 2,
-    type: 'TextBlockExtension',
-    text: '123'
-  }, {
-    id: 3,
-    type: 'ImageBlockExtension',
-    image: 'https://place-hold.it/500x100'
-  }]
-}, {
-  id: 5,
-  extensions: [{
-    id: 1,
-    type: 'ImageBlockExtension',
-    image: 'https://place-hold.it/500x100'
-  }, {
-    id: 2,
-    type: 'ImageBlockExtension',
-    image: 'https://place-hold.it/500x100'
-  }]
-}, {
-  id: 6,
-  extensions: [{
-    id: 1,
-    type: 'ImageBlockExtension',
-    image: 'https://place-hold.it/500x100'
-  }, {
-    id: 2,
-    type: 'TextBlockExtension',
-    text: '123'
-  }]
-}, {
-  id: 7,
-  extensions: [{
-    id: 1,
-    type: 'ImageBlockExtension',
-    image: 'https://place-hold.it/500x100'
-  }, {
-    id: 2,
-    type: 'TextBlockExtension',
-    text: '123'
-  }]
-}];
-
 var App =
 /*#__PURE__*/
 function (_Component) {
@@ -55069,21 +54991,9 @@ function (_Component) {
   _createClass(App, [{
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_redux__WEBPACK_IMPORTED_MODULE_3__["Provider"], {
-        store: _redux_store__WEBPACK_IMPORTED_MODULE_4__["default"]
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["BrowserRouter"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Header__WEBPACK_IMPORTED_MODULE_5__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
-        exact: true,
-        path: "/",
-        component: _components_notepad_NotepadList__WEBPACK_IMPORTED_MODULE_6__["default"]
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
-        exact: true,
-        path: "/notepad/:notepadId",
-        component: _components_notepad_pages_NotepadPageList__WEBPACK_IMPORTED_MODULE_7__["default"]
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
-        exact: true,
-        path: "/notepad/:notepadId/page/:pageId",
-        component: _components_notepad_pages_NotepadPage__WEBPACK_IMPORTED_MODULE_8__["default"]
-      })));
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_redux__WEBPACK_IMPORTED_MODULE_2__["Provider"], {
+        store: _redux_store__WEBPACK_IMPORTED_MODULE_3__["default"]
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_NotoRouter__WEBPACK_IMPORTED_MODULE_4__["default"], null));
     }
   }]);
 
@@ -55095,15 +55005,15 @@ function (_Component) {
 var notepadAction = __webpack_require__(/*! ./redux/actions/notepads */ "./resources/js/redux/actions/notepads.js").addNotepad('test notepad');
 
 var notepadId = notepadAction.id;
-_redux_store__WEBPACK_IMPORTED_MODULE_4__["default"].dispatch(notepadAction); // add a page to the notepad
+_redux_store__WEBPACK_IMPORTED_MODULE_3__["default"].dispatch(notepadAction); // add a page to the notepad
 
 var pageAction = __webpack_require__(/*! ./redux/actions/pages */ "./resources/js/redux/actions/pages.js").addPage('test page');
 
 var pageId = pageAction.id;
-_redux_store__WEBPACK_IMPORTED_MODULE_4__["default"].dispatch(pageAction);
-_redux_store__WEBPACK_IMPORTED_MODULE_4__["default"].dispatch(__webpack_require__(/*! ./redux/actions/notepads */ "./resources/js/redux/actions/notepads.js").addPageToNotepad(notepadId, pageId)); // TODO SAMPLE DATA ---------------------------------------------------------------------
+_redux_store__WEBPACK_IMPORTED_MODULE_3__["default"].dispatch(pageAction);
+_redux_store__WEBPACK_IMPORTED_MODULE_3__["default"].dispatch(__webpack_require__(/*! ./redux/actions/notepads */ "./resources/js/redux/actions/notepads.js").addPageToNotepad(notepadId, pageId)); // TODO SAMPLE DATA ---------------------------------------------------------------------
 
-react_dom__WEBPACK_IMPORTED_MODULE_2___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(App, null), document.getElementById('app'));
+react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(App, null), document.getElementById('app'));
 
 /***/ }),
 
@@ -55197,6 +55107,159 @@ function (_Component) {
   }]);
 
   return Header;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/NotoRouter.js":
+/*!***********************************************!*\
+  !*** ./resources/js/components/NotoRouter.js ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _auth_Login__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./auth/Login */ "./resources/js/components/auth/Login.js");
+/* harmony import */ var _Header__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Header */ "./resources/js/components/Header.js");
+/* harmony import */ var _notepad_NotepadList__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./notepad/NotepadList */ "./resources/js/components/notepad/NotepadList.js");
+/* harmony import */ var _notepad_pages_NotepadPageList__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./notepad/pages/NotepadPageList */ "./resources/js/components/notepad/pages/NotepadPageList.js");
+/* harmony import */ var _notepad_pages_NotepadPage__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./notepad/pages/NotepadPage */ "./resources/js/components/notepad/pages/NotepadPage.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+
+
+
+
+
+
+function mapStateToProps(state, ownProps) {
+  return {
+    loggedIn: state.noto.loggedIn
+  };
+}
+
+var NotoRouter =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(NotoRouter, _Component);
+
+  function NotoRouter() {
+    _classCallCheck(this, NotoRouter);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(NotoRouter).apply(this, arguments));
+  }
+
+  _createClass(NotoRouter, [{
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["BrowserRouter"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+        path: "/login"
+      }, this.props.loggedIn ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Redirect"], {
+        to: "/"
+      }) : '', react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_auth_Login__WEBPACK_IMPORTED_MODULE_3__["default"], null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+        path: "/"
+      }, !this.props.loggedIn ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Redirect"], {
+        to: "/login"
+      }) : '', react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Header__WEBPACK_IMPORTED_MODULE_4__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+        exact: true,
+        path: "/",
+        component: _notepad_NotepadList__WEBPACK_IMPORTED_MODULE_5__["default"]
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+        exact: true,
+        path: "/notepad/:notepadId",
+        component: _notepad_pages_NotepadPageList__WEBPACK_IMPORTED_MODULE_6__["default"]
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+        exact: true,
+        path: "/notepad/:notepadId/page/:pageId",
+        component: _notepad_pages_NotepadPage__WEBPACK_IMPORTED_MODULE_7__["default"]
+      }))));
+    }
+  }]);
+
+  return NotoRouter;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, null)(NotoRouter));
+
+/***/ }),
+
+/***/ "./resources/js/components/auth/Login.js":
+/*!***********************************************!*\
+  !*** ./resources/js/components/auth/Login.js ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Login; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var Login =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(Login, _Component);
+
+  function Login() {
+    _classCallCheck(this, Login);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(Login).apply(this, arguments));
+  }
+
+  _createClass(Login, [{
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "login goes here");
+    }
+  }]);
+
+  return Login;
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
 
@@ -56333,6 +56396,30 @@ function addPageToNotepad(notepadId, pageId) {
 
 /***/ }),
 
+/***/ "./resources/js/redux/actions/noto.js":
+/*!********************************************!*\
+  !*** ./resources/js/redux/actions/noto.js ***!
+  \********************************************/
+/*! exports provided: SET_USER_DATA, setUserData */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_USER_DATA", function() { return SET_USER_DATA; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setUserData", function() { return setUserData; });
+/* harmony import */ var uuid_v4__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! uuid/v4 */ "./node_modules/uuid/v4.js");
+/* harmony import */ var uuid_v4__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(uuid_v4__WEBPACK_IMPORTED_MODULE_0__);
+
+var SET_USER_DATA = 'SET_USER_DATA';
+function setUserData(userData) {
+  return {
+    type: SET_USER_DATA,
+    userData: userData
+  };
+}
+
+/***/ }),
+
 /***/ "./resources/js/redux/actions/pages.js":
 /*!*********************************************!*\
   !*** ./resources/js/redux/actions/pages.js ***!
@@ -56438,20 +56525,23 @@ function blocks() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
-/* harmony import */ var _notepads__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./notepads */ "./resources/js/redux/reducers/notepads.js");
-/* harmony import */ var _pages__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./pages */ "./resources/js/redux/reducers/pages.js");
-/* harmony import */ var _lines__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./lines */ "./resources/js/redux/reducers/lines.js");
-/* harmony import */ var _blocks__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./blocks */ "./resources/js/redux/reducers/blocks.js");
+/* harmony import */ var _noto__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./noto */ "./resources/js/redux/reducers/noto.js");
+/* harmony import */ var _notepads__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./notepads */ "./resources/js/redux/reducers/notepads.js");
+/* harmony import */ var _pages__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./pages */ "./resources/js/redux/reducers/pages.js");
+/* harmony import */ var _lines__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./lines */ "./resources/js/redux/reducers/lines.js");
+/* harmony import */ var _blocks__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./blocks */ "./resources/js/redux/reducers/blocks.js");
+
 
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
-  notepads: _notepads__WEBPACK_IMPORTED_MODULE_1__["default"],
-  pages: _pages__WEBPACK_IMPORTED_MODULE_2__["default"],
-  lines: _lines__WEBPACK_IMPORTED_MODULE_3__["default"],
-  blocks: _blocks__WEBPACK_IMPORTED_MODULE_4__["default"]
+  noto: _noto__WEBPACK_IMPORTED_MODULE_1__["default"],
+  notepads: _notepads__WEBPACK_IMPORTED_MODULE_2__["default"],
+  pages: _pages__WEBPACK_IMPORTED_MODULE_3__["default"],
+  lines: _lines__WEBPACK_IMPORTED_MODULE_4__["default"],
+  blocks: _blocks__WEBPACK_IMPORTED_MODULE_5__["default"]
 }));
 
 /***/ }),
@@ -56614,6 +56704,46 @@ function notepads() {
         }))),
         allIds: state.allIds
       };
+
+    default:
+      return state;
+  }
+}
+
+/***/ }),
+
+/***/ "./resources/js/redux/reducers/noto.js":
+/*!*********************************************!*\
+  !*** ./resources/js/redux/reducers/noto.js ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return blocks; });
+/* harmony import */ var _actions_noto__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/noto */ "./resources/js/redux/actions/noto.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+var initialState = {
+  loggedIn: false,
+  user: {}
+};
+function blocks() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case _actions_noto__WEBPACK_IMPORTED_MODULE_0__["SET_USER_DATA"]:
+      return _objectSpread({}, state, {
+        user: action.userData,
+        loggedIn: true
+      });
 
     default:
       return state;

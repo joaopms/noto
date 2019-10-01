@@ -1,126 +1,18 @@
 require('./bootstrap');
 
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import ReactDOM from 'react-dom';
 
 import { Provider } from 'react-redux';
 import store from './redux/store';
 
-import Header from './components/Header';
-import NotepadList from './components/notepad/NotepadList';
-import NotepadPageList from './components/notepad/pages/NotepadPageList';
-import NotepadPage from './components/notepad/pages/NotepadPage';
-
-const notepadTestData = [
-    {
-        id: 1,
-        extensions: [
-            {
-                id: 1,
-                type: 'ImageBlockExtension',
-                image: 'https://place-hold.it/2000x100'
-            }
-        ]
-    },
-    {
-        id: 2,
-        extensions: [
-            {
-                id: 1,
-                type: 'TextBlockExtension',
-                text: '123'
-            }
-        ]
-    },
-    {
-        id: 3,
-        extensions: [
-            {
-                id: 1,
-                type: 'TextBlockExtension',
-                text: '123'
-            }
-        ]
-    },
-    {
-        id: 4,
-        extensions: [
-            {
-                id: 1,
-                type: 'ImageBlockExtension',
-                image: 'https://place-hold.it/500x100'
-            },
-            {
-                id: 2,
-                type: 'TextBlockExtension',
-                text: '123'
-            },
-            {
-                id: 3,
-                type: 'ImageBlockExtension',
-                image: 'https://place-hold.it/500x100'
-            }
-        ]
-    },
-    {
-        id: 5,
-        extensions: [
-            {
-                id: 1,
-                type: 'ImageBlockExtension',
-                image: 'https://place-hold.it/500x100'
-            },
-            {
-                id: 2,
-                type: 'ImageBlockExtension',
-                image: 'https://place-hold.it/500x100'
-            },
-        ]
-    },
-    {
-        id: 6,
-        extensions: [
-            {
-                id: 1,
-                type: 'ImageBlockExtension',
-                image: 'https://place-hold.it/500x100'
-            },
-            {
-                id: 2,
-                type: 'TextBlockExtension',
-                text: '123'
-            }
-        ]
-    },
-    {
-        id: 7,
-        extensions: [
-            {
-                id: 1,
-                type: 'ImageBlockExtension',
-                image: 'https://place-hold.it/500x100'
-            },
-            {
-                id: 2,
-                type: 'TextBlockExtension',
-                text: '123'
-            }
-        ]
-    }
-];
+import NotoRouter from './components/NotoRouter';
 
 class App extends Component {
     render() {
         return (
             <Provider store={store}>
-                <Router>
-                    <Header />
-
-                    <Route exact path="/" component={NotepadList} />
-                    <Route exact path="/notepad/:notepadId" component={NotepadPageList} />
-                    <Route exact path="/notepad/:notepadId/page/:pageId" component={NotepadPage} />
-                </Router>
+                <NotoRouter />
             </Provider>
         );
     }
