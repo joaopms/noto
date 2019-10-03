@@ -28,6 +28,8 @@ class Login extends Component {
             var { data } = response;
             this.setState({ errors: [] });
             this.props.setUserData(data);
+
+            localStorage.setItem('user', JSON.stringify(data));
         } catch (error) {
             var { data } = error.response;
             this.setState({

@@ -18,6 +18,14 @@ class App extends Component {
     }
 }
 
+// Load the user from localStorage
+const userData = localStorage.getItem('user');
+if (userData) {
+    const userDataAction = require('./redux/actions/noto').setUserData(JSON.parse(userData));
+    store.dispatch(userDataAction);
+    console.log('Loaded user data from local storage');
+}
+
 // TODO SAMPLE DATA ---------------------------------------------------------------------
 // add a notepad
 const notepadAction = require('./redux/actions/notepads').addNotepad('test notepad');

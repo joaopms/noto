@@ -55747,7 +55747,17 @@ function (_Component) {
   }]);
 
   return App;
-}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]); // TODO SAMPLE DATA ---------------------------------------------------------------------
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]); // Load the user from localStorage
+
+
+var userData = localStorage.getItem('user');
+
+if (userData) {
+  var userDataAction = __webpack_require__(/*! ./redux/actions/noto */ "./resources/js/redux/actions/noto.js").setUserData(JSON.parse(userData));
+
+  _redux_store__WEBPACK_IMPORTED_MODULE_3__["default"].dispatch(userDataAction);
+  console.log('Loaded user data from local storage');
+} // TODO SAMPLE DATA ---------------------------------------------------------------------
 // add a notepad
 
 
@@ -56050,23 +56060,24 @@ function (_Component) {
                   errors: []
                 });
                 this.props.setUserData(data);
-                _context.next = 14;
+                localStorage.setItem('user', JSON.stringify(data));
+                _context.next = 15;
                 break;
 
-              case 10:
-                _context.prev = 10;
+              case 11:
+                _context.prev = 11;
                 _context.t0 = _context["catch"](1);
                 data = _context.t0.response.data;
                 this.setState({
                   errors: data.errors
                 });
 
-              case 14:
+              case 15:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[1, 10]]);
+        }, _callee, this, [[1, 11]]);
       }));
 
       function handleSubmit(_x) {
