@@ -1,4 +1,4 @@
-import { SET_USER_DATA } from '../actions/noto';
+import { SET_USER_DATA, CLEAR_DATA } from '../actions/noto';
 
 const initialState = {
     loggedIn: false,
@@ -13,6 +13,8 @@ export default function blocks(state = initialState, action) {
                 user: action.userData,
                 loggedIn: true
             }
+        case CLEAR_DATA:
+            return initialState;
         default:
             return state;
     }
