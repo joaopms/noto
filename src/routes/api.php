@@ -18,7 +18,9 @@ Route::group(['middleware' => ['guest']], function () {
 });
 
 Route::group(['middleware' => ['auth:api']], function () {
-    Route::get('/user', function (Request $request) {
+    Route::post('sync', 'Api\NotepadController@sync')->name('sync');
+
+    Route::get('user', function (Request $request) {
         return $request->user();
     });
 });

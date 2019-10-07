@@ -9,7 +9,7 @@ export function addTextBlock() {
     return {
         type: ADD_BLOCK,
         id: uuidv4(),
-        block_type: TEXT_BLOCK
+        blockType: TEXT_BLOCK
     };
 }
 
@@ -17,7 +17,7 @@ export function addImageBlock() {
     return {
         type: ADD_BLOCK,
         id: uuidv4(),
-        block_type: IMAGE_BLOCK
+        blockType: IMAGE_BLOCK
     };
 }
 

@@ -55845,6 +55845,13 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+function mapStateToProps(state, ownProps) {
+  var pendingActions = state.noto.pendingActions;
+  return {
+    pendingActions: pendingActions
+  };
+}
+
 var Header =
 /*#__PURE__*/
 function (_Component) {
@@ -55856,11 +55863,21 @@ function (_Component) {
     _classCallCheck(this, Header);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Header).call(this, props));
+    _this.handleSync = _this.handleSync.bind(_assertThisInitialized(_this));
     _this.handleLogout = _this.handleLogout.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(Header, [{
+    key: "handleSync",
+    value: function handleSync() {
+      axios.post('/api/sync', this.props.pendingActions).then(function (response) {
+        return console.log(response);
+      }).then(function (error) {
+        return console.error(error);
+      });
+    }
+  }, {
     key: "handleLogout",
     value: function handleLogout() {
       this.props.clearData();
@@ -55876,6 +55893,9 @@ function (_Component) {
         className: "navbar-brand"
       }, "Noto"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "btn btn-outline-light btn-sm",
+        onClick: this.handleSync
+      }, "Sync"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "btn btn-outline-light btn-sm",
         onClick: this.handleLogout
       }, "Logout"));
     }
@@ -55884,7 +55904,7 @@ function (_Component) {
   return Header;
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(null, {
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapStateToProps, {
   clearData: _redux_actions_noto__WEBPACK_IMPORTED_MODULE_3__["clearData"]
 })(Header));
 
@@ -57188,14 +57208,14 @@ function addTextBlock() {
   return {
     type: ADD_BLOCK,
     id: uuid_v4__WEBPACK_IMPORTED_MODULE_0___default()(),
-    block_type: _components_notepad_blocks__WEBPACK_IMPORTED_MODULE_1__["TEXT_BLOCK"]
+    blockType: _components_notepad_blocks__WEBPACK_IMPORTED_MODULE_1__["TEXT_BLOCK"]
   };
 }
 function addImageBlock() {
   return {
     type: ADD_BLOCK,
     id: uuid_v4__WEBPACK_IMPORTED_MODULE_0___default()(),
-    block_type: _components_notepad_blocks__WEBPACK_IMPORTED_MODULE_1__["IMAGE_BLOCK"]
+    blockType: _components_notepad_blocks__WEBPACK_IMPORTED_MODULE_1__["IMAGE_BLOCK"]
   };
 }
 function setBlockContent(id, content) {
@@ -57305,6 +57325,7 @@ __webpack_require__.r(__webpack_exports__);
 var SET_USER_DATA = 'SET_USER_DATA';
 var CLEAR_DATA = 'CLEAR_DATA';
 function setUserData(userData) {
+  window.axios.defaults.headers.common['Authorization'] = 'Bearer ' + userData.api_token;
   return {
     type: SET_USER_DATA,
     userData: userData
@@ -57392,7 +57413,7 @@ function blocks() {
       return {
         byId: _objectSpread({}, state.byId, _defineProperty({}, action.id, {
           id: action.id,
-          type: action.block_type,
+          type: action.blockType,
           content: ''
         })),
         allIds: [].concat(_toConsumableArray(state.allIds), [action.id])
@@ -57621,6 +57642,14 @@ function notepads() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return blocks; });
 /* harmony import */ var _actions_noto__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/noto */ "./resources/js/redux/actions/noto.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -57630,15 +57659,28 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var initialState = {
   loggedIn: false,
-  user: {}
+  user: {},
+  pendingActions: []
 };
+
+function isActionSyncable(actionType) {
+  return !actionType.startsWith('@') && actionType != _actions_noto__WEBPACK_IMPORTED_MODULE_0__["SET_USER_DATA"] && actionType != _actions_noto__WEBPACK_IMPORTED_MODULE_0__["CLEAR_DATA"];
+}
+
 function blocks() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
   var action = arguments.length > 1 ? arguments[1] : undefined;
+  var newState = state; // Add the action to the pending actions
+
+  if (isActionSyncable(action.type)) {
+    newState = _objectSpread({}, state, {
+      pendingActions: [].concat(_toConsumableArray(state.pendingActions), [action])
+    });
+  }
 
   switch (action.type) {
     case _actions_noto__WEBPACK_IMPORTED_MODULE_0__["SET_USER_DATA"]:
-      return _objectSpread({}, state, {
+      return _objectSpread({}, newState, {
         user: action.userData,
         loggedIn: true
       });
@@ -57647,7 +57689,7 @@ function blocks() {
       return initialState;
 
     default:
-      return state;
+      return newState;
   }
 }
 

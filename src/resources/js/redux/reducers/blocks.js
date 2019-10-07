@@ -13,7 +13,7 @@ export default function blocks(state = initialState, action) {
                     ...state.byId,
                     [action.id]: {
                         id: action.id,
-                        type: action.block_type,
+                        type: action.blockType,
                         content: ''
                     }
                 },

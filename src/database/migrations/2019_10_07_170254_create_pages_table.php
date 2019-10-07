@@ -15,9 +15,9 @@ class CreatePagesTable extends Migration
     {
         Schema::create('notepad_pages', function (Blueprint $table) {
             $table->string('id', 36);
-            $table->string('notepad_id', 36);
+            $table->string('notepad_id', 36)->nullable();
             $table->string('title', 64);
-            $table->mediumText('lines_order');
+            $table->mediumText('line_order')->nullable();
 
             $table->primary('id');
             $table->foreign('notepad_id')->references('id')->on('notepads');

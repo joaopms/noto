@@ -17,7 +17,7 @@ class CreateNotepadsTable extends Migration
             $table->string('id', 36);
             $table->unsignedBigInteger('user_id');
             $table->string('title', 64);
-            $table->mediumText('page_order');
+            $table->mediumText('page_order')->nullable();
 
             $table->primary('id');
             $table->foreign('user_id')->references('id')->on('users');

@@ -15,7 +15,7 @@ class CreateBlocksTable extends Migration
     {
         Schema::create('notepad_blocks', function (Blueprint $table) {
             $table->string('id', 36);
-            $table->string('line_id', 36);
+            $table->string('line_id', 36)->nullable();
             $table->string('type', 32);
             $table->text('content')->nullable();
 
