@@ -57204,8 +57204,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addTextBlock", function() { return addTextBlock; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addImageBlock", function() { return addImageBlock; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setBlockContent", function() { return setBlockContent; });
-/* harmony import */ var uuid_v4__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! uuid/v4 */ "./node_modules/uuid/v4.js");
-/* harmony import */ var uuid_v4__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(uuid_v4__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utils_uuid__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utils/uuid */ "./resources/js/utils/uuid.js");
 /* harmony import */ var _components_notepad_blocks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/notepad/blocks */ "./resources/js/components/notepad/blocks/index.js");
 
 
@@ -57214,14 +57213,14 @@ var SET_BLOCK_CONTENT = 'SET_BLOCK_CONTENT';
 function addTextBlock() {
   return {
     type: ADD_BLOCK,
-    id: uuid_v4__WEBPACK_IMPORTED_MODULE_0___default()(),
+    id: Object(_utils_uuid__WEBPACK_IMPORTED_MODULE_0__["default"])(),
     blockType: _components_notepad_blocks__WEBPACK_IMPORTED_MODULE_1__["TEXT_BLOCK"]
   };
 }
 function addImageBlock() {
   return {
     type: ADD_BLOCK,
-    id: uuid_v4__WEBPACK_IMPORTED_MODULE_0___default()(),
+    id: Object(_utils_uuid__WEBPACK_IMPORTED_MODULE_0__["default"])(),
     blockType: _components_notepad_blocks__WEBPACK_IMPORTED_MODULE_1__["IMAGE_BLOCK"]
   };
 }
@@ -57250,8 +57249,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addLine", function() { return addLine; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addBlockToLine", function() { return addBlockToLine; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeBlockFromLine", function() { return removeBlockFromLine; });
-/* harmony import */ var uuid_v4__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! uuid/v4 */ "./node_modules/uuid/v4.js");
-/* harmony import */ var uuid_v4__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(uuid_v4__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utils_uuid__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utils/uuid */ "./resources/js/utils/uuid.js");
 
 var ADD_LINE = 'ADD_LINE';
 var ADD_BLOCK_TO_LINE = 'ADD_BLOCK_TO_LINE';
@@ -57259,7 +57257,7 @@ var REMOVE_BLOCK_FROM_LINE = 'REMOVE_BLOCK_FROM_LINE';
 function addLine() {
   return {
     type: ADD_LINE,
-    id: uuid_v4__WEBPACK_IMPORTED_MODULE_0___default()()
+    id: Object(_utils_uuid__WEBPACK_IMPORTED_MODULE_0__["default"])()
   };
 }
 function addBlockToLine(lineId, blockId, previousBlockId, beforeBlock) {
@@ -57294,15 +57292,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ADD_PAGE_TO_NOTEPAD", function() { return ADD_PAGE_TO_NOTEPAD; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addNotepad", function() { return addNotepad; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addPageToNotepad", function() { return addPageToNotepad; });
-/* harmony import */ var uuid_v4__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! uuid/v4 */ "./node_modules/uuid/v4.js");
-/* harmony import */ var uuid_v4__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(uuid_v4__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utils_uuid__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utils/uuid */ "./resources/js/utils/uuid.js");
 
 var ADD_NOTEPAD = 'ADD_NOTEPAD';
 var ADD_PAGE_TO_NOTEPAD = 'ADD_PAGE_TO_NOTEPAD';
 function addNotepad(title) {
   return {
     type: ADD_NOTEPAD,
-    id: uuid_v4__WEBPACK_IMPORTED_MODULE_0___default()(),
+    id: Object(_utils_uuid__WEBPACK_IMPORTED_MODULE_0__["default"])(),
     title: title
   };
 }
@@ -57367,15 +57364,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ADD_LINE_TO_PAGE", function() { return ADD_LINE_TO_PAGE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addPage", function() { return addPage; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addLineToPage", function() { return addLineToPage; });
-/* harmony import */ var uuid_v4__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! uuid/v4 */ "./node_modules/uuid/v4.js");
-/* harmony import */ var uuid_v4__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(uuid_v4__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utils_uuid__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utils/uuid */ "./resources/js/utils/uuid.js");
 
 var ADD_PAGE = 'ADD_PAGE';
 var ADD_LINE_TO_PAGE = 'ADD_LINE_TO_PAGE';
 function addPage(title) {
   return {
     type: ADD_PAGE,
-    id: uuid_v4__WEBPACK_IMPORTED_MODULE_0___default()(),
+    id: Object(_utils_uuid__WEBPACK_IMPORTED_MODULE_0__["default"])(),
     title: title
   };
 }
@@ -57790,6 +57786,25 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"])(_reducers__WEBPACK_IMPORTED_MODULE_1__["default"], window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()));
+
+/***/ }),
+
+/***/ "./resources/js/utils/uuid.js":
+/*!************************************!*\
+  !*** ./resources/js/utils/uuid.js ***!
+  \************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var uuid_v4__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! uuid/v4 */ "./node_modules/uuid/v4.js");
+/* harmony import */ var uuid_v4__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(uuid_v4__WEBPACK_IMPORTED_MODULE_0__);
+
+/* harmony default export */ __webpack_exports__["default"] = (function () {
+  var uuid = uuid_v4__WEBPACK_IMPORTED_MODULE_0___default()();
+  return uuid.split('-').join("");
+});
 
 /***/ }),
 

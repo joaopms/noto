@@ -1,4 +1,4 @@
-import uuidv4 from 'uuid/v4';
+import uuid from '../../utils/uuid';
 
 import { TEXT_BLOCK, IMAGE_BLOCK } from '../../components/notepad/blocks';
 
@@ -8,7 +8,7 @@ export const SET_BLOCK_CONTENT = 'SET_BLOCK_CONTENT';
 export function addTextBlock() {
     return {
         type: ADD_BLOCK,
-        id: uuidv4(),
+        id: uuid(),
         blockType: TEXT_BLOCK
     };
 }
@@ -16,7 +16,7 @@ export function addTextBlock() {
 export function addImageBlock() {
     return {
         type: ADD_BLOCK,
-        id: uuidv4(),
+        id: uuid(),
         blockType: IMAGE_BLOCK
     };
 }

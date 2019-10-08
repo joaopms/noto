@@ -14,8 +14,8 @@ class CreatePagesTable extends Migration
     public function up()
     {
         Schema::create('notepad_pages', function (Blueprint $table) {
-            $table->string('id', 36);
-            $table->string('notepad_id', 36)->nullable();
+            $table->string('id', 32);
+            $table->string('notepad_id', 32)->nullable();
             $table->string('title', 64);
             $table->mediumText('line_order')->default('[]');
 

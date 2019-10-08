@@ -14,7 +14,7 @@ class CreateNotepadsTable extends Migration
     public function up()
     {
         Schema::create('notepads', function (Blueprint $table) {
-            $table->string('id', 36);
+            $table->string('id', 32);
             $table->unsignedBigInteger('user_id');
             $table->string('title', 64);
             $table->mediumText('page_order')->default('[]');

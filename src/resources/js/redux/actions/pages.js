@@ -1,4 +1,4 @@
-import uuidv4 from 'uuid/v4';
+import uuid from '../../utils/uuid';
 
 export const ADD_PAGE = 'ADD_PAGE';
 export const ADD_LINE_TO_PAGE = 'ADD_LINE_TO_PAGE';
@@ -6,7 +6,7 @@ export const ADD_LINE_TO_PAGE = 'ADD_LINE_TO_PAGE';
 export function addPage(title) {
     return {
         type: ADD_PAGE,
-        id: uuidv4(),
+        id: uuid(),
         title
     };
 }

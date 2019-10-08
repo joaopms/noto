@@ -1,4 +1,4 @@
-import uuidv4 from 'uuid/v4';
+import uuid from '../../utils/uuid';
 
 export const ADD_NOTEPAD = 'ADD_NOTEPAD';
 export const ADD_PAGE_TO_NOTEPAD = 'ADD_PAGE_TO_NOTEPAD';
@@ -6,7 +6,7 @@ export const ADD_PAGE_TO_NOTEPAD = 'ADD_PAGE_TO_NOTEPAD';
 export function addNotepad(title) {
     return {
         type: ADD_NOTEPAD,
-        id: uuidv4(),
+        id: uuid(),
         title
     };
 }
