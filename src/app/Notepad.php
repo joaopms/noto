@@ -10,6 +10,10 @@ class Notepad extends Model
     public $timestamps = false;
     protected $keyType = 'string';
 
+    protected $casts = [
+        'page_order' => 'array',
+    ];
+
     public function pages()
     {
         return $this->hasMany('App\NotepadPage');

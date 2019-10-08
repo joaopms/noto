@@ -55845,7 +55845,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state) {
   var pendingActions = state.noto.pendingActions;
   return {
     pendingActions: pendingActions
@@ -55871,11 +55871,13 @@ function (_Component) {
   _createClass(Header, [{
     key: "handleSync",
     value: function handleSync() {
+      // TODO Handle this better: save the transactions, clear them and sync them. Also handle errors
       axios.post('/api/sync', this.props.pendingActions).then(function (response) {
         return console.log(response);
       }).then(function (error) {
         return console.error(error);
       });
+      this.props.clearPendingActions();
     }
   }, {
     key: "handleLogout",
@@ -55905,7 +55907,8 @@ function (_Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapStateToProps, {
-  clearData: _redux_actions_noto__WEBPACK_IMPORTED_MODULE_3__["clearData"]
+  clearData: _redux_actions_noto__WEBPACK_IMPORTED_MODULE_3__["clearData"],
+  clearPendingActions: _redux_actions_noto__WEBPACK_IMPORTED_MODULE_3__["clearPendingActions"]
 })(Header));
 
 /***/ }),
@@ -56434,7 +56437,11 @@ function (_Component) {
     value: function bro(ev) {
       this.isMoving = true; // Unfocus the block before moving
 
-      document.querySelector(".block[data-blockid='".concat(this.props.blockId, "'] .block__content")).firstChild.blur();
+      var block = document.querySelector(".block[data-blockid='".concat(this.props.blockId, "'] .block__content"));
+
+      if (block && block.firstChild) {
+        block.firstChild.blur();
+      }
     }
   }, {
     key: "broa",
@@ -57313,17 +57320,20 @@ function addPageToNotepad(notepadId, pageId) {
 /*!********************************************!*\
   !*** ./resources/js/redux/actions/noto.js ***!
   \********************************************/
-/*! exports provided: SET_USER_DATA, CLEAR_DATA, setUserData, clearData */
+/*! exports provided: SET_USER_DATA, CLEAR_DATA, CLEAR_PENDING_ACTIONS, setUserData, clearData, clearPendingActions */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_USER_DATA", function() { return SET_USER_DATA; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CLEAR_DATA", function() { return CLEAR_DATA; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CLEAR_PENDING_ACTIONS", function() { return CLEAR_PENDING_ACTIONS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setUserData", function() { return setUserData; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "clearData", function() { return clearData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "clearPendingActions", function() { return clearPendingActions; });
 var SET_USER_DATA = 'SET_USER_DATA';
 var CLEAR_DATA = 'CLEAR_DATA';
+var CLEAR_PENDING_ACTIONS = 'CLEAR_PENDING_ACTIONS';
 function setUserData(userData) {
   window.axios.defaults.headers.common['Authorization'] = 'Bearer ' + userData.api_token;
   return {
@@ -57334,6 +57344,11 @@ function setUserData(userData) {
 function clearData() {
   return {
     type: CLEAR_DATA
+  };
+}
+function clearPendingActions() {
+  return {
+    type: CLEAR_PENDING_ACTIONS
   };
 }
 
@@ -57687,6 +57702,11 @@ function blocks() {
 
     case _actions_noto__WEBPACK_IMPORTED_MODULE_0__["CLEAR_DATA"]:
       return initialState;
+
+    case _actions_noto__WEBPACK_IMPORTED_MODULE_0__["CLEAR_PENDING_ACTIONS"]:
+      return _objectSpread({}, state, {
+        pendingActions: initialState.pendingActions
+      });
 
     default:
       return newState;

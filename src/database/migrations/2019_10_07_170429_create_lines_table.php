@@ -16,7 +16,7 @@ class CreateLinesTable extends Migration
         Schema::create('notepad_lines', function (Blueprint $table) {
             $table->string('id', 36);
             $table->string('page_id', 36)->nullable();
-            $table->mediumText('block_order')->nullable();
+            $table->mediumText('block_order')->default('[]');
 
             $table->primary('id');
             $table->foreign('page_id')->references('id')->on('notepad_pages');

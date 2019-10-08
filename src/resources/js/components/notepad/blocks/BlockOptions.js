@@ -29,7 +29,10 @@ class BlockOptions extends Component {
         this.isMoving = true;
 
         // Unfocus the block before moving
-        document.querySelector(`.block[data-blockid='${this.props.blockId}'] .block__content`).firstChild.blur();
+        var block = document.querySelector(`.block[data-blockid='${this.props.blockId}'] .block__content`);
+        if (block && block.firstChild) {
+            block.firstChild.blur();
+        }
     }
 
     broa(ev) {

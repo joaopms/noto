@@ -50,7 +50,9 @@ class NotepadController extends Controller
 
                         $notepad = Notepad::findOrFail($action["notepadId"]);
                         // TODO Do this properly at the model level (handle as array)
-                        $notepad->page_order .= $action["pageId"] . ',';
+                        $page_order = $notepad->page_order;
+                        array_push($page_order, $action["pageId"]);
+                        $notepad->page_order = $page_order;
                         // FIXME
                         $notepad->save();
 
@@ -72,7 +74,9 @@ class NotepadController extends Controller
 
                         $page = NotepadPage::findOrFail($action["pageId"]);
                         // TODO Do this properly at the model level (handle as array)
-                        $page->line_order .= $action["lineId"] . ',';
+                        $line_order = $page->line_order;
+                        array_push($line_order, $action["lineId"]);
+                        $page->line_order = $line_order;
                         // FIXME
                         $page->save();
 
@@ -88,21 +92,13 @@ class NotepadController extends Controller
                         break;
                     }
                 case 'ADD_BLOCK_TO_LINE': {
-                        // ["blockId"]=>
-                        // string(36) "d7c9399e-3666-461e-ac8b-6714665813ce"
-                        // ["previousBlockId"]=>
-                        // NULL
-                        // ["beforeBlock"]=>
-                        // bool(false)
                         $block = NotepadBlock::findOrFail($action["blockId"]);
                         $block->line_id = $action["lineId"];
                         // FIXME
                         $block->save();
 
                         $line = NotepadLine::findOrFail($action["lineId"]);
-                        // TODO Do this properly at the model level (handle as array)
-                        // TODO Handle adding before and after a certain block
-                        $line->block_order .= $action["blockId"] . ',';
+                        $line->addBlock($action["blockId"], $action["previousBlockId"], $action["beforeBlock"]);
                         // FIXME
                         $line->save();
 
@@ -115,8 +111,7 @@ class NotepadController extends Controller
                         $block->save();
 
                         $line = NotepadLine::findOrFail($action["lineId"]);
-                        // TODO Remove the block from the line
-                        // $line->block_order .= $action["blockId"] . ',';
+                        $line->removeBlock($action["blockId"]);
                         // FIXME
                         $line->save();
 

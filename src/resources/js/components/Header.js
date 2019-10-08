@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { clearData } from '../redux/actions/noto';
+import { clearData, clearPendingActions } from '../redux/actions/noto';
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state) {
     const pendingActions = state.noto.pendingActions;
 
     return {
@@ -21,9 +21,11 @@ class Header extends Component {
     }
 
     handleSync() {
+        // TODO Handle this better: save the transactions, clear them and sync them. Also handle errors
         axios.post('/api/sync', this.props.pendingActions)
             .then(response => console.log(response))
             .then(error => console.error(error));
+        this.props.clearPendingActions();
     }
 
     handleLogout() {
@@ -45,5 +47,5 @@ class Header extends Component {
 
 export default connect(
     mapStateToProps,
-    { clearData }
+    { clearData, clearPendingActions }
 )(Header);
