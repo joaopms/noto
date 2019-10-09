@@ -136,4 +136,35 @@ class NotepadController extends Controller
             }
         }
     }
+
+    /**
+     * Gets all the notepads of a user
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function getNotepads()
+    {
+        $user = Auth::user();
+        $structuredNotepads = $user->notepads;
+
+        $notepads = [];
+        $notepadIds = [];
+
+        // Turn structured data into client-side's flat data
+        foreach ($structuredNotepads as $notepad) {
+            array_push($notepadIds, $notepad->id);
+            $notepads[$notepad->id] = $notepad;
+
+            // Rename the object property "page_order" to "pages"
+            unset($notepad->pages);
+            $notepad->pages = $notepad->page_order;
+            unset($notepad->page_order);
+        }
+
+        return [
+            'byId' => $notepads,
+            'allIds' => $notepadIds
+        ];
+    }
 }

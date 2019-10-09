@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import { setNotepadData } from '../../redux/actions/notepads';
+
 import NotepadAdd from './NotepadAdd';
 
 function mapStateToProps(state) {
@@ -11,6 +13,14 @@ function mapStateToProps(state) {
 class NotepadList extends Component {
     constructor(props) {
         super(props);
+    }
+
+    componentDidMount() {
+        // Load the notepads from the server
+        // TODO Handle this better
+        axios.get('/api/getNotepads')
+            .then(response => this.props.setNotepadData(response.data))
+            .then(error => console.error(error));
     }
 
     render() {
@@ -37,5 +47,5 @@ class NotepadList extends Component {
 
 export default connect(
     mapStateToProps,
-    null
+    { setNotepadData }
 )(NotepadList)

@@ -1,5 +1,5 @@
 import uuidv4 from 'uuid/v4';
-import { ADD_NOTEPAD, ADD_PAGE_TO_NOTEPAD } from '../actions/notepads';
+import { ADD_NOTEPAD, ADD_PAGE_TO_NOTEPAD, SET_NOTEPAD_DATA } from '../actions/notepads';
 
 const initialState = {
     byId: {},
@@ -38,6 +38,8 @@ export default function notepads(state = initialState, action) {
                 },
                 allIds: state.allIds
             }
+        case SET_NOTEPAD_DATA:
+            return action.notepadData;
         default:
             return state;
     }

@@ -41,4 +41,9 @@ class User extends Authenticatable
     {
         return User::where('email', '=', $email)->firstOrFail();
     }
+
+    public function notepads()
+    {
+        return $this->hasMany('App\Notepad');
+    }
 }

@@ -10,6 +10,8 @@ class Notepad extends Model
     public $timestamps = false;
     protected $keyType = 'string';
 
+    protected $hidden = ['user_id'];
+
     protected $casts = [
         'page_order' => 'array',
     ];
@@ -17,5 +19,10 @@ class Notepad extends Model
     public function pages()
     {
         return $this->hasMany('App\NotepadPage');
+    }
+
+    public static function allByUser($user_id)
+    {
+        return Notepad::all()->where('user_id', '=', $user_id);
     }
 }

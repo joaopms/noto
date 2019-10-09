@@ -56299,7 +56299,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _NotepadAdd__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./NotepadAdd */ "./resources/js/components/notepad/NotepadAdd.js");
+/* harmony import */ var _redux_actions_notepads__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../redux/actions/notepads */ "./resources/js/redux/actions/notepads.js");
+/* harmony import */ var _NotepadAdd__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./NotepadAdd */ "./resources/js/components/notepad/NotepadAdd.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -56317,6 +56318,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -56341,26 +56343,41 @@ function (_Component) {
   }
 
   _createClass(NotepadList, [{
-    key: "render",
-    value: function render() {
+    key: "componentDidMount",
+    value: function componentDidMount() {
       var _this = this;
 
+      // Load the notepads from the server
+      // TODO Handle this better
+      axios.get('/api/getNotepads').then(function (response) {
+        return _this.props.setNotepadData(response.data);
+      }).then(function (error) {
+        return console.error(error);
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
       var notepadList = this.props.notepads.allIds.map(function (notepadId) {
-        var notepad = _this.props.notepads.byId[notepadId];
+        var notepad = _this2.props.notepads.byId[notepadId];
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
           key: notepad.id
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
           to: '/notepad/' + notepad.id
         }, notepad.title));
       });
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_NotepadAdd__WEBPACK_IMPORTED_MODULE_3__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, notepadList));
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_NotepadAdd__WEBPACK_IMPORTED_MODULE_4__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, notepadList));
     }
   }]);
 
   return NotepadList;
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, null)(NotepadList));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, {
+  setNotepadData: _redux_actions_notepads__WEBPACK_IMPORTED_MODULE_3__["setNotepadData"]
+})(NotepadList));
 
 /***/ }),
 
@@ -57283,19 +57300,22 @@ function removeBlockFromLine(lineId, blockId) {
 /*!************************************************!*\
   !*** ./resources/js/redux/actions/notepads.js ***!
   \************************************************/
-/*! exports provided: ADD_NOTEPAD, ADD_PAGE_TO_NOTEPAD, addNotepad, addPageToNotepad */
+/*! exports provided: ADD_NOTEPAD, ADD_PAGE_TO_NOTEPAD, SET_NOTEPAD_DATA, addNotepad, addPageToNotepad, setNotepadData */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ADD_NOTEPAD", function() { return ADD_NOTEPAD; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ADD_PAGE_TO_NOTEPAD", function() { return ADD_PAGE_TO_NOTEPAD; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_NOTEPAD_DATA", function() { return SET_NOTEPAD_DATA; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addNotepad", function() { return addNotepad; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addPageToNotepad", function() { return addPageToNotepad; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setNotepadData", function() { return setNotepadData; });
 /* harmony import */ var _utils_uuid__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utils/uuid */ "./resources/js/utils/uuid.js");
 
 var ADD_NOTEPAD = 'ADD_NOTEPAD';
 var ADD_PAGE_TO_NOTEPAD = 'ADD_PAGE_TO_NOTEPAD';
+var SET_NOTEPAD_DATA = 'SET_NOTEPAD_DATA';
 function addNotepad(title) {
   return {
     type: ADD_NOTEPAD,
@@ -57308,6 +57328,12 @@ function addPageToNotepad(notepadId, pageId) {
     type: ADD_PAGE_TO_NOTEPAD,
     notepadId: notepadId,
     pageId: pageId
+  };
+}
+function setNotepadData(notepadData) {
+  return {
+    type: SET_NOTEPAD_DATA,
+    notepadData: notepadData
   };
 }
 
@@ -57634,6 +57660,9 @@ function notepads() {
         }))),
         allIds: state.allIds
       };
+
+    case _actions_notepads__WEBPACK_IMPORTED_MODULE_1__["SET_NOTEPAD_DATA"]:
+      return action.notepadData;
 
     default:
       return state;
