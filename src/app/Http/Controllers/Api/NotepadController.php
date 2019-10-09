@@ -36,6 +36,7 @@ class NotepadController extends Controller
                 case 'ADD_PAGE': {
                         $page = new NotepadPage;
                         $page->id = $action["id"];
+                        $page->user_id = Auth::user()->id;
                         $page->title = $action["title"];
                         // FIXME
                         $page->save();
@@ -61,6 +62,7 @@ class NotepadController extends Controller
                 case 'ADD_LINE': {
                         $line = new NotepadLine;
                         $line->id = $action["id"];
+                        $line->user_id = Auth::user()->id;
                         // FIXME
                         $line->save();
 
@@ -85,6 +87,7 @@ class NotepadController extends Controller
                 case 'ADD_BLOCK': {
                         $block = new NotepadBlock;
                         $block->id = $action["id"];
+                        $block->user_id = Auth::user()->id;
                         $block->type = $action["blockType"];
                         // FIXME
                         $block->save();

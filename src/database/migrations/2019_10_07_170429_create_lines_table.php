@@ -16,10 +16,12 @@ class CreateLinesTable extends Migration
         Schema::create('notepad_lines', function (Blueprint $table) {
             $table->string('id', 32);
             $table->string('page_id', 32)->nullable();
+            $table->unsignedBigInteger('user_id');
             $table->mediumText('block_order')->default('[]');
 
             $table->primary('id');
             $table->foreign('page_id')->references('id')->on('notepad_pages');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
