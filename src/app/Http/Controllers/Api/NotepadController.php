@@ -8,6 +8,7 @@ use App\NotepadPage;
 use App\NotepadBlock;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\GetPagesRequest;
 use Illuminate\Support\Facades\Auth;
 
 class NotepadController extends Controller
@@ -22,6 +23,7 @@ class NotepadController extends Controller
     {
         foreach ($request->all() as $action) {
             // TODO Transaction
+            // TODO Authentication
             switch ($action["type"]) {
                 case 'ADD_NOTEPAD': {
                         $notepad = new Notepad;
@@ -165,6 +167,37 @@ class NotepadController extends Controller
         return [
             'byId' => $notepads,
             'allIds' => $notepadIds
+        ];
+    }
+
+    /**
+     * Gets all the pages of a notepad
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function getPages(GetPagesRequest $request)
+    {
+        $notepad = Notepad::findOrFail($request->notepad_id);
+        $structuredPages = $notepad->pages;
+
+        $pages = [];
+        $pageIds = [];
+
+        // Turn structured data into client-side's flat data
+        foreach ($structuredPages as $page) {
+            array_push($pageIds, $page->id);
+            $pages[$page->id] = $page;
+
+            // Rename the object property "line_order" to "lines"
+            unset($page->lines);
+            $page->lines = $page->line_order;
+            unset($page->line_order);
+        }
+
+        return [
+            'byId' => $pages,
+            'allIds' => $pageIds
         ];
     }
 }

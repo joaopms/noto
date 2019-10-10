@@ -20,6 +20,7 @@ Route::group(['middleware' => ['guest']], function () {
 Route::group(['middleware' => ['auth:api']], function () {
     Route::post('sync', 'Api\NotepadController@sync')->name('sync');
     Route::get('getNotepads', 'Api\NotepadController@getNotepads')->name('getNotepads');
+    Route::post('getPages', 'Api\NotepadController@getPages')->name('getPages');
 
     Route::get('user', function (Request $request) {
         return $request->user();

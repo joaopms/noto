@@ -1,4 +1,4 @@
-import { ADD_PAGE, ADD_LINE_TO_PAGE } from '../actions/pages';
+import { ADD_PAGE, ADD_LINE_TO_PAGE, SET_PAGE_DATA } from '../actions/pages';
 
 const initialState = {
     byId: {},
@@ -37,6 +37,8 @@ export default function pages(state = initialState, action) {
                 },
                 allIds: state.allIds
             }
+        case SET_PAGE_DATA:
+            return action.pageData;
         default:
             return state;
     }

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import { setPageData } from '../../../redux/actions/pages';
+
 import NotepadPageAdd from './NotepadPageAdd';
 
 function mapStateToProps(state, ownProps) {
@@ -20,12 +22,24 @@ class NotepadPageList extends Component {
         super(props);
     }
 
+    componentDidMount() {
+        // Load the pages from the server
+        // TODO Handle this better
+        axios.post('/api/getPages', { notepad_id: this.props.notepad.id })
+            .then(response => this.props.setPageData(response.data))
+            .then(error => console.error(error));
+    }
+
     render() {
-        const pageList = this.props.pages.map(page =>
-            <li key={page.id}>
-                <Link to={'/notepad/' + this.props.notepad.id + '/page/' + page.id}>{page.title}</Link>
-            </li>
-        );
+        var pageList = [];
+
+        if (this.props.pages.length) {
+            pageList = this.props.pages.filter(page => page).map(page =>
+                <li key={page.id}>
+                    <Link to={'/notepad/' + this.props.notepad.id + '/page/' + page.id}>{page.title}</Link>
+                </li>
+            );
+        }
 
         return (
             <div>
@@ -41,5 +55,5 @@ class NotepadPageList extends Component {
 
 export default connect(
     mapStateToProps,
-    null
+    { setPageData }
 )(NotepadPageList)
