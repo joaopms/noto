@@ -56923,9 +56923,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _lines_NotepadLineAdd__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../lines/NotepadLineAdd */ "./resources/js/components/notepad/lines/NotepadLineAdd.js");
-/* harmony import */ var _lines_NotepadLine__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../lines/NotepadLine */ "./resources/js/components/notepad/lines/NotepadLine.js");
-/* harmony import */ var _blocks__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../blocks */ "./resources/js/components/notepad/blocks/index.js");
+/* harmony import */ var _redux_actions_lines__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../redux/actions/lines */ "./resources/js/redux/actions/lines.js");
+/* harmony import */ var _redux_actions_blocks__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../redux/actions/blocks */ "./resources/js/redux/actions/blocks.js");
+/* harmony import */ var _lines_NotepadLineAdd__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../lines/NotepadLineAdd */ "./resources/js/components/notepad/lines/NotepadLineAdd.js");
+/* harmony import */ var _lines_NotepadLine__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../lines/NotepadLine */ "./resources/js/components/notepad/lines/NotepadLine.js");
+/* harmony import */ var _blocks__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../blocks */ "./resources/js/components/notepad/blocks/index.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -56943,6 +56945,8 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
 
 
 
@@ -56979,14 +56983,35 @@ function (_Component) {
   }
 
   _createClass(NotepadPage, [{
-    key: "render",
-    value: function render() {
+    key: "componentDidMount",
+    value: function componentDidMount() {
       var _this = this;
 
-      var lines = this.props.lines.map(function (line) {
-        var blocks = line.blocks.map(function (blockId) {
-          var block = _this.props.blocks.byId[blockId];
-          var Block = _blocks__WEBPACK_IMPORTED_MODULE_4__["default"][block.type];
+      // Load the content from the server
+      // TODO Handle this better
+      axios.post('/api/getPageContent', {
+        page_id: this.props.page.id
+      }).then(function (response) {
+        _this.props.setLineData(response.data.lines);
+
+        _this.props.setBlockData(response.data.blocks);
+      }).then(function (error) {
+        return console.error(error);
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      var lines = this.props.lines.filter(function (line) {
+        return line;
+      }).map(function (line) {
+        var blocks = line.blocks.filter(function (blockId) {
+          return _this2.props.blocks.byId[blockId];
+        }).map(function (blockId) {
+          var block = _this2.props.blocks.byId[blockId];
+          var Block = _blocks__WEBPACK_IMPORTED_MODULE_6__["default"][block.type];
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Block, {
             key: block.id,
             lineId: line.id,
@@ -56994,14 +57019,14 @@ function (_Component) {
             content: block.content
           });
         });
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_lines_NotepadLine__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_lines_NotepadLine__WEBPACK_IMPORTED_MODULE_5__["default"], {
           key: line.id,
           lineId: line.id
         }, blocks);
       });
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "notepad"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_lines_NotepadLineAdd__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_lines_NotepadLineAdd__WEBPACK_IMPORTED_MODULE_4__["default"], {
         pageId: this.props.page.id
       }), lines);
     }
@@ -57010,7 +57035,10 @@ function (_Component) {
   return NotepadPage;
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, null)(NotepadPage));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, {
+  setLineData: _redux_actions_lines__WEBPACK_IMPORTED_MODULE_2__["setLineData"],
+  setBlockData: _redux_actions_blocks__WEBPACK_IMPORTED_MODULE_3__["setBlockData"]
+})(NotepadPage));
 
 /***/ }),
 
@@ -57237,22 +57265,25 @@ function (_Component) {
 /*!**********************************************!*\
   !*** ./resources/js/redux/actions/blocks.js ***!
   \**********************************************/
-/*! exports provided: ADD_BLOCK, SET_BLOCK_CONTENT, addTextBlock, addImageBlock, setBlockContent */
+/*! exports provided: ADD_BLOCK, SET_BLOCK_CONTENT, SET_BLOCK_DATA, addTextBlock, addImageBlock, setBlockContent, setBlockData */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ADD_BLOCK", function() { return ADD_BLOCK; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_BLOCK_CONTENT", function() { return SET_BLOCK_CONTENT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_BLOCK_DATA", function() { return SET_BLOCK_DATA; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addTextBlock", function() { return addTextBlock; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addImageBlock", function() { return addImageBlock; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setBlockContent", function() { return setBlockContent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setBlockData", function() { return setBlockData; });
 /* harmony import */ var _utils_uuid__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utils/uuid */ "./resources/js/utils/uuid.js");
 /* harmony import */ var _components_notepad_blocks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/notepad/blocks */ "./resources/js/components/notepad/blocks/index.js");
 
 
 var ADD_BLOCK = 'ADD_BLOCK';
 var SET_BLOCK_CONTENT = 'SET_BLOCK_CONTENT';
+var SET_BLOCK_DATA = 'SET_BLOCK_DATA';
 function addTextBlock() {
   return {
     type: ADD_BLOCK,
@@ -57274,6 +57305,12 @@ function setBlockContent(id, content) {
     content: content
   };
 }
+function setBlockData(blockData) {
+  return {
+    type: SET_BLOCK_DATA,
+    blockData: blockData
+  };
+}
 
 /***/ }),
 
@@ -57281,7 +57318,7 @@ function setBlockContent(id, content) {
 /*!*********************************************!*\
   !*** ./resources/js/redux/actions/lines.js ***!
   \*********************************************/
-/*! exports provided: ADD_LINE, ADD_BLOCK_TO_LINE, REMOVE_BLOCK_FROM_LINE, addLine, addBlockToLine, removeBlockFromLine */
+/*! exports provided: ADD_LINE, ADD_BLOCK_TO_LINE, REMOVE_BLOCK_FROM_LINE, SET_LINE_DATA, addLine, addBlockToLine, removeBlockFromLine, setLineData */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -57289,14 +57326,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ADD_LINE", function() { return ADD_LINE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ADD_BLOCK_TO_LINE", function() { return ADD_BLOCK_TO_LINE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "REMOVE_BLOCK_FROM_LINE", function() { return REMOVE_BLOCK_FROM_LINE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_LINE_DATA", function() { return SET_LINE_DATA; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addLine", function() { return addLine; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addBlockToLine", function() { return addBlockToLine; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeBlockFromLine", function() { return removeBlockFromLine; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setLineData", function() { return setLineData; });
 /* harmony import */ var _utils_uuid__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utils/uuid */ "./resources/js/utils/uuid.js");
 
 var ADD_LINE = 'ADD_LINE';
 var ADD_BLOCK_TO_LINE = 'ADD_BLOCK_TO_LINE';
 var REMOVE_BLOCK_FROM_LINE = 'REMOVE_BLOCK_FROM_LINE';
+var SET_LINE_DATA = 'SET_LINE_DATA';
 function addLine() {
   return {
     type: ADD_LINE,
@@ -57317,6 +57357,12 @@ function removeBlockFromLine(lineId, blockId) {
     type: REMOVE_BLOCK_FROM_LINE,
     lineId: lineId,
     blockId: blockId
+  };
+}
+function setLineData(lineData) {
+  return {
+    type: SET_LINE_DATA,
+    lineData: lineData
   };
 }
 
@@ -57482,22 +57528,31 @@ function blocks() {
 
   switch (action.type) {
     case _actions_blocks__WEBPACK_IMPORTED_MODULE_0__["ADD_BLOCK"]:
-      return {
-        byId: _objectSpread({}, state.byId, _defineProperty({}, action.id, {
-          id: action.id,
-          type: action.blockType,
-          content: ''
-        })),
-        allIds: [].concat(_toConsumableArray(state.allIds), [action.id])
-      };
+      {
+        return {
+          byId: _objectSpread({}, state.byId, _defineProperty({}, action.id, {
+            id: action.id,
+            type: action.blockType,
+            content: ''
+          })),
+          allIds: [].concat(_toConsumableArray(state.allIds), [action.id])
+        };
+      }
 
     case _actions_blocks__WEBPACK_IMPORTED_MODULE_0__["SET_BLOCK_CONTENT"]:
-      return {
-        byId: _objectSpread({}, state.byId, _defineProperty({}, action.id, _objectSpread({}, state.byId[action.id], {
-          content: action.content
-        }))),
-        allIds: state.allIds
-      };
+      {
+        return {
+          byId: _objectSpread({}, state.byId, _defineProperty({}, action.id, _objectSpread({}, state.byId[action.id], {
+            content: action.content
+          }))),
+          allIds: state.allIds
+        };
+      }
+
+    case _actions_blocks__WEBPACK_IMPORTED_MODULE_0__["SET_BLOCK_DATA"]:
+      {
+        return action.blockData;
+      }
 
     default:
       return state;
@@ -57632,6 +57687,11 @@ function lines() {
         allIds: state.allIds
       };
 
+    case _actions_lines__WEBPACK_IMPORTED_MODULE_0__["SET_LINE_DATA"]:
+      {
+        return action.lineData;
+      }
+
     default:
       return state;
   }
@@ -57697,7 +57757,9 @@ function notepads() {
       };
 
     case _actions_notepads__WEBPACK_IMPORTED_MODULE_1__["SET_NOTEPAD_DATA"]:
-      return action.notepadData;
+      {
+        return action.notepadData;
+      }
 
     default:
       return state;
@@ -57755,18 +57817,24 @@ function blocks() {
 
   switch (action.type) {
     case _actions_noto__WEBPACK_IMPORTED_MODULE_0__["SET_USER_DATA"]:
-      return _objectSpread({}, newState, {
-        user: action.userData,
-        loggedIn: true
-      });
+      {
+        return _objectSpread({}, newState, {
+          user: action.userData,
+          loggedIn: true
+        });
+      }
 
     case _actions_noto__WEBPACK_IMPORTED_MODULE_0__["CLEAR_DATA"]:
-      return initialState;
+      {
+        return initialState;
+      }
 
     case _actions_noto__WEBPACK_IMPORTED_MODULE_0__["CLEAR_PENDING_ACTIONS"]:
-      return _objectSpread({}, state, {
-        pendingActions: initialState.pendingActions
-      });
+      {
+        return _objectSpread({}, state, {
+          pendingActions: initialState.pendingActions
+        });
+      }
 
     default:
       return newState;
@@ -57830,7 +57898,9 @@ function pages() {
       };
 
     case _actions_pages__WEBPACK_IMPORTED_MODULE_0__["SET_PAGE_DATA"]:
-      return action.pageData;
+      {
+        return action.pageData;
+      }
 
     default:
       return state;

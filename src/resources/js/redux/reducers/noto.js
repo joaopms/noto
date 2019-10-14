@@ -25,19 +25,22 @@ export default function blocks(state = initialState, action) {
     }
 
     switch (action.type) {
-        case SET_USER_DATA:
+        case SET_USER_DATA: {
             return {
                 ...newState,
                 user: action.userData,
                 loggedIn: true
             }
-        case CLEAR_DATA:
+        }
+        case CLEAR_DATA: {
             return initialState;
-        case CLEAR_PENDING_ACTIONS:
+        }
+        case CLEAR_PENDING_ACTIONS: {
             return {
                 ...state,
                 pendingActions: initialState.pendingActions
             }
+        }
         default:
             return newState;
     }

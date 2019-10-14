@@ -16,6 +16,6 @@ class NotepadPage extends Model
 
     public function lines()
     {
-        return $this->hasMany('App\NotepadLines');
+        return $this->hasMany('App\NotepadLine', 'page_id');
     }
 }

@@ -8,8 +8,9 @@ use App\NotepadPage;
 use App\NotepadBlock;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\GetPagesRequest;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\GetPagesRequest;
+use App\Http\Requests\GetPageContentRequest;
 
 class NotepadController extends Controller
 {
@@ -198,6 +199,52 @@ class NotepadController extends Controller
         return [
             'byId' => $pages,
             'allIds' => $pageIds
+        ];
+    }
+
+    /**
+     * Gets all the content (lines and blocks) of a page
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function getPageContent(GetPageContentRequest $request)
+    {
+        // TODO Optimize the queries
+        $page = NotepadPage::findOrFail($request->page_id);
+        $structuredLines = $page->lines;
+
+        $lines = [];
+        $lineIds = [];
+
+        $blocks = [];
+        $blockIds = [];
+
+        // Turn structured data into client-side's flat data
+        foreach ($structuredLines as $line) {
+            array_push($lineIds, $line->id);
+            $lines[$line->id] = $line;
+
+            foreach ($line->blocks as $block) {
+                array_push($blockIds, $block->id);
+                $blocks[$block->id] = $block;
+            }
+
+            // Rename the object property "block_order" to "blocks"
+            unset($line->blocks);
+            $line->blocks = $line->block_order;
+            unset($line->block_order);
+        }
+
+        return [
+            'lines' => [
+                'byId' => $lines,
+                'allIds' => $lineIds
+            ],
+            'blocks' => [
+                'byId' => $blocks,
+                'allIds' => $blockIds
+            ]
         ];
     }
 }

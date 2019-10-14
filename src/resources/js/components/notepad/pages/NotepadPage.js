@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import { setLineData } from '../../../redux/actions/lines';
+import { setBlockData } from '../../../redux/actions/blocks';
+
 import NotepadLineAdd from '../lines/NotepadLineAdd';
 
 import NotepadLine from '../lines/NotepadLine';
@@ -27,9 +30,20 @@ class NotepadPage extends Component {
         super(props);
     }
 
+    componentDidMount() {
+        // Load the content from the server
+        // TODO Handle this better
+        axios.post('/api/getPageContent', { page_id: this.props.page.id })
+            .then(response => {
+                this.props.setLineData(response.data.lines);
+                this.props.setBlockData(response.data.blocks);
+            })
+            .then(error => console.error(error));
+    }
+
     render() {
-        const lines = this.props.lines.map(line => {
-            const blocks = line.blocks.map(blockId => {
+        const lines = this.props.lines.filter(line => line).map(line => {
+            const blocks = line.blocks.filter(blockId => this.props.blocks.byId[blockId]).map(blockId => {
                 const block = this.props.blocks.byId[blockId];
                 const Block = Blocks[block.type];
                 return (
@@ -55,5 +69,5 @@ class NotepadPage extends Component {
 
 export default connect(
     mapStateToProps,
-    null
+    { setLineData, setBlockData }
 )(NotepadPage)

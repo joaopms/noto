@@ -3,6 +3,7 @@ import uuid from '../../utils/uuid';
 export const ADD_LINE = 'ADD_LINE';
 export const ADD_BLOCK_TO_LINE = 'ADD_BLOCK_TO_LINE';
 export const REMOVE_BLOCK_FROM_LINE = 'REMOVE_BLOCK_FROM_LINE';
+export const SET_LINE_DATA = 'SET_LINE_DATA';
 
 export function addLine() {
     return {
@@ -26,5 +27,12 @@ export function removeBlockFromLine(lineId, blockId) {
         type: REMOVE_BLOCK_FROM_LINE,
         lineId,
         blockId
+    };
+}
+
+export function setLineData(lineData) {
+    return {
+        type: SET_LINE_DATA,
+        lineData
     };
 }

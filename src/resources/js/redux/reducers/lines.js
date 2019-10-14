@@ -1,4 +1,4 @@
-import { ADD_LINE, ADD_BLOCK_TO_LINE, REMOVE_BLOCK_FROM_LINE } from '../actions/lines';
+import { ADD_LINE, ADD_BLOCK_TO_LINE, REMOVE_BLOCK_FROM_LINE, SET_LINE_DATA } from '../actions/lines';
 
 const initialState = {
     byId: {},
@@ -77,6 +77,9 @@ export default function lines(state = initialState, action) {
                 },
                 allIds: state.allIds
             }
+        case SET_LINE_DATA: {
+            return action.lineData;
+        }
         default:
             return state;
     }

@@ -20,9 +20,4 @@ class Notepad extends Model
     {
         return $this->hasMany('App\NotepadPage');
     }
-
-    public static function allByUser($user_id)
-    {
-        return Notepad::all()->where('user_id', '=', $user_id);
-    }
 }

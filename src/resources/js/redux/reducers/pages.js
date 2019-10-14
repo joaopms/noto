@@ -37,8 +37,9 @@ export default function pages(state = initialState, action) {
                 },
                 allIds: state.allIds
             }
-        case SET_PAGE_DATA:
+        case SET_PAGE_DATA: {
             return action.pageData;
+        }
         default:
             return state;
     }

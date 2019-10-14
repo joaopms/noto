@@ -38,8 +38,9 @@ export default function notepads(state = initialState, action) {
                 },
                 allIds: state.allIds
             }
-        case SET_NOTEPAD_DATA:
+        case SET_NOTEPAD_DATA: {
             return action.notepadData;
+        }
         default:
             return state;
     }

@@ -4,6 +4,7 @@ import { TEXT_BLOCK, IMAGE_BLOCK } from '../../components/notepad/blocks';
 
 export const ADD_BLOCK = 'ADD_BLOCK';
 export const SET_BLOCK_CONTENT = 'SET_BLOCK_CONTENT';
+export const SET_BLOCK_DATA = 'SET_BLOCK_DATA';
 
 export function addTextBlock() {
     return {
@@ -26,5 +27,12 @@ export function setBlockContent(id, content) {
         type: SET_BLOCK_CONTENT,
         id,
         content
+    };
+}
+
+export function setBlockData(blockData) {
+    return {
+        type: SET_BLOCK_DATA,
+        blockData
     };
 }

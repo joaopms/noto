@@ -1,4 +1,4 @@
-import { ADD_BLOCK, SET_BLOCK_CONTENT } from '../actions/blocks';
+import { ADD_BLOCK, SET_BLOCK_CONTENT, SET_BLOCK_DATA } from '../actions/blocks';
 
 const initialState = {
     byId: {},
@@ -7,7 +7,7 @@ const initialState = {
 
 export default function blocks(state = initialState, action) {
     switch (action.type) {
-        case ADD_BLOCK:
+        case ADD_BLOCK: {
             return {
                 byId: {
                     ...state.byId,
@@ -22,7 +22,8 @@ export default function blocks(state = initialState, action) {
                     action.id
                 ]
             }
-        case SET_BLOCK_CONTENT:
+        }
+        case SET_BLOCK_CONTENT: {
             return {
                 byId: {
                     ...state.byId,
@@ -33,6 +34,10 @@ export default function blocks(state = initialState, action) {
                 },
                 allIds: state.allIds
             }
+        }
+        case SET_BLOCK_DATA: {
+            return action.blockData;
+        }
         default:
             return state;
     }

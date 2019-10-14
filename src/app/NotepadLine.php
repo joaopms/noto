@@ -47,6 +47,6 @@ class NotepadLine extends Model
 
     public function blocks()
     {
-        return $this->hasMany('App\NotepadBlock');
+        return $this->hasMany('App\NotepadBlock', 'line_id');
     }
 }
