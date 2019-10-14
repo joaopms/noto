@@ -1,4 +1,4 @@
-import { ADD_BLOCK, SET_BLOCK_CONTENT, SET_BLOCK_DATA } from '../actions/blocks';
+import { ADD_BLOCK, SET_BLOCK_CONTENT, SET_BLOCK_DATA, REMOVE_BLOCK } from '../actions/blocks';
 
 const initialState = {
     byId: {},
@@ -22,6 +22,23 @@ export default function blocks(state = initialState, action) {
                     action.id
                 ]
             }
+        }
+        case REMOVE_BLOCK: {
+            var newState = {
+                byId: {
+                    ...state.byId
+                },
+                allIds: [
+                    ...state.allIds
+                ]
+            };
+
+            delete newState.byId[action.id];
+
+            var blockIndex = newState.allIds.indexOf(action.id);
+            newState.allIds.splice(blockIndex, 1);
+
+            return newState;
         }
         case SET_BLOCK_CONTENT: {
             return {

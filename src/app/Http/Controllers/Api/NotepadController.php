@@ -97,6 +97,13 @@ class NotepadController extends Controller
 
                         break;
                     }
+                case 'REMOVE_BLOCK': {
+                        $block = NotepadBlock::findOrFail($action["blockId"]);
+                        // FIXME
+                        $block->delete();
+
+                        break;
+                    }
                 case 'ADD_BLOCK_TO_LINE': {
                         $block = NotepadBlock::findOrFail($action["blockId"]);
                         $block->line_id = $action["lineId"];
@@ -117,9 +124,15 @@ class NotepadController extends Controller
                         $block->save();
 
                         $line = NotepadLine::findOrFail($action["lineId"]);
-                        $line->removeBlock($action["blockId"]);
-                        // FIXME
-                        $line->save();
+                        if (sizeof($line->block_order) < 2) {
+                            // TODO Remove from page
+                            // FIXME
+                            $line->delete();
+                        } else {
+                            $line->removeBlock($action["blockId"]);
+                            // FIXME
+                            $line->save();
+                        }
 
                         break;
                     }

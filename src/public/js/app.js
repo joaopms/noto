@@ -55757,20 +55757,7 @@ if (userData) {
 
   _redux_store__WEBPACK_IMPORTED_MODULE_3__["default"].dispatch(userDataAction);
   console.log('Loaded user data from local storage');
-} // TODO SAMPLE DATA ---------------------------------------------------------------------
-// add a notepad
-
-
-var notepadAction = __webpack_require__(/*! ./redux/actions/notepads */ "./resources/js/redux/actions/notepads.js").addNotepad('test notepad');
-
-var notepadId = notepadAction.id;
-_redux_store__WEBPACK_IMPORTED_MODULE_3__["default"].dispatch(notepadAction); // add a page to the notepad
-
-var pageAction = __webpack_require__(/*! ./redux/actions/pages */ "./resources/js/redux/actions/pages.js").addPage('test page');
-
-var pageId = pageAction.id;
-_redux_store__WEBPACK_IMPORTED_MODULE_3__["default"].dispatch(pageAction);
-_redux_store__WEBPACK_IMPORTED_MODULE_3__["default"].dispatch(__webpack_require__(/*! ./redux/actions/notepads */ "./resources/js/redux/actions/notepads.js").addPageToNotepad(notepadId, pageId)); // TODO SAMPLE DATA ---------------------------------------------------------------------
+}
 
 react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(App, null), document.getElementById('app'));
 
@@ -56432,6 +56419,7 @@ function (_Component) {
     _this.isMoving = false;
     _this.handleAddBlockOfText = _this.handleAddBlockOfText.bind(_assertThisInitialized(_this));
     _this.handleAddBlockOfImage = _this.handleAddBlockOfImage.bind(_assertThisInitialized(_this));
+    _this.handleRemove = _this.handleRemove.bind(_assertThisInitialized(_this));
     _this.bro = _this.bro.bind(_assertThisInitialized(_this));
     _this.broa = _this.broa.bind(_assertThisInitialized(_this));
     return _this;
@@ -56448,6 +56436,12 @@ function (_Component) {
     value: function handleAddBlockOfImage() {
       var blockId = this.props.addImageBlock().id;
       this.props.addBlockToLine(this.props.lineId, blockId, this.props.blockId, false);
+    }
+  }, {
+    key: "handleRemove",
+    value: function handleRemove() {
+      this.props.removeBlockFromLine(this.props.lineId, this.props.blockId);
+      this.props.removeBlock(this.props.blockId);
     }
   }, {
     key: "bro",
@@ -56500,8 +56494,10 @@ function (_Component) {
         onDragEnd: this.broa,
         onTouchEnd: this.broa
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "btn-group btn-group-sm",
+        className: "btn-group",
         role: "group"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "btn-group btn-group-sm"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "button",
         className: "btn btn-outline-secondary",
@@ -56528,10 +56524,15 @@ function (_Component) {
         type: "button",
         className: "dropdown-item",
         onClick: this.handleAddBlockOfImage
-      }, "Image")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }, "Image"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "btn-group btn-group-sm"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "button",
         className: "btn btn-outline-secondary",
-        tabIndex: "-1"
+        tabIndex: "-1",
+        "data-toggle": "dropdown",
+        "aria-haspopup": "true",
+        "aria-expanded": "false"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("svg", {
         "aria-hidden": "true",
         focusable: "false",
@@ -56541,7 +56542,13 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("path", {
         fill: "currentColor",
         d: "M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
-      })))));
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "dropdown-menu"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        type: "button",
+        className: "dropdown-item",
+        onClick: this.handleRemove
+      }, "Remove")))));
     }
   }]);
 
@@ -56552,7 +56559,8 @@ function (_Component) {
   addBlockToLine: _redux_actions_lines__WEBPACK_IMPORTED_MODULE_2__["addBlockToLine"],
   removeBlockFromLine: _redux_actions_lines__WEBPACK_IMPORTED_MODULE_2__["removeBlockFromLine"],
   addTextBlock: _redux_actions_blocks__WEBPACK_IMPORTED_MODULE_3__["addTextBlock"],
-  addImageBlock: _redux_actions_blocks__WEBPACK_IMPORTED_MODULE_3__["addImageBlock"]
+  addImageBlock: _redux_actions_blocks__WEBPACK_IMPORTED_MODULE_3__["addImageBlock"],
+  removeBlock: _redux_actions_blocks__WEBPACK_IMPORTED_MODULE_3__["removeBlock"]
 })(BlockOptions));
 
 /***/ }),
@@ -57265,16 +57273,18 @@ function (_Component) {
 /*!**********************************************!*\
   !*** ./resources/js/redux/actions/blocks.js ***!
   \**********************************************/
-/*! exports provided: ADD_BLOCK, SET_BLOCK_CONTENT, SET_BLOCK_DATA, addTextBlock, addImageBlock, setBlockContent, setBlockData */
+/*! exports provided: ADD_BLOCK, REMOVE_BLOCK, SET_BLOCK_CONTENT, SET_BLOCK_DATA, addTextBlock, addImageBlock, removeBlock, setBlockContent, setBlockData */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ADD_BLOCK", function() { return ADD_BLOCK; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "REMOVE_BLOCK", function() { return REMOVE_BLOCK; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_BLOCK_CONTENT", function() { return SET_BLOCK_CONTENT; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_BLOCK_DATA", function() { return SET_BLOCK_DATA; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addTextBlock", function() { return addTextBlock; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addImageBlock", function() { return addImageBlock; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeBlock", function() { return removeBlock; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setBlockContent", function() { return setBlockContent; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setBlockData", function() { return setBlockData; });
 /* harmony import */ var _utils_uuid__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utils/uuid */ "./resources/js/utils/uuid.js");
@@ -57282,6 +57292,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var ADD_BLOCK = 'ADD_BLOCK';
+var REMOVE_BLOCK = 'REMOVE_BLOCK';
 var SET_BLOCK_CONTENT = 'SET_BLOCK_CONTENT';
 var SET_BLOCK_DATA = 'SET_BLOCK_DATA';
 function addTextBlock() {
@@ -57296,6 +57307,12 @@ function addImageBlock() {
     type: ADD_BLOCK,
     id: Object(_utils_uuid__WEBPACK_IMPORTED_MODULE_0__["default"])(),
     blockType: _components_notepad_blocks__WEBPACK_IMPORTED_MODULE_1__["IMAGE_BLOCK"]
+  };
+}
+function removeBlock(id) {
+  return {
+    type: REMOVE_BLOCK,
+    id: id
   };
 }
 function setBlockContent(id, content) {
@@ -57539,6 +57556,18 @@ function blocks() {
         };
       }
 
+    case _actions_blocks__WEBPACK_IMPORTED_MODULE_0__["REMOVE_BLOCK"]:
+      {
+        var newState = {
+          byId: _objectSpread({}, state.byId),
+          allIds: _toConsumableArray(state.allIds)
+        };
+        delete newState.byId[action.id];
+        var blockIndex = newState.allIds.indexOf(action.id);
+        newState.allIds.splice(blockIndex, 1);
+        return newState;
+      }
+
     case _actions_blocks__WEBPACK_IMPORTED_MODULE_0__["SET_BLOCK_CONTENT"]:
       {
         return {
@@ -57628,64 +57657,79 @@ function lines() {
 
   switch (action.type) {
     case _actions_lines__WEBPACK_IMPORTED_MODULE_0__["ADD_LINE"]:
-      return {
-        byId: _objectSpread({}, state.byId, _defineProperty({}, action.id, {
-          id: action.id,
-          blocks: []
-        })),
-        allIds: [].concat(_toConsumableArray(state.allIds), [action.id])
-      };
-
-    case _actions_lines__WEBPACK_IMPORTED_MODULE_0__["ADD_BLOCK_TO_LINE"]:
-      var line = state.byId[action.lineId];
-      var previousBlockId = action.previousBlockId;
-
-      var newBlocks = _toConsumableArray(line.blocks);
-
-      var beforeBlock = action.beforeBlock; // Add the block before/after the one provided
-      // Or add it to the begininng/end of the line
-
-      if (previousBlockId) {
-        var previousBlockIndex = line.blocks.indexOf(previousBlockId);
-
-        if (beforeBlock) {
-          newBlocks.splice(previousBlockIndex, 0, action.blockId);
-        } else {
-          newBlocks.splice(previousBlockIndex + 1, 0, action.blockId);
-        }
-      } else {
-        if (beforeBlock) {
-          newBlocks.unshift(action.blockId);
-        } else {
-          newBlocks.push(action.blockId);
-        }
+      {
+        return {
+          byId: _objectSpread({}, state.byId, _defineProperty({}, action.id, {
+            id: action.id,
+            blocks: []
+          })),
+          allIds: [].concat(_toConsumableArray(state.allIds), [action.id])
+        };
       }
 
-      return {
-        byId: _objectSpread({}, state.byId, _defineProperty({}, action.lineId, _objectSpread({}, line, {
-          blocks: newBlocks
-        }))),
-        allIds: state.allIds
-      };
+    case _actions_lines__WEBPACK_IMPORTED_MODULE_0__["ADD_BLOCK_TO_LINE"]:
+      {
+        var line = state.byId[action.lineId];
+        var previousBlockId = action.previousBlockId;
+
+        var newBlocks = _toConsumableArray(line.blocks);
+
+        var beforeBlock = action.beforeBlock; // Add the block before/after the one provided
+        // Or add it to the begininng/end of the line
+
+        if (previousBlockId) {
+          var previousBlockIndex = line.blocks.indexOf(previousBlockId);
+
+          if (beforeBlock) {
+            newBlocks.splice(previousBlockIndex, 0, action.blockId);
+          } else {
+            newBlocks.splice(previousBlockIndex + 1, 0, action.blockId);
+          }
+        } else {
+          if (beforeBlock) {
+            newBlocks.unshift(action.blockId);
+          } else {
+            newBlocks.push(action.blockId);
+          }
+        }
+
+        return {
+          byId: _objectSpread({}, state.byId, _defineProperty({}, action.lineId, _objectSpread({}, line, {
+            blocks: newBlocks
+          }))),
+          allIds: state.allIds
+        };
+      }
 
     case _actions_lines__WEBPACK_IMPORTED_MODULE_0__["REMOVE_BLOCK_FROM_LINE"]:
-      var line = state.byId[action.lineId]; // If only one block exists, remove the line
+      {
+        var line = state.byId[action.lineId]; // If only one block exists, remove the line
 
-      if (line.blocks.length === 1) {} // TODO
-      // Remove the block from the line
+        if (line.blocks.length < 2) {
+          // TODO Remove from page
+          var newState = {
+            byId: _objectSpread({}, state.byId),
+            allIds: _toConsumableArray(state.allIds)
+          };
+          delete newState.byId[action.lineId];
+          var lineIndex = newState.allIds.indexOf(action.lineId);
+          newState.allIds.splice(lineIndex, 1);
+          return newState;
+        } // Remove the block from the line
 
 
-      var blockIndex = line.blocks.indexOf(action.blockId);
+        var blockIndex = line.blocks.indexOf(action.blockId);
 
-      var newBlocks = _toConsumableArray(line.blocks);
+        var newBlocks = _toConsumableArray(line.blocks);
 
-      newBlocks.splice(blockIndex, 1);
-      return {
-        byId: _objectSpread({}, state.byId, _defineProperty({}, action.lineId, _objectSpread({}, line, {
-          blocks: newBlocks
-        }))),
-        allIds: state.allIds
-      };
+        newBlocks.splice(blockIndex, 1);
+        return {
+          byId: _objectSpread({}, state.byId, _defineProperty({}, action.lineId, _objectSpread({}, line, {
+            blocks: newBlocks
+          }))),
+          allIds: state.allIds
+        };
+      }
 
     case _actions_lines__WEBPACK_IMPORTED_MODULE_0__["SET_LINE_DATA"]:
       {

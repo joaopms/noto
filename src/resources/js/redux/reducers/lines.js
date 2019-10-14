@@ -7,7 +7,7 @@ const initialState = {
 
 export default function lines(state = initialState, action) {
     switch (action.type) {
-        case ADD_LINE:
+        case ADD_LINE: {
             return {
                 byId: {
                     ...state.byId,
@@ -21,7 +21,8 @@ export default function lines(state = initialState, action) {
                     action.id
                 ]
             }
-        case ADD_BLOCK_TO_LINE:
+        }
+        case ADD_BLOCK_TO_LINE: {
             var line = state.byId[action.lineId];
             var previousBlockId = action.previousBlockId;
 
@@ -54,12 +55,28 @@ export default function lines(state = initialState, action) {
                 },
                 allIds: state.allIds
             }
-        case REMOVE_BLOCK_FROM_LINE:
+        }
+        case REMOVE_BLOCK_FROM_LINE: {
             var line = state.byId[action.lineId];
 
             // If only one block exists, remove the line
-            if (line.blocks.length === 1) {
-                // TODO
+            if (line.blocks.length < 2) {
+                // TODO Remove from page
+                var newState = {
+                    byId: {
+                        ...state.byId
+                    },
+                    allIds: [
+                        ...state.allIds
+                    ]
+                };
+
+                delete newState.byId[action.lineId];
+
+                var lineIndex = newState.allIds.indexOf(action.lineId);
+                newState.allIds.splice(lineIndex, 1);
+
+                return newState;
             }
 
             // Remove the block from the line
@@ -77,6 +94,7 @@ export default function lines(state = initialState, action) {
                 },
                 allIds: state.allIds
             }
+        }
         case SET_LINE_DATA: {
             return action.lineData;
         }

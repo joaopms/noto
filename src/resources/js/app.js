@@ -26,17 +26,4 @@ if (userData) {
     console.log('Loaded user data from local storage');
 }
 
-// TODO SAMPLE DATA ---------------------------------------------------------------------
-// add a notepad
-const notepadAction = require('./redux/actions/notepads').addNotepad('test notepad');
-const notepadId = notepadAction.id;
-store.dispatch(notepadAction);
-
-// add a page to the notepad
-const pageAction = require('./redux/actions/pages').addPage('test page');
-const pageId = pageAction.id;
-store.dispatch(pageAction);
-store.dispatch(require('./redux/actions/notepads').addPageToNotepad(notepadId, pageId));
-// TODO SAMPLE DATA ---------------------------------------------------------------------
-
 ReactDOM.render(< App />, document.getElementById('app'));
