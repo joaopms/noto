@@ -1,4 +1,4 @@
-import { ADD_LINE, ADD_BLOCK_TO_LINE, REMOVE_BLOCK_FROM_LINE, SET_LINE_DATA } from '../actions/lines';
+import { ADD_LINE, REMOVE_LINE, ADD_BLOCK_TO_LINE, REMOVE_BLOCK_FROM_LINE, SET_LINE_DATA } from '../actions/lines';
 
 const initialState = {
     byId: {},
@@ -21,6 +21,23 @@ export default function lines(state = initialState, action) {
                     action.id
                 ]
             }
+        }
+        case REMOVE_LINE: {
+            var newState = {
+                byId: {
+                    ...state.byId
+                },
+                allIds: [
+                    ...state.allIds
+                ]
+            };
+
+            delete newState.byId[action.id];
+
+            var lineIndex = newState.allIds.indexOf(action.id);
+            newState.allIds.splice(lineIndex, 1);
+
+            return newState;
         }
         case ADD_BLOCK_TO_LINE: {
             var line = state.byId[action.lineId];
@@ -58,26 +75,6 @@ export default function lines(state = initialState, action) {
         }
         case REMOVE_BLOCK_FROM_LINE: {
             var line = state.byId[action.lineId];
-
-            // If only one block exists, remove the line
-            if (line.blocks.length < 2) {
-                // TODO Remove from page
-                var newState = {
-                    byId: {
-                        ...state.byId
-                    },
-                    allIds: [
-                        ...state.allIds
-                    ]
-                };
-
-                delete newState.byId[action.lineId];
-
-                var lineIndex = newState.allIds.indexOf(action.lineId);
-                newState.allIds.splice(lineIndex, 1);
-
-                return newState;
-            }
 
             // Remove the block from the line
             var blockIndex = line.blocks.indexOf(action.blockId);

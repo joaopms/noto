@@ -7,7 +7,7 @@ import { setBlockData } from '../../../redux/actions/blocks';
 import NotepadLineAdd from '../lines/NotepadLineAdd';
 
 import NotepadLine from '../lines/NotepadLine';
-import Blocks from '../blocks';
+import { log } from 'util';
 
 function mapStateToProps(state, ownProps) {
     const notepadId = ownProps.match.params.notepadId;
@@ -15,13 +15,11 @@ function mapStateToProps(state, ownProps) {
     const pageId = ownProps.match.params.pageId;
     const page = state.pages.byId[pageId];
     const lines = page.lines.map(lineId => state.lines.byId[lineId]);
-    const blocks = state.blocks;
 
     return {
         notepad,
         page,
-        lines,
-        blocks
+        lines
     }
 }
 
@@ -42,25 +40,13 @@ class NotepadPage extends Component {
     }
 
     render() {
-        const lines = this.props.lines.filter(line => line).map(line => {
-            const blocks = line.blocks.filter(blockId => this.props.blocks.byId[blockId]).map(blockId => {
-                const block = this.props.blocks.byId[blockId];
-                const Block = Blocks[block.type];
-                return (
-                    <Block key={block.id} lineId={line.id} blockId={block.id} content={block.content} />
-                )
-            });
-
-            return (
-                <NotepadLine key={line.id} lineId={line.id}>
-                    {blocks}
-                </NotepadLine>
-            );
-        });
+        const lines = this.props.lines.filter(line => line).map(line => (
+            <NotepadLine key={line.id} pageId={this.props.page.id} lineId={line.id} />
+        ));
 
         return (
             <div className="notepad">
-                <NotepadLineAdd pageId={this.props.page.id} />
+                <NotepadLineAdd notepadId={this.props.notepad.id} pageId={this.props.page.id} />
                 {lines}
             </div>
         );

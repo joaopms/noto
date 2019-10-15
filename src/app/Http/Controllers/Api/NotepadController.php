@@ -71,6 +71,13 @@ class NotepadController extends Controller
 
                         break;
                     }
+                case 'REMOVE_LINE': {
+                        $line = NotepadLine::findOrFail($action["id"]);
+                        // FIXME
+                        $line->delete();
+
+                        break;
+                    }
                 case 'ADD_LINE_TO_PAGE': {
                         $line = NotepadLine::findOrFail($action["lineId"]);
                         $line->page_id = $action["pageId"];
@@ -81,6 +88,22 @@ class NotepadController extends Controller
                         // TODO Do this properly at the model level (handle as array)
                         $line_order = $page->line_order;
                         array_push($line_order, $action["lineId"]);
+                        $page->line_order = $line_order;
+                        // FIXME
+                        $page->save();
+
+                        break;
+                    }
+                case 'REMOVE_LINE_FROM_PAGE': {
+                        $line = NotepadLine::findOrFail($action["lineId"]);
+                        $line->page_id = null;
+                        $line->save();
+
+                        $page = NotepadPage::findOrFail($action["pageId"]);
+                        // TODO Do this properly at the model level (handle as array)
+                        $line_order = $page->line_order;
+                        $line_index = array_search($action["lineId"], $line_order);
+                        array_splice($line_order, $line_index, 1);
                         $page->line_order = $line_order;
                         // FIXME
                         $page->save();
@@ -124,15 +147,9 @@ class NotepadController extends Controller
                         $block->save();
 
                         $line = NotepadLine::findOrFail($action["lineId"]);
-                        if (sizeof($line->block_order) < 2) {
-                            // TODO Remove from page
-                            // FIXME
-                            $line->delete();
-                        } else {
-                            $line->removeBlock($action["blockId"]);
-                            // FIXME
-                            $line->save();
-                        }
+                        $line->removeBlock($action["blockId"]);
+                        // FIXME
+                        $line->save();
 
                         break;
                     }
