@@ -55877,8 +55877,7 @@ function (_Component) {
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
         className: "navbar navbar-dark bg-dark"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-        to: "/",
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "navbar-brand"
       }, "Noto"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "btn btn-outline-light btn-sm",
@@ -56172,12 +56171,14 @@ function (_Component) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Notepad; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _NotepadList__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./NotepadList */ "./resources/js/components/notepad/NotepadList.js");
-/* harmony import */ var _pages_NotepadPageList__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./pages/NotepadPageList */ "./resources/js/components/notepad/pages/NotepadPageList.js");
-/* harmony import */ var _pages_NotepadPage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./pages/NotepadPage */ "./resources/js/components/notepad/pages/NotepadPage.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _redux_actions_notepads__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../redux/actions/notepads */ "./resources/js/redux/actions/notepads.js");
+/* harmony import */ var _redux_actions_pages__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../redux/actions/pages */ "./resources/js/redux/actions/pages.js");
+/* harmony import */ var _NotepadList__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./NotepadList */ "./resources/js/components/notepad/NotepadList.js");
+/* harmony import */ var _pages_NotepadPageList__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./pages/NotepadPageList */ "./resources/js/components/notepad/pages/NotepadPageList.js");
+/* harmony import */ var _pages_NotepadPage__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./pages/NotepadPage */ "./resources/js/components/notepad/pages/NotepadPage.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -56201,30 +56202,97 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
+
+
+function mapStateToProps(state) {
+  var selectedNotepad = state.notepads.selectedId;
+  var selectedPage = state.pages.selectedId;
+  return {
+    selectedNotepad: selectedNotepad,
+    selectedPage: selectedPage
+  };
+}
+
 var Notepad =
 /*#__PURE__*/
 function (_Component) {
   _inherits(Notepad, _Component);
 
   function Notepad(props) {
+    var _this;
+
     _classCallCheck(this, Notepad);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Notepad).call(this, props));
-  } // TODO Select the notepad and page from the URL
-
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Notepad).call(this, props));
+    _this.state = {
+      firstLoad: true
+    };
+    return _this;
+  }
 
   _createClass(Notepad, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      // Select the notepad and page from the URL
+      var _this$props$match$par = this.props.match.params,
+          notepadId = _this$props$match$par.notepadId,
+          pageId = _this$props$match$par.pageId;
+      console.log("[Notepad] Trying to select the notepad and page from the URL");
+
+      if (notepadId) {
+        console.log("[Notepad] Selected notepad: " + notepadId);
+        this.props.selectNotepad(notepadId);
+      }
+
+      if (pageId) {
+        console.log("[Notepad] Selected page: " + pageId);
+        this.props.selectPage(pageId);
+      }
+
+      this.setState({
+        firstLoad: false
+      });
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps, prevState) {
+      // Update the URL on notepad or page change
+      var notFirstLoad = !prevState.firstLoad;
+      var notepadChanged = this.props.selectedNotepad !== prevProps.selectedNotepad;
+      var pageChanged = this.props.selectedPage !== prevProps.selectedPage;
+
+      if (notFirstLoad && (notepadChanged || pageChanged)) {
+        console.log("[Notepad] Notepad or page changed, updating the URL");
+        var url = "";
+
+        if (this.props.selectedNotepad) {
+          url += "/notepad/".concat(this.props.selectedNotepad);
+        }
+
+        if (this.props.selectedPage) {
+          url += "/page/".concat(this.props.selectedPage);
+        }
+
+        this.props.history.push(url);
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
       console.log("[Notepad] Rendering");
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_NotepadList__WEBPACK_IMPORTED_MODULE_1__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_pages_NotepadPageList__WEBPACK_IMPORTED_MODULE_2__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_pages_NotepadPage__WEBPACK_IMPORTED_MODULE_3__["default"], null));
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_NotepadList__WEBPACK_IMPORTED_MODULE_4__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_pages_NotepadPageList__WEBPACK_IMPORTED_MODULE_5__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_pages_NotepadPage__WEBPACK_IMPORTED_MODULE_6__["default"], null));
     }
   }]);
 
   return Notepad;
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
-
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, {
+  selectNotepad: _redux_actions_notepads__WEBPACK_IMPORTED_MODULE_2__["selectNotepad"],
+  selectPage: _redux_actions_pages__WEBPACK_IMPORTED_MODULE_3__["selectPage"],
+  clearPageData: _redux_actions_pages__WEBPACK_IMPORTED_MODULE_3__["clearPageData"]
+})(Notepad));
 
 /***/ }),
 

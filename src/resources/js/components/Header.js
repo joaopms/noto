@@ -36,7 +36,7 @@ class Header extends Component {
     render() {
         return (
             <nav className="navbar navbar-dark bg-dark">
-                <Link to="/" className="navbar-brand">Noto</Link>
+                <span className="navbar-brand">Noto</span>
 
                 <button className="btn btn-outline-light btn-sm" onClick={this.handleSync}>Sync</button>
                 <button className="btn btn-outline-light btn-sm" onClick={this.handleLogout}>Logout</button>
