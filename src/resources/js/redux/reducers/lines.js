@@ -1,4 +1,5 @@
 import { ADD_LINE, REMOVE_LINE, ADD_BLOCK_TO_LINE, REMOVE_BLOCK_FROM_LINE, SET_LINE_DATA } from '../actions/lines';
+import { CLEAR_PAGE_DATA } from '../actions/pages';
 
 const initialState = {
     byId: {},
@@ -94,6 +95,9 @@ export default function lines(state = initialState, action) {
         }
         case SET_LINE_DATA: {
             return action.lineData;
+        }
+        case CLEAR_PAGE_DATA: {
+            return initialState;
         }
         default:
             return state;

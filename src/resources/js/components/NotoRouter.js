@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 import Login from './auth/Login';
 
 import Header from './Header';
+import Notepad from './notepad/Notepad';
 import NotepadList from './notepad/NotepadList';
 import NotepadPageList from './notepad/pages/NotepadPageList';
 import NotepadPage from './notepad/pages/NotepadPage';
@@ -33,9 +34,10 @@ class NotoRouter extends Component {
 
                         <Header />
 
-                        <Route exact path="/" component={NotepadList} />
-                        <Route exact path="/notepad/:notepadId" component={NotepadPageList} />
-                        <Route exact path="/notepad/:notepadId/page/:pageId" component={NotepadPage} />
+                        {/* <Route path="/" component={NotepadList} />
+                        <Route path="/notepad/:notepadId" component={NotepadPageList} />
+                        <Route path="/notepad/:notepadId/page/:pageId" component={NotepadPage} /> */}
+                        <Route exact path={["/", "/notepad/:notepadId", "/notepad/:notepadId/page/:pageId"]} component={Notepad} />
                     </Route>
                 </Switch>
             </Router>

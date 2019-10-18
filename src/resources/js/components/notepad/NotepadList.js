@@ -2,12 +2,22 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { setNotepadData } from '../../redux/actions/notepads';
+import { setNotepadData, setLoadingStatus, setLoadedStatus, selectNotepad } from '../../redux/actions/notepads';
+import { clearPageData } from '../../redux/actions/pages';
+import { STATUS } from '../../redux/constants';
 
 import NotepadAdd from './NotepadAdd';
 
 function mapStateToProps(state) {
-    return { notepads: state.notepads };
+    const status = state.notepads.status;
+
+    const isReady = status === STATUS.LOADED;
+    const notepads = isReady ? state.notepads : [];
+
+    return {
+        status,
+        notepads
+    };
 }
 
 class NotepadList extends Component {
@@ -15,21 +25,43 @@ class NotepadList extends Component {
         super(props);
     }
 
-    componentDidMount() {
+    async fetchNotepads() {
         // Load the notepads from the server
         // TODO Handle this better
-        axios.get('/api/getNotepads')
-            .then(response => this.props.setNotepadData(response.data))
-            .then(error => console.error(error));
+        try {
+            this.props.setLoadingStatus();
+            const response = await axios.get('/api/getNotepads');
+            this.props.setNotepadData(response.data);
+            this.props.setLoadedStatus();
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    componentDidMount() {
+        this.fetchNotepads();
+    }
+
+    selectNotepad(id) {
+        console.log("[NotepadList] Selecting notepad " + id);
+        this.props.clearPageData();
+        this.props.selectNotepad(id);
     }
 
     render() {
+        console.log("[NotepadList] Rendering");
+
+        if (this.props.status !== STATUS.LOADED) {
+            return "Loading..."
+        }
+
         const notepadList = this.props.notepads.allIds.map(notepadId => {
             const notepad = this.props.notepads.byId[notepadId];
 
             return (
-                <li key={notepad.id}>
-                    <Link to={'/notepad/' + notepad.id}>{notepad.title}</Link>
+                <li key={notepad.id} onClick={this.selectNotepad.bind(this, notepad.id)}>
+                    {/* <Link to={'/notepad/' + notepad.id}>{notepad.title}</Link> */}
+                    {notepad.title}
                 </li>
             );
         });
@@ -47,5 +79,5 @@ class NotepadList extends Component {
 
 export default connect(
     mapStateToProps,
-    { setNotepadData }
+    { setNotepadData, setLoadingStatus, setLoadedStatus, selectNotepad, clearPageData }
 )(NotepadList)

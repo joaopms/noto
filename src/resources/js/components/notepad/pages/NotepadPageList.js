@@ -2,17 +2,23 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { setPageData } from '../../../redux/actions/pages';
+import { setPageData, setLoadingStatus, setLoadedStatus, clearPageData, selectPage } from '../../../redux/actions/pages';
+import { STATUS } from '../../../redux/constants';
 
 import NotepadPageAdd from './NotepadPageAdd';
 
 function mapStateToProps(state, ownProps) {
-    const notepadId = ownProps.match.params.notepadId;
-    const notepad = state.notepads.byId[notepadId];
-    const pages = notepad.pages.map(pageId => state.pages.byId[pageId]);
+    const status = state.pages.status;
+    const notepadStatus = state.notepads.status;
+    const selectedNotepad = state.notepads.selectedId;
+
+    const isReady = status === STATUS.LOADED;
+    const pages = isReady ? state.notepads.byId[selectedNotepad].pages.map(pageId => state.pages.byId[pageId]) : [];
 
     return {
-        notepad,
+        status,
+        notepadStatus,
+        selectedNotepad,
         pages
     }
 }
@@ -22,29 +28,54 @@ class NotepadPageList extends Component {
         super(props);
     }
 
-    componentDidMount() {
+    async fetchPages() {
         // Load the pages from the server
         // TODO Handle this better
-        axios.post('/api/getPages', { notepad_id: this.props.notepad.id })
-            .then(response => this.props.setPageData(response.data))
-            .then(error => console.error(error));
+        try {
+            this.props.setLoadingStatus();
+            const response = await axios.post('/api/getPages', { notepad_id: this.props.selectedNotepad });
+            this.props.setPageData(response.data);
+            this.props.setLoadedStatus();
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    componentDidUpdate() {
+        const isNotepadSelected = !!this.props.selectedNotepad;
+        const isNotepadLoaded = this.props.notepadStatus === STATUS.LOADED;
+        const isPagesEmpty = this.props.status === STATUS.INIT;
+        if (isNotepadSelected && isNotepadLoaded && isPagesEmpty) {
+            this.fetchPages();
+        }
+    }
+
+    selectPage(id) {
+        console.log("[NotepadPageList] Selecting page " + id);
+        this.props.selectPage(id);
     }
 
     render() {
-        var pageList = [];
+        console.log("[NotepadPageList] Rendering");
 
-        if (this.props.pages.length) {
-            pageList = this.props.pages.filter(page => page).map(page =>
-                <li key={page.id}>
-                    <Link to={'/notepad/' + this.props.notepad.id + '/page/' + page.id}>{page.title}</Link>
-                </li>
-            );
+        if (this.props.status === STATUS.INIT) {
+            return "Select a notepad";
         }
+
+        if (this.props.status === STATUS.LOADING) {
+            return "Loading...";
+        }
+
+        const pageList = this.props.pages.map(page =>
+            <li key={page.id} onClick={this.selectPage.bind(this, page.id)}>
+                {/* <Link to={'/notepad/' + this.props.selectedNotepad + '/page/' + page.id}>{page.title}</Link> */}
+                {page.title}
+            </li>
+        );
 
         return (
             <div>
-                <h2>{this.props.notepad.title}</h2>
-                <NotepadPageAdd notepadId={this.props.notepad.id} />
+                <NotepadPageAdd />
                 <ul>
                     {pageList}
                 </ul>
@@ -55,5 +86,5 @@ class NotepadPageList extends Component {
 
 export default connect(
     mapStateToProps,
-    { setPageData }
+    { setPageData, setLoadingStatus, setLoadedStatus, clearPageData, selectPage }
 )(NotepadPageList)

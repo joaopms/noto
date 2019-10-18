@@ -5,6 +5,14 @@ import { addLine, addBlockToLine } from '../../../redux/actions/lines';
 import { addLineToPage } from '../../../redux/actions/pages';
 import { addTextBlock, addImageBlock } from '../../../redux/actions/blocks';
 
+function mapStateToProps(state) {
+    const selectedPage = state.pages.selectedId;
+
+    return {
+        selectedPage
+    }
+}
+
 class NotepadLineAdd extends Component {
     constructor(props) {
         super(props);
@@ -16,7 +24,7 @@ class NotepadLineAdd extends Component {
 
     addLine() {
         const lineId = this.props.addLine().id;
-        this.props.addLineToPage(this.props.pageId, lineId);
+        this.props.addLineToPage(this.props.selectedPage, lineId);
         return lineId;
     }
 
@@ -43,6 +51,6 @@ class NotepadLineAdd extends Component {
 }
 
 export default connect(
-    null,
+    mapStateToProps,
     { addLine, addBlockToLine, addLineToPage, addTextBlock, addImageBlock }
 )(NotepadLineAdd)

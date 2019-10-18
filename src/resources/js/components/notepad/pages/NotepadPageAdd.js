@@ -4,6 +4,14 @@ import { connect } from 'react-redux';
 import { addPage } from '../../../redux/actions/pages';
 import { addPageToNotepad } from '../../../redux/actions/notepads';
 
+function mapStateToProps(state) {
+    const selectedNotepad = state.notepads.selectedId;
+
+    return {
+        selectedNotepad
+    }
+}
+
 class NotepadPageAdd extends Component {
     constructor(props) {
         super(props);
@@ -25,7 +33,7 @@ class NotepadPageAdd extends Component {
         }
 
         const pageId = this.props.addPage(this.state.title).id;
-        this.props.addPageToNotepad(this.props.notepadId, pageId);
+        this.props.addPageToNotepad(this.props.selectedNotepad, pageId);
         this.setState({ title: '' });
     }
 
@@ -43,6 +51,6 @@ class NotepadPageAdd extends Component {
 }
 
 export default connect(
-    null,
+    mapStateToProps,
     { addPage, addPageToNotepad }
 )(NotepadPageAdd)

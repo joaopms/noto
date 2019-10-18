@@ -1,4 +1,5 @@
 import { ADD_BLOCK, SET_BLOCK_CONTENT, SET_BLOCK_DATA, REMOVE_BLOCK } from '../actions/blocks';
+import { CLEAR_PAGE_DATA } from '../actions/pages';
 
 const initialState = {
     byId: {},
@@ -54,6 +55,9 @@ export default function blocks(state = initialState, action) {
         }
         case SET_BLOCK_DATA: {
             return action.blockData;
+        }
+        case CLEAR_PAGE_DATA: {
+            return initialState;
         }
         default:
             return state;

@@ -1,24 +1,27 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import { STATUS } from '../../../redux/constants';
+
+import { setLoadingContentStatus, setLoadedContentStatus } from '../../../redux/actions/pages';
 import { setLineData } from '../../../redux/actions/lines';
 import { setBlockData } from '../../../redux/actions/blocks';
 
 import NotepadLineAdd from '../lines/NotepadLineAdd';
-
 import NotepadLine from '../lines/NotepadLine';
-import { log } from 'util';
 
 function mapStateToProps(state, ownProps) {
-    const notepadId = ownProps.match.params.notepadId;
-    const notepad = state.notepads.byId[notepadId];
-    const pageId = ownProps.match.params.pageId;
-    const page = state.pages.byId[pageId];
-    const lines = page.lines.map(lineId => state.lines.byId[lineId]);
+    const status = state.pages.contentStatus;
+    const pageStatus = state.pages.status;
+    const selectedPage = state.pages.selectedId;
+
+    const isReady = status === STATUS.LOADED;
+    const lines = isReady ? state.pages.byId[selectedPage].lines.map(lineId => state.lines.byId[lineId]) : [];
 
     return {
-        notepad,
-        page,
+        status,
+        pageStatus,
+        selectedPage,
         lines
     }
 }
@@ -28,25 +31,47 @@ class NotepadPage extends Component {
         super(props);
     }
 
-    componentDidMount() {
+    async fetchPages() {
         // Load the content from the server
         // TODO Handle this better
-        axios.post('/api/getPageContent', { page_id: this.props.page.id })
-            .then(response => {
-                this.props.setLineData(response.data.lines);
-                this.props.setBlockData(response.data.blocks);
-            })
-            .then(error => console.error(error));
+        try {
+            this.props.setLoadingContentStatus();
+            const response = await axios.post('/api/getPageContent', { page_id: this.props.selectedPage });
+            this.props.setLineData(response.data.lines);
+            this.props.setBlockData(response.data.blocks);
+            this.props.setLoadedContentStatus();
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    componentDidUpdate() {
+        const isPageSelected = !!this.props.selectedPage;
+        const isPageLoaded = this.props.pageStatus === STATUS.LOADED;
+        const isContentEmpty = this.props.status === STATUS.INIT;
+        if (isPageSelected && isPageLoaded && isContentEmpty) {
+            this.fetchPages();
+        }
     }
 
     render() {
-        const lines = this.props.lines.filter(line => line).map(line => (
-            <NotepadLine key={line.id} pageId={this.props.page.id} lineId={line.id} />
+        console.log("[NotepadPage] Rendering");
+
+        if (this.props.status === STATUS.INIT) {
+            return "Select a page";
+        }
+
+        if (this.props.status === STATUS.LOADING) {
+            return "Loading...";
+        }
+
+        const lines = this.props.lines.map(line => (
+            <NotepadLine key={line.id} lineId={line.id} />
         ));
 
         return (
             <div className="notepad">
-                <NotepadLineAdd notepadId={this.props.notepad.id} pageId={this.props.page.id} />
+                <NotepadLineAdd />
                 {lines}
             </div>
         );
@@ -55,5 +80,5 @@ class NotepadPage extends Component {
 
 export default connect(
     mapStateToProps,
-    { setLineData, setBlockData }
+    { setLoadingContentStatus, setLoadedContentStatus, setLineData, setBlockData }
 )(NotepadPage)

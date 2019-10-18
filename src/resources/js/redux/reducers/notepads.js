@@ -1,15 +1,19 @@
 import uuidv4 from 'uuid/v4';
-import { ADD_NOTEPAD, ADD_PAGE_TO_NOTEPAD, SET_NOTEPAD_DATA } from '../actions/notepads';
+import { ADD_NOTEPAD, ADD_PAGE_TO_NOTEPAD, SET_NOTEPAD_DATA, SET_NOTEPAD_STATUS, SELECT_NOTEPAD } from '../actions/notepads';
+import { STATUS } from '../constants';
 
 const initialState = {
     byId: {},
-    allIds: []
+    allIds: [],
+    status: STATUS.INIT,
+    selectedId: null
 };
 
 export default function notepads(state = initialState, action) {
     switch (action.type) {
         case ADD_NOTEPAD:
             return {
+                ...state,
                 byId: {
                     ...state.byId,
                     [action.id]: {
@@ -26,6 +30,7 @@ export default function notepads(state = initialState, action) {
         case ADD_PAGE_TO_NOTEPAD:
             const notepad = state.byId[action.notepadId];
             return {
+                ...state,
                 byId: {
                     ...state.byId,
                     [action.notepadId]: {
@@ -39,7 +44,22 @@ export default function notepads(state = initialState, action) {
                 allIds: state.allIds
             }
         case SET_NOTEPAD_DATA: {
-            return action.notepadData;
+            return {
+                ...state,
+                ...action.notepadData
+            }
+        }
+        case SET_NOTEPAD_STATUS: {
+            return {
+                ...state,
+                status: action.status
+            }
+        }
+        case SELECT_NOTEPAD: {
+            return {
+                ...state,
+                selectedId: action.id
+            }
         }
         default:
             return state;
