@@ -11,6 +11,7 @@ function mapStateToProps(state, ownProps) {
     const status = state.pages.status;
     const notepadStatus = state.notepads.status;
     const selectedNotepad = state.notepads.selectedId;
+    const selectedPage = state.pages.selectedId;
 
     const isReady = status === STATUS.LOADED;
     const pages = isReady ? state.notepads.byId[selectedNotepad].pages.map(pageId => state.pages.byId[pageId]) : [];
@@ -19,6 +20,7 @@ function mapStateToProps(state, ownProps) {
         status,
         notepadStatus,
         selectedNotepad,
+        selectedPage,
         pages
     }
 }
@@ -52,6 +54,10 @@ class NotepadPageList extends Component {
 
     selectPage(id) {
         console.log("[NotepadPageList] Selecting page " + id);
+        if (id === this.props.selectedPage) {
+            console.log("[NotepadPageList] Page already selected, ignoring");
+            return;
+        }
         this.props.selectPage(id);
     }
 

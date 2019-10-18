@@ -56453,10 +56453,12 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 function mapStateToProps(state) {
   var status = state.notepads.status;
+  var selectedNotepad = state.notepads.selectedId;
   var isReady = status === _redux_constants__WEBPACK_IMPORTED_MODULE_6__["STATUS"].LOADED;
   var notepads = isReady ? state.notepads : [];
   return {
     status: status,
+    selectedNotepad: selectedNotepad,
     notepads: notepads
   };
 }
@@ -56523,6 +56525,12 @@ function (_Component) {
     key: "selectNotepad",
     value: function selectNotepad(id) {
       console.log("[NotepadList] Selecting notepad " + id);
+
+      if (id === this.props.selectedNotepad) {
+        console.log("[NotepadList] Notepad already selected, ignoring");
+        return;
+      }
+
       this.props.clearPageData();
       this.props.selectNotepad(id);
     }
@@ -57499,6 +57507,7 @@ function mapStateToProps(state, ownProps) {
   var status = state.pages.status;
   var notepadStatus = state.notepads.status;
   var selectedNotepad = state.notepads.selectedId;
+  var selectedPage = state.pages.selectedId;
   var isReady = status === _redux_constants__WEBPACK_IMPORTED_MODULE_5__["STATUS"].LOADED;
   var pages = isReady ? state.notepads.byId[selectedNotepad].pages.map(function (pageId) {
     return state.pages.byId[pageId];
@@ -57507,6 +57516,7 @@ function mapStateToProps(state, ownProps) {
     status: status,
     notepadStatus: notepadStatus,
     selectedNotepad: selectedNotepad,
+    selectedPage: selectedPage,
     pages: pages
   };
 }
@@ -57581,6 +57591,12 @@ function (_Component) {
     key: "selectPage",
     value: function selectPage(id) {
       console.log("[NotepadPageList] Selecting page " + id);
+
+      if (id === this.props.selectedPage) {
+        console.log("[NotepadPageList] Page already selected, ignoring");
+        return;
+      }
+
       this.props.selectPage(id);
     }
   }, {

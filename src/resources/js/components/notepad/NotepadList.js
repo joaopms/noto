@@ -10,12 +10,14 @@ import NotepadAdd from './NotepadAdd';
 
 function mapStateToProps(state) {
     const status = state.notepads.status;
+    const selectedNotepad = state.notepads.selectedId;
 
     const isReady = status === STATUS.LOADED;
     const notepads = isReady ? state.notepads : [];
 
     return {
         status,
+        selectedNotepad,
         notepads
     };
 }
@@ -44,6 +46,11 @@ class NotepadList extends Component {
 
     selectNotepad(id) {
         console.log("[NotepadList] Selecting notepad " + id);
+        if (id === this.props.selectedNotepad) {
+            console.log("[NotepadList] Notepad already selected, ignoring");
+            return;
+        }
+
         this.props.clearPageData();
         this.props.selectNotepad(id);
     }
