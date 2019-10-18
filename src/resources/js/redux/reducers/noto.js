@@ -1,9 +1,16 @@
-import { SET_USER_DATA, CLEAR_DATA, CLEAR_PENDING_ACTIONS } from '../actions/noto';
+import { SET_USER_DATA, CLEAR_DATA, CLEAR_PENDING_ACTIONS, PREPARE_SYNCING, SYNC_START, SET_SYNC_STATUS, SUCCESSFULL_SYNC } from '../actions/noto';
+import { SYNC_STATUS } from '../constants';
 
 const initialState = {
     loggedIn: false,
     user: {},
-    pendingActions: []
+    sync: {
+        syncStart: null,
+        syncEnd: null,
+        status: SYNC_STATUS.INIT,
+        pendingActions: [],
+        syncingActions: []
+    }
 };
 
 function isActionSyncable(actionType) {
@@ -17,10 +24,13 @@ export default function blocks(state = initialState, action) {
     if (isActionSyncable(action.type)) {
         newState = {
             ...state,
-            pendingActions: [
-                ...state.pendingActions,
-                action
-            ]
+            sync: {
+                ...state.sync,
+                pendingActions: [
+                    ...state.sync.pendingActions,
+                    action
+                ]
+            }
         }
     }
 
@@ -38,7 +48,50 @@ export default function blocks(state = initialState, action) {
         case CLEAR_PENDING_ACTIONS: {
             return {
                 ...state,
-                pendingActions: initialState.pendingActions
+                sync: {
+                    ...state.sync,
+                    pendingActions: []
+                }
+            }
+        }
+        case PREPARE_SYNCING: {
+            return {
+                ...state,
+                sync: {
+                    ...state.sync,
+                    pendingActions: [],
+                    syncingActions: state.sync.pendingActions
+                }
+            }
+        }
+        case SYNC_START: {
+            return {
+                ...state,
+                sync: {
+                    ...state.sync,
+                    syncStart: action.timestamp,
+                    status: SYNC_STATUS.SYNCING
+                }
+            }
+        }
+        case SET_SYNC_STATUS: {
+            return {
+                ...state,
+                sync: {
+                    ...state.sync,
+                    status: action.status
+                }
+            }
+        }
+        case SUCCESSFULL_SYNC: {
+            return {
+                ...state,
+                sync: {
+                    ...state.sync,
+                    syncEnd: action.timestamp,
+                    status: SYNC_STATUS.SYNCED,
+                    syncingActions: []
+                }
             }
         }
         default:

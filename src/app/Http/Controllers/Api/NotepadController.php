@@ -209,7 +209,17 @@ class NotepadController extends Controller
      */
     public function getPages(GetPagesRequest $request)
     {
-        $notepad = Notepad::findOrFail($request->notepad_id);
+        $notepad = Notepad::find($request->notepad_id);
+
+        // Return an empty response if the notepad doesn't exist
+        // This way, we don't need to sync right after creating a new notepad to be able to add pages
+        if (is_null($notepad)) {
+            return [
+                'byIds' => [],
+                'allIds' => []
+            ];
+        }
+
         $structuredPages = $notepad->pages;
 
         $pages = [];
@@ -241,7 +251,23 @@ class NotepadController extends Controller
     public function getPageContent(GetPageContentRequest $request)
     {
         // TODO Optimize the queries
-        $page = NotepadPage::findOrFail($request->page_id);
+        $page = NotepadPage::find($request->page_id);
+
+        // Return an empty response if the page doesn't exist
+        // This way, we don't need to sync right after creating a new page to be able to add lines and blocks
+        if (is_null($page)) {
+            return [
+                'lines' => [
+                    'byIds' => [],
+                    'allIds' => []
+                ],
+                'blocks' => [
+                    'byIds' => [],
+                    'allIds' => []
+                ]
+            ];
+        }
+
         $structuredLines = $page->lines;
 
         $lines = [];
