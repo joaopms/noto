@@ -10,6 +10,7 @@ import { selectPage, clearPageData } from '../../redux/actions/pages';
 import NotepadList from './NotepadList';
 import NotepadPageList from './pages/NotepadPageList';
 import NotepadPage from './pages/NotepadPage';
+import NotepadFileModal from './modals/files/NotepadFileModal';
 
 function mapStateToProps(state) {
     const selectedNotepad = state.notepads.selectedId;
@@ -120,6 +121,7 @@ class Notepad extends Component {
                 <NotepadList />
                 <NotepadPageList />
                 <NotepadPage />
+                <NotepadFileModal />
             </div>
         )
     }

@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\FileUpload;
 use App\Notepad;
 use App\NotepadLine;
 use App\NotepadPage;
 use App\NotepadBlock;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\FileUploadRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\GetPagesRequest;
 use App\Http\Requests\GetPageContentRequest;
+use App\PDFPage;
+use League\Flysystem\File;
 
 class NotepadController extends Controller
 {
@@ -302,5 +306,58 @@ class NotepadController extends Controller
                 'allIds' => $blockIds
             ]
         ];
+    }
+
+    public function uploadFiles(FileUploadRequest $request)
+    {
+        $notepad_id = $request->notepadId;
+        $page_id = $request->pageId;
+        $user_id = Auth::user()->id;
+
+        foreach ($request->file('file') as $file_info) {
+            $file_mime = $file_info->getMimeType();
+            if ($file_mime == 'image/jpeg') {
+                $file_mime = 'image/jpg';
+            }
+
+            $file_name_clean = htmlspecialchars(trim($file_info->getClientOriginalName()));
+            $file_name = substr($file_name_clean, 0, 64);
+
+            $isPdf = strpos($file_mime, 'pdf') !== false;
+            $isImage = strpos($file_mime, 'image') !== false;
+
+            // Save the file to the database
+            $file = new FileUpload;
+            $file->id = bin2hex(random_bytes(16)); // TODO Refactor
+            $file->notepad_id = $notepad_id;
+            $file->page_id = $page_id;
+            $file->user_id = $user_id;
+            $file->mimetype = $file_mime;
+            $file->type = $isImage ? FileUpload::TYPE_IMAGE : ($isPdf ? FileUpload::TYPE_PDF : null);
+            $file->title = $file_name;
+            $file->save();
+
+            // Store the file
+            echo $file_info->storePubliclyAs('public/uploads', $file->file_name);
+
+            // TODO If the file is a PDF file, convert it to images and save them
+            if ($isPdf) {
+                $i = 1;
+
+                $page_image = new FileUpload;
+                $page_image->id = bin2hex(random_bytes(16)); // TODO Refactor
+                $page_image->notepad_id = $notepad_id;
+                $page_image->page_id = $page_id;
+                $page_image->user_id = $user_id;
+                $page_image->type = FileUpload::TYPE_PDF_PAGE;
+                $page_image->save();
+
+                $pdf_page = new PDFPage;
+                $pdf_page->pdf_id = $file->id;
+                $pdf_page->image_id = $page_image->id;
+                $pdf_page->page_number = $i;
+                $pdf_page->save();
+            }
+        }
     }
 }
