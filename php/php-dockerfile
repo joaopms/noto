@@ -1,0 +1,21 @@
+FROM php:7.3.9-fpm-alpine
+
+# Install the required PHP MySQL PDO Extension
+RUN docker-php-ext-install pdo pdo_mysql
+
+# Install ImageMagick
+RUN apk add --no-cache --virtual .build-deps \
+        libxml2-dev \
+        shadow \
+        autoconf \
+        g++ \
+        make \
+    && apk add --no-cache imagemagick-dev imagemagick \
+    && pecl install imagick-beta \
+    && apk del .build-deps
+
+# Enable ImageMagick
+RUN docker-php-ext-enable imagick
+
+# Allow php-fpm to run as root
+ENTRYPOINT ["/usr/local/sbin/php-fpm", "-R"]

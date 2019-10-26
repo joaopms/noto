@@ -1,7 +1,0 @@
-FROM php:7.3.9-fpm-alpine
-
-# Install the required PHP MySQL PDO Extension
-RUN docker-php-ext-install pdo pdo_mysql
-
-# Allow php-fpm to run as root
-ENTRYPOINT ["/usr/local/sbin/php-fpm", "-R"]
