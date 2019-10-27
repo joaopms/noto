@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class FileUpload extends Model
 {
@@ -52,5 +53,10 @@ class FileUpload extends Model
     public function getFileNameAttribute()
     {
         return $this->id . '.' . $this->extension;
+    }
+
+    public function getFilePathAttribute()
+    {
+        return Storage::disk('public')->path('uploads/' . $this->file_name);
     }
 }

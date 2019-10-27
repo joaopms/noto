@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\FileUpload;
 use App\Notepad;
+use App\PDFPage;
+use App\FileUpload;
 use App\NotepadLine;
 use App\NotepadPage;
 use App\NotepadBlock;
+use ImalH\PDFLib\PDFLib;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\FileUploadRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\GetPagesRequest;
+use App\Http\Requests\FileUploadRequest;
 use App\Http\Requests\GetPageContentRequest;
-use App\PDFPage;
-use League\Flysystem\File;
 
 class NotepadController extends Controller
 {
@@ -338,25 +338,48 @@ class NotepadController extends Controller
             $file->save();
 
             // Store the file
-            echo $file_info->storePubliclyAs('public/uploads', $file->file_name);
+            $file_info->storePubliclyAs('public/uploads', $file->file_name);
 
-            // TODO If the file is a PDF file, convert it to images and save them
+            // If the file is a PDF file, convert it to images and save them
             if ($isPdf) {
-                $i = 1;
+                // Create a temporary directory to store the converted pages
+                $temp_dir = sys_get_temp_dir() . '/' . $file->id;
+                mkdir($temp_dir);
 
-                $page_image = new FileUpload;
-                $page_image->id = bin2hex(random_bytes(16)); // TODO Refactor
-                $page_image->notepad_id = $notepad_id;
-                $page_image->page_id = $page_id;
-                $page_image->user_id = $user_id;
-                $page_image->type = FileUpload::TYPE_PDF_PAGE;
-                $page_image->save();
+                // Convert the PDF to images
+                $converter = new PDFLib();
+                $converter->setPdfPath($file->file_path);
+                $converter->setOutputPath($temp_dir);
+                $converter->setDPI(300);
+                $converter->setImageFormat(PDFLib::$IMAGE_FORMAT_PNG);
+                $converter->convert();
 
-                $pdf_page = new PDFPage;
-                $pdf_page->pdf_id = $file->id;
-                $pdf_page->image_id = $page_image->id;
-                $pdf_page->page_number = $i;
-                $pdf_page->save();
+                // We start from 2 because the first two items correspond to the current and previous directory
+                $temp_files = scandir($temp_dir);
+                for ($i = 2; $i < sizeof($temp_files); $i++) {
+                    // Save the page to the database
+                    $page_image = new FileUpload;
+                    $page_image->id = bin2hex(random_bytes(16)); // TODO Refactor
+                    $page_image->notepad_id = $notepad_id;
+                    $page_image->page_id = $page_id;
+                    $page_image->user_id = $user_id;
+                    $page_image->mimetype = FileUpload::MIMETYPE_PNG;
+                    $page_image->type = FileUpload::TYPE_PDF_PAGE;
+                    $page_image->save();
+
+                    $pdf_page = new PDFPage;
+                    $pdf_page->pdf_id = $file->id;
+                    $pdf_page->image_id = $page_image->id;
+                    $pdf_page->page_number = $i - 1;
+                    $pdf_page->save();
+
+                    // Move the files from the temporary directory and rename them
+                    $temp_file_path = $temp_dir . '/' . $temp_files[$i];
+                    rename($temp_file_path, $page_image->file_path);
+                }
+
+                // Remove the temporary directory
+                rmdir($temp_dir);
             }
         }
     }
