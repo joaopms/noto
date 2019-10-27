@@ -7,7 +7,7 @@ export default class ImageBlock extends Component {
         return (
             <div className="block block--image" data-blockid={this.props.blockId} data-lineid={this.props.lineId}>
                 <BlockOptions lineId={this.props.lineId} blockId={this.props.blockId} />
-                <img src={this.props.content} />
+                <img src={'/storage/uploads/' + this.props.content} />
             </div>
         );
     }

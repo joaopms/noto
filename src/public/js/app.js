@@ -74518,7 +74518,7 @@ function (_Component) {
         lineId: this.props.lineId,
         blockId: this.props.blockId
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        src: this.props.content
+        src: '/storage/uploads/' + this.props.content
       }));
     }
   }]);
@@ -74876,10 +74876,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _NotepadFileModalItem__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./NotepadFileModalItem */ "./resources/js/components/notepad/modals/files/NotepadFileModalItem.js");
+/* harmony import */ var _redux_actions_blocks__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../redux/actions/blocks */ "./resources/js/redux/actions/blocks.js");
+/* harmony import */ var _redux_actions_lines__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../redux/actions/lines */ "./resources/js/redux/actions/lines.js");
+/* harmony import */ var _redux_actions_pages__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../redux/actions/pages */ "./resources/js/redux/actions/pages.js");
+/* harmony import */ var _NotepadFileModalItem__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./NotepadFileModalItem */ "./resources/js/components/notepad/modals/files/NotepadFileModalItem.js");
 
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
@@ -74900,6 +74911,9 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
 
 
 
@@ -74926,10 +74940,13 @@ function (_Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(NotepadFileModal).call(this, props));
     _this.state = {
-      activeTab: "files",
-      files: null
+      activeTab: 'files',
+      files: null,
+      selectedFiles: []
     };
     _this.handleFileUpload = _this.handleFileUpload.bind(_assertThisInitialized(_this));
+    _this.selectFile = _this.selectFile.bind(_assertThisInitialized(_this));
+    _this.handleAddToPageClick = _this.handleAddToPageClick.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -74939,25 +74956,75 @@ function (_Component) {
       this.getFiles(this.state.activeTab);
     }
   }, {
-    key: "handleFileUpload",
+    key: "getFiles",
     value: function () {
-      var _handleFileUpload = _asyncToGenerator(
+      var _getFiles = _asyncToGenerator(
       /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(e) {
-        var files, formData, i, response;
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(tabType) {
+        var fileType, _ref, data;
+
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
+                this.setState({
+                  files: null,
+                  selectedFiles: []
+                }); // Capitalize the first letter of the tab type
+
+                fileType = tabType[0].toUpperCase() + tabType.slice(1);
+                _context.prev = 2;
+                _context.next = 5;
+                return axios.get("/api/get".concat(fileType));
+
+              case 5:
+                _ref = _context.sent;
+                data = _ref.data;
+                this.setState({
+                  files: data
+                });
+                _context.next = 13;
+                break;
+
+              case 10:
+                _context.prev = 10;
+                _context.t0 = _context["catch"](2);
+                console.error(_context.t0);
+
+              case 13:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this, [[2, 10]]);
+      }));
+
+      function getFiles(_x) {
+        return _getFiles.apply(this, arguments);
+      }
+
+      return getFiles;
+    }()
+  }, {
+    key: "handleFileUpload",
+    value: function () {
+      var _handleFileUpload = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(e) {
+        var files, formData, i, response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
                 e.preventDefault();
                 files = e.target.file.files;
 
-                if (!(files.length < 0)) {
-                  _context.next = 4;
+                if (!(files.length < 1)) {
+                  _context2.next = 4;
                   break;
                 }
 
-                return _context.abrupt("return");
+                return _context2.abrupt("return");
 
               case 4:
                 // Prepare the data
@@ -74969,30 +75036,30 @@ function (_Component) {
                   formData.append('file[]', files[i]);
                 }
 
-                _context.prev = 8;
-                _context.next = 11;
+                _context2.prev = 8;
+                _context2.next = 11;
                 return axios.post('/api/uploadFiles', formData);
 
               case 11:
-                response = _context.sent;
+                response = _context2.sent;
                 console.log(response);
-                _context.next = 18;
+                _context2.next = 18;
                 break;
 
               case 15:
-                _context.prev = 15;
-                _context.t0 = _context["catch"](8);
-                console.error(_context.t0);
+                _context2.prev = 15;
+                _context2.t0 = _context2["catch"](8);
+                console.error(_context2.t0);
 
               case 18:
               case "end":
-                return _context.stop();
+                return _context2.stop();
             }
           }
-        }, _callee, this, [[8, 15]]);
+        }, _callee2, this, [[8, 15]]);
       }));
 
-      function handleFileUpload(_x) {
+      function handleFileUpload(_x2) {
         return _handleFileUpload.apply(this, arguments);
       }
 
@@ -75007,68 +75074,77 @@ function (_Component) {
       this.getFiles(tabType);
     }
   }, {
-    key: "getFiles",
-    value: function () {
-      var _getFiles = _asyncToGenerator(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(tabType) {
-        var fileType, _ref, data;
+    key: "selectFile",
+    value: function selectFile(id) {
+      var selectedFiles = _toConsumableArray(this.state.selectedFiles);
 
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                this.setState({
-                  files: null
-                }); // Capitalize the first letter of the tab type
+      var fileIndex = selectedFiles.indexOf(id);
 
-                fileType = tabType[0].toUpperCase() + tabType.slice(1);
-                _context2.prev = 2;
-                _context2.next = 5;
-                return axios.get("/api/get".concat(fileType));
-
-              case 5:
-                _ref = _context2.sent;
-                data = _ref.data;
-                this.setState({
-                  files: data
-                });
-                _context2.next = 13;
-                break;
-
-              case 10:
-                _context2.prev = 10;
-                _context2.t0 = _context2["catch"](2);
-                console.error(_context2.t0);
-
-              case 13:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2, this, [[2, 10]]);
-      }));
-
-      function getFiles(_x2) {
-        return _getFiles.apply(this, arguments);
+      if (fileIndex > -1) {
+        selectedFiles.splice(fileIndex, 1);
+      } else {
+        selectedFiles.push(id);
       }
 
-      return getFiles;
-    }()
+      this.setState({
+        selectedFiles: selectedFiles
+      });
+    }
+  }, {
+    key: "handleAddToPageClick",
+    value: function handleAddToPageClick() {
+      var _this2 = this;
+
+      // Close the modal
+      // TODO
+      var imagesToAdd = [];
+
+      if (this.state.activeTab === 'files') {
+        this.state.selectedFiles.forEach(function (fileId) {
+          var file = _this2.state.files.byId[fileId];
+          file.pages.forEach(function (pageId) {
+            imagesToAdd.push(pageId);
+          });
+        });
+      } else if (this.state.activeTab === 'images') {
+        imagesToAdd = _toConsumableArray(this.state.selectedFiles);
+      } // Clear the selected files
+
+
+      this.setState({
+        selectedFiles: []
+      }); // Add the images to the page
+
+      imagesToAdd.forEach(function (image) {
+        var imageUrl = image + '.png';
+
+        var blockId = _this2.props.addImageBlock().id;
+
+        _this2.props.setBlockContent(blockId, imageUrl);
+
+        var lineId = _this2.props.addLine().id;
+
+        _this2.props.addBlockToLine(lineId, blockId, null, false);
+
+        _this2.props.addLineToPage(_this2.props.selectedPage, lineId);
+      });
+    }
   }, {
     key: "render",
     value: function render() {
-      var _this2 = this;
+      var _this3 = this;
 
       var files = 'Loading...';
 
       if (this.state.files) {
         files = this.state.files.allIds.map(function (fileId) {
-          return _this2.state.files.byId[fileId];
+          return _this3.state.files.byId[fileId];
         }).map(function (file) {
-          return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_NotepadFileModalItem__WEBPACK_IMPORTED_MODULE_3__["default"], {
+          return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_NotepadFileModalItem__WEBPACK_IMPORTED_MODULE_6__["default"], {
             key: file.id,
-            file: file
+            file: file,
+            selectFile: _this3.selectFile,
+            selected: _this3.state.selectedFiles.indexOf(file.id) > -1
           });
         });
       }
@@ -75135,7 +75211,9 @@ function (_Component) {
         className: "modal-footer"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
         type: "button",
-        className: "btn btn-primary"
+        className: 'btn btn-primary' + (this.state.selectedFiles.length < 1 ? ' disabled' : ''),
+        disabled: this.state.selectedFiles.length < 1,
+        onClick: this.handleAddToPageClick
       }, "Add to page"))))));
     }
   }]);
@@ -75143,7 +75221,13 @@ function (_Component) {
   return NotepadFileModal;
 }(react__WEBPACK_IMPORTED_MODULE_1__["Component"]);
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapStateToProps, null)(NotepadFileModal));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapStateToProps, {
+  addImageBlock: _redux_actions_blocks__WEBPACK_IMPORTED_MODULE_3__["addImageBlock"],
+  setBlockContent: _redux_actions_blocks__WEBPACK_IMPORTED_MODULE_3__["setBlockContent"],
+  addLine: _redux_actions_lines__WEBPACK_IMPORTED_MODULE_4__["addLine"],
+  addBlockToLine: _redux_actions_lines__WEBPACK_IMPORTED_MODULE_4__["addBlockToLine"],
+  addLineToPage: _redux_actions_pages__WEBPACK_IMPORTED_MODULE_5__["addLineToPage"]
+})(NotepadFileModal));
 
 /***/ }),
 
@@ -75201,7 +75285,8 @@ function (_Component) {
         className: "file-list-item__checkbox"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "checkbox",
-        value: this.props.file.id
+        checked: this.props.selected,
+        onChange: this.props.selectFile.bind(this, this.props.file.id)
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "file-list-item__image"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {

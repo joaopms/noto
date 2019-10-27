@@ -22,6 +22,8 @@ class FileUpload extends Model
 
     protected $hidden = ['user_id', 'notepad_id', 'page_id', 'type', 'mimetype', 'laravel_through_key'];
 
+    protected $appends = ['file_name'];
+
     protected $casts = [
         'created_at' => 'datetime',
     ];

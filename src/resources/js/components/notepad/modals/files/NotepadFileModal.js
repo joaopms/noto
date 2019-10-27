@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import { addImageBlock, setBlockContent } from '../../../../redux/actions/blocks';
+import { addLine, addBlockToLine } from '../../../../redux/actions/lines';
+import { addLineToPage } from '../../../../redux/actions/pages';
+
 import NotepadFileModalItem from './NotepadFileModalItem';
 
 function mapStateToProps(state) {
@@ -17,22 +21,39 @@ class NotepadFileModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            activeTab: "files",
-            files: null
+            activeTab: 'files',
+            files: null,
+            selectedFiles: []
         };
 
         this.handleFileUpload = this.handleFileUpload.bind(this);
+        this.selectFile = this.selectFile.bind(this);
+        this.handleAddToPageClick = this.handleAddToPageClick.bind(this);
     }
 
     componentDidMount() {
         this.getFiles(this.state.activeTab);
     }
 
+    async getFiles(tabType) {
+        this.setState({ files: null, selectedFiles: [] });
+
+        // Capitalize the first letter of the tab type
+        const fileType = tabType[0].toUpperCase() + tabType.slice(1);
+
+        try {
+            const { data } = await axios.get(`/api/get${fileType}`);
+            this.setState({ files: data });
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     async handleFileUpload(e) {
         e.preventDefault();
 
         const files = e.target.file.files;
-        if (files.length < 0) {
+        if (files.length < 1) {
             return;
         }
 
@@ -60,17 +81,48 @@ class NotepadFileModal extends Component {
         this.getFiles(tabType);
     }
 
-    async getFiles(tabType) {
-        this.setState({ files: null });
-        // Capitalize the first letter of the tab type
-        const fileType = tabType[0].toUpperCase() + tabType.slice(1);
-
-        try {
-            const { data } = await axios.get(`/api/get${fileType}`);
-            this.setState({ files: data });
-        } catch (error) {
-            console.error(error);
+    selectFile(id) {
+        var selectedFiles = [...this.state.selectedFiles];
+        const fileIndex = selectedFiles.indexOf(id);
+        if (fileIndex > -1) {
+            selectedFiles.splice(fileIndex, 1);
+        } else {
+            selectedFiles.push(id);
         }
+
+        this.setState({
+            selectedFiles: selectedFiles
+        });
+    }
+
+    handleAddToPageClick() {
+        // Close the modal
+        // TODO
+
+        var imagesToAdd = [];
+        if (this.state.activeTab === 'files') {
+            this.state.selectedFiles.forEach(fileId => {
+                const file = this.state.files.byId[fileId];
+                file.pages.forEach(pageId => {
+                    imagesToAdd.push(pageId);
+                });
+            });
+        } else if (this.state.activeTab === 'images') {
+            imagesToAdd = [...this.state.selectedFiles];
+        }
+
+        // Clear the selected files
+        this.setState({ selectedFiles: [] });
+
+        // Add the images to the page
+        imagesToAdd.forEach(image => {
+            const imageUrl = image + '.png';
+            const blockId = this.props.addImageBlock().id;
+            this.props.setBlockContent(blockId, imageUrl);
+            const lineId = this.props.addLine().id;
+            this.props.addBlockToLine(lineId, blockId, null, false);
+            this.props.addLineToPage(this.props.selectedPage, lineId);
+        });
     }
 
     render() {
@@ -78,7 +130,7 @@ class NotepadFileModal extends Component {
 
         if (this.state.files) {
             files = this.state.files.allIds.map(fileId => this.state.files.byId[fileId]).map(file => (
-                <NotepadFileModalItem key={file.id} file={file} />
+                <NotepadFileModalItem key={file.id} file={file} selectFile={this.selectFile} selected={this.state.selectedFiles.indexOf(file.id) > -1} />
             ))
         }
 
@@ -114,7 +166,7 @@ class NotepadFileModal extends Component {
                                 </ul>
                             </div>
                             <div className="modal-footer">
-                                <button type="button" className="btn btn-primary">Add to page</button>
+                                <button type="button" className={'btn btn-primary' + (this.state.selectedFiles.length < 1 ? ' disabled' : '')} disabled={this.state.selectedFiles.length < 1} onClick={this.handleAddToPageClick}>Add to page</button>
                             </div>
                         </div>
                     </div>
@@ -126,5 +178,5 @@ class NotepadFileModal extends Component {
 
 export default connect(
     mapStateToProps,
-    null
+    { addImageBlock, setBlockContent, addLine, addBlockToLine, addLineToPage }
 )(NotepadFileModal);

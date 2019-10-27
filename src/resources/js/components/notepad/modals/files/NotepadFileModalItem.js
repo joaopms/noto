@@ -6,7 +6,7 @@ export default class NotepadFileModalItem extends Component {
             <li className="list-group-item">
                 <div className="file-list-item">
                     <div className="file-list-item__checkbox">
-                        <input type="checkbox" value={this.props.file.id}></input>
+                        <input type="checkbox" checked={this.props.selected} onChange={this.props.selectFile.bind(this, this.props.file.id)} />
                     </div>
                     <div className="file-list-item__image">
                         {/* <img src="http://placehold.it/48x48"></img> */}
