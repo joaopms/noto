@@ -46,4 +46,14 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Notepad');
     }
+
+    public function pdf_files()
+    {
+        return $this->hasMany('App\FileUpload')->where('type', FileUpload::TYPE_PDF)->orderBy('created_at', 'desc')->with('pdf_pages');
+    }
+
+    public function images()
+    {
+        return $this->hasMany('App\FileUpload')->where('type', FileUpload::TYPE_IMAGE)->orderBy('created_at', 'desc');
+    }
 }

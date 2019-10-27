@@ -20,6 +20,8 @@ class FileUpload extends Model
     public $timestamps = false;
     protected $keyType = 'string';
 
+    protected $hidden = ['user_id', 'notepad_id', 'page_id', 'type', 'mimetype', 'laravel_through_key'];
+
     protected $casts = [
         'created_at' => 'datetime',
     ];

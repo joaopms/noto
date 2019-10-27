@@ -17,10 +17,15 @@ class NotepadFileModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            activeTab: "files"
-        }
+            activeTab: "files",
+            files: null
+        };
 
         this.handleFileUpload = this.handleFileUpload.bind(this);
+    }
+
+    componentDidMount() {
+        this.getFiles(this.state.activeTab);
     }
 
     async handleFileUpload(e) {
@@ -40,7 +45,7 @@ class NotepadFileModal extends Component {
         }
 
         try {
-            const response = axios.post('/api/uploadFiles', formData);
+            const response = await axios.post('/api/uploadFiles', formData);
             console.log(response);
         } catch (error) {
             console.error(error);
@@ -51,9 +56,32 @@ class NotepadFileModal extends Component {
         this.setState({
             activeTab: tabType
         });
+
+        this.getFiles(tabType);
+    }
+
+    async getFiles(tabType) {
+        this.setState({ files: null });
+        // Capitalize the first letter of the tab type
+        const fileType = tabType[0].toUpperCase() + tabType.slice(1);
+
+        try {
+            const { data } = await axios.get(`/api/get${fileType}`);
+            this.setState({ files: data });
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     render() {
+        var files = 'Loading...';
+
+        if (this.state.files) {
+            files = this.state.files.allIds.map(fileId => this.state.files.byId[fileId]).map(file => (
+                <NotepadFileModalItem key={file.id} file={file} />
+            ))
+        }
+
         return (
             <div>
                 <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#fileModal">Files & Images</button>
@@ -82,15 +110,7 @@ class NotepadFileModal extends Component {
                                     <a className={"nav-item nav-link" + (this.state.activeTab === "images" ? " active" : "")} href="#" onClick={this.handleTabClick.bind(this, "images")}>Images</a>
                                 </nav>
                                 <ul className="list-group list-group-flush">
-                                    <li className="list-group-item">
-                                        <NotepadFileModalItem />
-                                    </li>
-                                    <li className="list-group-item">
-                                        <NotepadFileModalItem />
-                                    </li>
-                                    <li className="list-group-item">
-                                        <NotepadFileModalItem />
-                                    </li>
+                                    {files}
                                 </ul>
                             </div>
                             <div className="modal-footer">

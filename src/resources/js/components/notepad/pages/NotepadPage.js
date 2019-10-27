@@ -9,6 +9,7 @@ import { setBlockData } from '../../../redux/actions/blocks';
 
 import NotepadLineAdd from '../lines/NotepadLineAdd';
 import NotepadLine from '../lines/NotepadLine';
+import NotepadFileModal from '../modals/files/NotepadFileModal';
 
 function mapStateToProps(state, ownProps) {
     const status = state.pages.contentStatus;
@@ -72,6 +73,7 @@ class NotepadPage extends Component {
         return (
             <div className="notepad">
                 <NotepadLineAdd />
+                <NotepadFileModal />
                 {lines}
             </div>
         );

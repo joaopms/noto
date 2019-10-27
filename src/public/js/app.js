@@ -73786,7 +73786,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _NotepadList__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./NotepadList */ "./resources/js/components/notepad/NotepadList.js");
 /* harmony import */ var _pages_NotepadPageList__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./pages/NotepadPageList */ "./resources/js/components/notepad/pages/NotepadPageList.js");
 /* harmony import */ var _pages_NotepadPage__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./pages/NotepadPage */ "./resources/js/components/notepad/pages/NotepadPage.js");
-/* harmony import */ var _modals_files_NotepadFileModal__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./modals/files/NotepadFileModal */ "./resources/js/components/notepad/modals/files/NotepadFileModal.js");
 
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -73810,7 +73809,6 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
 
 
 
@@ -73975,7 +73973,7 @@ function (_Component) {
     key: "render",
     value: function render() {
       console.log("[Notepad] Rendering");
-      return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_NotepadList__WEBPACK_IMPORTED_MODULE_7__["default"], null), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_pages_NotepadPageList__WEBPACK_IMPORTED_MODULE_8__["default"], null), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_pages_NotepadPage__WEBPACK_IMPORTED_MODULE_9__["default"], null), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_modals_files_NotepadFileModal__WEBPACK_IMPORTED_MODULE_10__["default"], null));
+      return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_NotepadList__WEBPACK_IMPORTED_MODULE_7__["default"], null), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_pages_NotepadPageList__WEBPACK_IMPORTED_MODULE_8__["default"], null), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_pages_NotepadPage__WEBPACK_IMPORTED_MODULE_9__["default"], null));
     }
   }]);
 
@@ -74928,13 +74926,19 @@ function (_Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(NotepadFileModal).call(this, props));
     _this.state = {
-      activeTab: "files"
+      activeTab: "files",
+      files: null
     };
     _this.handleFileUpload = _this.handleFileUpload.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(NotepadFileModal, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.getFiles(this.state.activeTab);
+    }
+  }, {
     key: "handleFileUpload",
     value: function () {
       var _handleFileUpload = _asyncToGenerator(
@@ -74965,19 +74969,27 @@ function (_Component) {
                   formData.append('file[]', files[i]);
                 }
 
-                try {
-                  response = axios.post('/api/uploadFiles', formData);
-                  console.log(response);
-                } catch (error) {
-                  console.error(error);
-                }
+                _context.prev = 8;
+                _context.next = 11;
+                return axios.post('/api/uploadFiles', formData);
 
-              case 9:
+              case 11:
+                response = _context.sent;
+                console.log(response);
+                _context.next = 18;
+                break;
+
+              case 15:
+                _context.prev = 15;
+                _context.t0 = _context["catch"](8);
+                console.error(_context.t0);
+
+              case 18:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this);
+        }, _callee, this, [[8, 15]]);
       }));
 
       function handleFileUpload(_x) {
@@ -74992,10 +75004,75 @@ function (_Component) {
       this.setState({
         activeTab: tabType
       });
+      this.getFiles(tabType);
     }
+  }, {
+    key: "getFiles",
+    value: function () {
+      var _getFiles = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(tabType) {
+        var fileType, _ref, data;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                this.setState({
+                  files: null
+                }); // Capitalize the first letter of the tab type
+
+                fileType = tabType[0].toUpperCase() + tabType.slice(1);
+                _context2.prev = 2;
+                _context2.next = 5;
+                return axios.get("/api/get".concat(fileType));
+
+              case 5:
+                _ref = _context2.sent;
+                data = _ref.data;
+                this.setState({
+                  files: data
+                });
+                _context2.next = 13;
+                break;
+
+              case 10:
+                _context2.prev = 10;
+                _context2.t0 = _context2["catch"](2);
+                console.error(_context2.t0);
+
+              case 13:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this, [[2, 10]]);
+      }));
+
+      function getFiles(_x2) {
+        return _getFiles.apply(this, arguments);
+      }
+
+      return getFiles;
+    }()
   }, {
     key: "render",
     value: function render() {
+      var _this2 = this;
+
+      var files = 'Loading...';
+
+      if (this.state.files) {
+        files = this.state.files.allIds.map(function (fileId) {
+          return _this2.state.files.byId[fileId];
+        }).map(function (file) {
+          return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_NotepadFileModalItem__WEBPACK_IMPORTED_MODULE_3__["default"], {
+            key: file.id,
+            file: file
+          });
+        });
+      }
+
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
         type: "button",
         className: "btn btn-primary",
@@ -75054,13 +75131,7 @@ function (_Component) {
         onClick: this.handleTabClick.bind(this, "images")
       }, "Images")), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("ul", {
         className: "list-group list-group-flush"
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", {
-        className: "list-group-item"
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_NotepadFileModalItem__WEBPACK_IMPORTED_MODULE_3__["default"], null)), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", {
-        className: "list-group-item"
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_NotepadFileModalItem__WEBPACK_IMPORTED_MODULE_3__["default"], null)), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", {
-        className: "list-group-item"
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_NotepadFileModalItem__WEBPACK_IMPORTED_MODULE_3__["default"], null)))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+      }, files)), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "modal-footer"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
         type: "button",
@@ -75122,23 +75193,24 @@ function (_Component) {
   _createClass(NotepadFileModalItem, [{
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        className: "list-group-item"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "file-list-item"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "file-list-item__checkbox"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        type: "checkbox"
+        type: "checkbox",
+        value: this.props.file.id
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "file-list-item__image"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        src: "http://placehold.it/48x48"
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "file-list-item__info"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "file-list-item__title"
-      }, "xD"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, this.props.file.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "file-list-item__date text-muted"
-      }, "01/02/2012 02:32:34")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, this.props.file.created_at)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "file-list-item__actions"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "btn btn-sm"
@@ -75151,7 +75223,7 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("path", {
         fill: "currentColor",
         d: "M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
-      })))));
+      }))))));
     }
   }]);
 
@@ -75182,6 +75254,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _redux_actions_blocks__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../redux/actions/blocks */ "./resources/js/redux/actions/blocks.js");
 /* harmony import */ var _lines_NotepadLineAdd__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../lines/NotepadLineAdd */ "./resources/js/components/notepad/lines/NotepadLineAdd.js");
 /* harmony import */ var _lines_NotepadLine__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../lines/NotepadLine */ "./resources/js/components/notepad/lines/NotepadLine.js");
+/* harmony import */ var _modals_files_NotepadFileModal__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../modals/files/NotepadFileModal */ "./resources/js/components/notepad/modals/files/NotepadFileModal.js");
 
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -75205,6 +75278,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -75319,7 +75393,7 @@ function (_Component) {
       });
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "notepad"
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_lines_NotepadLineAdd__WEBPACK_IMPORTED_MODULE_7__["default"], null), lines);
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_lines_NotepadLineAdd__WEBPACK_IMPORTED_MODULE_7__["default"], null), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_modals_files_NotepadFileModal__WEBPACK_IMPORTED_MODULE_9__["default"], null), lines);
     }
   }]);
 

@@ -383,4 +383,47 @@ class NotepadController extends Controller
             }
         }
     }
+
+    public function getFiles()
+    {
+        $structuredPdfs = Auth::user()->pdf_files;
+
+        $byId = [];
+        $allIds = [];
+
+        foreach ($structuredPdfs as $pdf) {
+            array_push($allIds, $pdf->id);
+            $byId[$pdf->id] = $pdf;
+
+            $pdf_pages = [];
+            foreach ($pdf->pdf_pages as $page) {
+                array_push($pdf_pages, $page->id);
+            }
+            unset($pdf->pdf_pages);
+            $pdf->pages = $pdf_pages;
+        }
+
+        return [
+            'byId' => $byId,
+            'allIds' => $allIds
+        ];
+    }
+
+    public function getImages()
+    {
+        $images = Auth::user()->images;
+
+        $byId = [];
+        $allIds = [];
+
+        foreach ($images as $image) {
+            array_push($allIds, $image->id);
+            $byId[$image->id] = $image;
+        }
+
+        return [
+            'byId' => $byId,
+            'allIds' => $allIds
+        ];
+    }
 }

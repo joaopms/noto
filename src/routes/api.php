@@ -23,6 +23,8 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::post('getPages', 'Api\NotepadController@getPages')->name('getPages');
     Route::post('getPageContent', 'Api\NotepadController@getPageContent')->name('getPageContent');
     Route::post('uploadFiles', 'Api\NotepadController@uploadFiles')->name('uploadFiles');
+    Route::get('getFiles', 'Api\NotepadController@getFiles')->name('getFiles');
+    Route::get('getImages', 'Api\NotepadController@getImages')->name('getImages');
 
     Route::get('user', function (Request $request) {
         return $request->user();
